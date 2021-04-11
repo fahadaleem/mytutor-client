@@ -6,17 +6,19 @@ import {
   Typography,
   TextField,
   Button,
-  Divider, Checkbox, FormControlLabel,
+  Divider,
+  Checkbox,
+  FormControlLabel,
 } from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   root: {
     // backgroundColor: "#E9EAED",
-    backgroundColor:"#29524A",
+    backgroundColor: "#29524A",
     position: "absolute",
     height: "100%",
     width: "100%",
@@ -54,33 +56,32 @@ const useStyles = makeStyles({
     fontSize: "18px",
     color: "#29524A",
   },
-  checkbox:{
+  checkbox: {
     color: "#29524A !important",
-  }
+  },
 });
 
 const AdminLogin = (props) => {
+  const {handleSubmit, loading, error, handleSetError} = props;
 
-    const {handleSubmit, loading} = props;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const classes = useStyles();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const classes = useStyles();
+  const handleToggleRememberMe = () => {
+    setRememberMe(!rememberMe);
+  };
 
-    const handleToggleRememberMe = ()=>{
-        setRememberMe(!rememberMe)
-    }
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+    const credentials = {
+      email: email,
+      password: password,
+    };
 
-    const handleLoginUser = ()=>{
-        const credentials = {
-            email:email,
-            password: password
-        }
-
-        handleSubmit(credentials)
-    }
-
+    handleSubmit(credentials);
+  };
 
   return (
     <div className={classes.root}>
@@ -97,7 +98,11 @@ const AdminLogin = (props) => {
             </Typography>
           </Box>
           <Box my={1}>
-            <Typography variant="h5" color="initial">User not found</Typography>
+            {error.isError ? (
+              <Alert severity="error">{error.errorMessage}</Alert>
+            ) : (
+              ""
+            )}
           </Box>
           <TextField
             id="email"
@@ -106,9 +111,21 @@ const AdminLogin = (props) => {
             fullWidth
             className={`${classes.textField} ${classes.customFont}`}
             InputLabelProps={{className: classes.inputLabel}}
-            onChange = {(e)=>{
-                setEmail(e.target.value)
+            onChange={(e) => {
+              handleSetError({
+                isError: false,
+                errorMessage: "",
+                errorCode: 0,
+              });
+              setEmail(e.target.value);
             }}
+            error={
+              error.errorCode === 101 ||
+              error.errorCode === 104 ||
+              error.errorCode === 102
+                ? true
+                : false
+            }
           />
           <TextField
             id="password"
@@ -118,9 +135,21 @@ const AdminLogin = (props) => {
             fullWidth
             InputLabelProps={{className: classes.inputLabel}}
             className={classes.textField}
-            onChange={(e)=>{
-                setPassword(e.target.value)
+            onChange={(e) => {
+              handleSetError({
+                isError: false,
+                errorMessage: "",
+                errorCode: 0,
+              });
+              setPassword(e.target.value);
             }}
+            error={
+              error.errorCode === 101 ||
+              error.errorCode === 104 ||
+              error.errorCode === 103
+                ? true
+                : false
+            }
           />
           <FormControlLabel
             label="Remember Me"
@@ -142,24 +171,28 @@ const AdminLogin = (props) => {
             </Button>
           </Box>
           <Box style={{textAlign: "center"}}>
-           {loading?<Button
-            variant="contained"
-            color="primary"
-            className={classes.submitBtn}
-            size="large"
-            type="submit"
-          >
-            <CircularProgress style={{color:"white"}}/>
-          </Button>:<Button
-          variant="contained"
-          color="primary"
-          endIcon={<KeyboardArrowRightIcon />}
-          className={classes.submitBtn}
-          size="large"
-          type="submit"
-        >
-          Login
-        </Button>}
+            {loading ? (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.submitBtn}
+                size="large"
+                type="submit"
+              >
+                <CircularProgress style={{color: "white"}} />
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                endIcon={<KeyboardArrowRightIcon />}
+                className={classes.submitBtn}
+                size="large"
+                type="submit"
+              >
+                Login
+              </Button>
+            )}
           </Box>
         </form>
       </Container>
