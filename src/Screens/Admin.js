@@ -1,6 +1,6 @@
 import "../admin.css"
 
-import React from "react"
+import React, {useState} from "react"
 import firebase from "../Components/firebaseconfig"
 import AdminLogin from "./AdminLogin"
 
@@ -11,9 +11,19 @@ import AdminLogin from "./AdminLogin"
 
 const Admin = ()=>{
 
+    const [isLogin, setIsLogin] = useState(false)
+    const [loading, setLoading] = useState(null)
+
+    const handleLogin = (credentials)=>{
+        setLoading(true)
+        firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password).then(data=>setLoading(false)).catch(error=>{
+            setLoading(false)
+            console.log(error)
+        })
+    }
 
     return (
-        <AdminLogin />
+        <AdminLogin handleSubmit = {handleLogin} loading = {loading}/>
     )
 }
 

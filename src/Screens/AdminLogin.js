@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Container,
   Paper,
@@ -6,14 +6,17 @@ import {
   Typography,
   TextField,
   Button,
-  Divider,
+  Divider, Checkbox, FormControlLabel,
 } from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: "#E9EAED",
+    // backgroundColor: "#E9EAED",
+    backgroundColor:"#29524A",
     position: "absolute",
     height: "100%",
     width: "100%",
@@ -26,7 +29,7 @@ const useStyles = makeStyles({
   },
   form: {
     padding: "45px 35px",
-    marginTop: "6rem",
+    marginTop: "3rem",
   },
   textField: {
     margin: "10px 0",
@@ -48,18 +51,41 @@ const useStyles = makeStyles({
   },
   linkBtn: {
     textDecoration: "none",
-    fontSize: "20px",
+    fontSize: "18px",
     color: "#29524A",
   },
+  checkbox:{
+    color: "#29524A !important",
+  }
 });
 
-const AdminLogin = () => {
-  const classes = useStyles();
+const AdminLogin = (props) => {
+
+    const {handleSubmit, loading} = props;
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const classes = useStyles();
+
+    const handleToggleRememberMe = ()=>{
+        setRememberMe(!rememberMe)
+    }
+
+    const handleLoginUser = ()=>{
+        const credentials = {
+            email:email,
+            password: password
+        }
+
+        handleSubmit(credentials)
+    }
+
 
   return (
     <div className={classes.root}>
       <Container maxWidth="xs" component={Paper} elevation={3}>
-        <form className={`${classes.form}`}>
+        <form className={`${classes.form}`} onSubmit={handleLoginUser}>
           <Box my={2}>
             <Typography
               variant="h3"
@@ -70,6 +96,9 @@ const AdminLogin = () => {
               Admin Login
             </Typography>
           </Box>
+          <Box my={1}>
+            <Typography variant="h5" color="initial">User not found</Typography>
+          </Box>
           <TextField
             id="email"
             label="Email"
@@ -77,15 +106,32 @@ const AdminLogin = () => {
             fullWidth
             className={`${classes.textField} ${classes.customFont}`}
             InputLabelProps={{className: classes.inputLabel}}
+            onChange = {(e)=>{
+                setEmail(e.target.value)
+            }}
           />
           <TextField
             id="password"
-            label="password"
+            label="Password"
             variant="outlined"
             type="password"
             fullWidth
             InputLabelProps={{className: classes.inputLabel}}
             className={classes.textField}
+            onChange={(e)=>{
+                setPassword(e.target.value)
+            }}
+          />
+          <FormControlLabel
+            label="Remember Me"
+            control={
+              <Checkbox
+                value="Remember Me"
+                checked={rememberMe}
+                onChange={handleToggleRememberMe}
+                className={classes.checkbox}
+              />
+            }
           />
 
           <Box style={{textAlign: "center"}} my={1}>
@@ -96,16 +142,24 @@ const AdminLogin = () => {
             </Button>
           </Box>
           <Box style={{textAlign: "center"}}>
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<KeyboardArrowRightIcon />}
-              className={classes.submitBtn}
-              size="large"
-              type="submit"
-            >
-              Login
-            </Button>
+           {loading?<Button
+            variant="contained"
+            color="primary"
+            className={classes.submitBtn}
+            size="large"
+            type="submit"
+          >
+            <CircularProgress style={{color:"white"}}/>
+          </Button>:<Button
+          variant="contained"
+          color="primary"
+          endIcon={<KeyboardArrowRightIcon />}
+          className={classes.submitBtn}
+          size="large"
+          type="submit"
+        >
+          Login
+        </Button>}
           </Box>
         </form>
       </Container>
