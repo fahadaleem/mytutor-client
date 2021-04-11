@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useState, useEffect } from "react"
 import firebase from "../Components/firebaseconfig"
 import AdminLogin from "../Screens/AdminLogin";
 import Dashboard from "../Screens/Dashboard"
@@ -56,6 +56,10 @@ const AuthContextProvider = (props)=>{
           .then((data) => {
               setLoading(false)
               setIsLogin(true)
+              if(credentials.rememberMe)
+              {
+                  window.localStorage.setItem("isLogin", true)
+              }
           })
           .catch((error) => {
             setLoading(false);
@@ -69,6 +73,10 @@ const AuthContextProvider = (props)=>{
     };
   
 
+    useEffect(() => {
+        const checkLogin = window.localStorage.getItem("isLogin")
+        setIsLogin(checkLogin)
+    }, []);
 
 
 

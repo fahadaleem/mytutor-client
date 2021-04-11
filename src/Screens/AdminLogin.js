@@ -83,9 +83,9 @@ const AdminLogin = (props) => {
     const credentials = {
       email: email,
       password: password,
+      rememberMe:rememberMe
     };
 
-    handleSetIsRememberMe(rememberMe);
 
     handleSubmit(credentials);
   };
