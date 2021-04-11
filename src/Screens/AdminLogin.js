@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {
   Container,
   Paper,
@@ -14,6 +14,10 @@ import {makeStyles} from "@material-ui/styles";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
+import {AuthContext} from "../Contexts/AuthContexts"
+
+
+
 
 const useStyles = makeStyles({
   root: {
@@ -62,12 +66,13 @@ const useStyles = makeStyles({
 });
 
 const AdminLogin = (props) => {
-  const {handleSubmit, loading, error, handleSetError} = props;
+  const {handleSubmit, loading, error, handleSetError, handleSetIsRememberMe} = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const classes = useStyles();
+
 
   const handleToggleRememberMe = () => {
     setRememberMe(!rememberMe);
@@ -79,6 +84,8 @@ const AdminLogin = (props) => {
       email: email,
       password: password,
     };
+
+    handleSetIsRememberMe(rememberMe);
 
     handleSubmit(credentials);
   };
