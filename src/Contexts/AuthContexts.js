@@ -9,16 +9,21 @@ const AuthContext = createContext();
 
 const AuthContextProvider = (props)=>{
 
+    // to check if the user is login or not
     const [isLogin, setIsLogin] = useState(false);
+
+    // used for loader, it runs till the response comes from the firebase
     const [loading, setLoading] = useState(null);
+
+    // this is used for error checking
     const [error, setError] = useState({
       isError: false,
       errorMessage: "",
       errorCode: 0,
     });
 
-    const [isRemember, setIsRemember] = useState(false)
   
+    // function that will execute when the form is submitted
     const handleLogin = (credentials) => {
       setLoading(true);
   
@@ -75,13 +80,13 @@ const AuthContextProvider = (props)=>{
 
     useEffect(() => {
         const checkLogin = window.localStorage.getItem("isLogin")
-        setIsLogin(checkLogin)
+        setIsLogin(JSON.parse(checkLogin))
     }, []);
 
 
 
     return (
-        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleSetIsRememberMe:setIsRemember }}>
+        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin }}>
             {props.children}
         </AuthContext.Provider>
     )
