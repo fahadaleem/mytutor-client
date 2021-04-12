@@ -1,10 +1,17 @@
-import React from "react"
+import "../admin.css";
 
-const Admin = ()=>{
-    return (
-        <h1>admin here</h1>
-    )
-}
+import React, {useState, useContext} from "react";
+import firebase from "../Components/firebaseconfig";
+import AdminLogin from "./AdminLogin";
+import Dashboard from "./Dashboard";
+import {AuthContext, AuthContextProvider} from "../Contexts/AuthContexts";
 
+// color #2F2963
 
-export default Admin
+const Admin = (props) => {
+  const {isLogin} = useContext(AuthContext);
+
+  return <div>{isLogin ? <Dashboard /> : <AdminLogin />}</div>;
+};
+
+export default Admin;
