@@ -1,7 +1,8 @@
 import React from "react"
-import {Typography, Grid, Toolbar, AppBar, Box} from '@material-ui/core'
+import {Typography, Grid, Toolbar, AppBar, Box, Hidden} from '@material-ui/core'
 import {makeStyles, Button} from "@material-ui/core"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {ResponsiveSidebarDrawer} from "./SideDrawer"
 const useStyles= makeStyles(theme=>({
 
     root:{
@@ -27,10 +28,17 @@ const AdminDashboardNavbar = ()=>{
     return(
         <AppBar position="relative" className={classes.root}>
           <Toolbar>
-            <Grid container spacing={3} justify="space-between">
+            <Grid container spacing={3} justify="space-between" alignItems="center">
+              <Hidden lgUp mdUp smUp>
+              <Grid item lg={4}>
+                <ResponsiveSidebarDrawer />
+              </Grid>
+              </Hidden>
+              <Hidden xsDown>
                 <Grid item lg={4}>
                 <Typography variant="h6" color="initial">My Tutor Admin Panel</Typography>
                 </Grid>
+                </Hidden>
                 <Grid item lg={4}>
                    <Box style={{textAlign:"right"}}>
                    <Button
