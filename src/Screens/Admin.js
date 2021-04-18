@@ -10,8 +10,10 @@ import {AuthContext, AuthContextProvider} from "../Contexts/AuthContexts";
 
 const Admin = (props) => {
   const {isLogin} = useContext(AuthContext);
+  console.log(isLogin)
+  // {isLogin ? <Dashboard />:<AdminLogin />}
 
-  return <div>{isLogin ? <Dashboard /> : <AdminLogin />}</div>;
+  return <div>{true? <Dashboard /> : <AdminLogin />}</div>;
 };
 
 export default Admin;

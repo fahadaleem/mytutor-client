@@ -10,7 +10,7 @@ const AuthContext = createContext();
 const AuthContextProvider = (props)=>{
 
     // to check if the user is login or not
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
 
     // used for loader, it runs till the response comes from the firebase
     const [loading, setLoading] = useState(null);
