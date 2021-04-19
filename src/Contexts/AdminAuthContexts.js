@@ -81,6 +81,11 @@ const AuthContextProvider = (props)=>{
       setIsLogin(false)
       window.localStorage.setItem("isLogin", false)
     }
+
+    const handleResetPassword = (e)=>{
+        e.preventDefault()
+        // login to reset the password.
+    }
   
 
     useEffect(() => {
