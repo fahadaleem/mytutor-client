@@ -1,8 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 import {Typography, Grid, Toolbar, AppBar, Box, Hidden} from '@material-ui/core'
 import {makeStyles, Button} from "@material-ui/core"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {ResponsiveSidebarDrawer} from "./SideDrawer"
+import {AuthContext} from "../../Contexts/AdminAuthContexts"
+
+
 const useStyles= makeStyles(theme=>({
 
     root:{
@@ -24,9 +27,12 @@ const useStyles= makeStyles(theme=>({
 
 
 const AdminDashboardNavbar = ()=>{
+
+    const {handleLogOut} = useContext(AuthContext)
+
     const classes = useStyles()
     return(
-        <AppBar position="relative" className={classes.root}>
+        <AppBar position="relative" className={classes.root} elevation={1}>
           <Toolbar>
             <Grid container spacing={3} justify="space-between" alignItems="center">
               <Hidden lgUp mdUp smUp>
@@ -45,6 +51,7 @@ const AdminDashboardNavbar = ()=>{
                       variant="contained"
                       startIcon={<ExitToAppIcon />}
                       className={classes.logoutBtn}
+                      onClick={handleLogOut}
                     >
                       Exit to dashboard
                     </Button>

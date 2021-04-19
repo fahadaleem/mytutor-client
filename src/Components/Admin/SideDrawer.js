@@ -49,7 +49,7 @@ const SideDrawer = () => {
       open={true}
       classes={{ paper: classes.root }}
     >
-      <Box my={3}>
+      <Box my={1}>
         <Typography variant="h5" className={classes.userName}>
           Muhammad Fahad
         </Typography>

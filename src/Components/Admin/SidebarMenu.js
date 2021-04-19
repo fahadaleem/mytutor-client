@@ -46,7 +46,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Teachers" primaryTypographyProps={{className:classes.categoryTitle}} />
             </ListItem>
             <Divider />
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/addnewteacher" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <PersonAddIcon />
@@ -54,7 +54,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Add New Teacher"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/allteachers" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <PeopleIcon />
@@ -62,7 +62,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="All Teachers"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/teacherrecord" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <FaceIcon />
@@ -74,7 +74,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Students" primaryTypographyProps={{className:classes.categoryTitle}} />
             </ListItem>
             <Divider />
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/allstudents" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <PeopleAltOutlinedIcon />
@@ -82,7 +82,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="All Students"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/studentrecord" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <FaceOutlinedIcon />
@@ -94,7 +94,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Courses" primaryTypographyProps={{className:classes.categoryTitle}} />
             </ListItem>
             <Divider />
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/allcourses" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <LibraryBooksOutlinedIcon />
@@ -102,7 +102,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="All Courses"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/coursedetails" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <ImportContactsOutlinedIcon />
@@ -110,7 +110,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Course Details"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/addnewcourse" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <BookIcon />
@@ -122,7 +122,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Others" primaryTypographyProps={{className:classes.categoryTitle}} />
             </ListItem>
             <Divider />
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/accounts" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <MoneyIcon />
@@ -130,7 +130,7 @@ const SidebarMenu = ()=>{
                 <ListItemText primary="Accounts"/>
             </ListItem>
             </Link> 
-            <Link to="/" className={classes.linkItem}>
+            <Link to="/admin/messages" className={classes.linkItem}>
             <ListItem className={classes.listItem} button >
                 <ListItemIcon className={classes.menuIcon}>
                 <ForumIcon />

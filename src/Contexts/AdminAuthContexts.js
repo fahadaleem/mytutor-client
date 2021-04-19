@@ -76,6 +76,11 @@ const AuthContextProvider = (props)=>{
           });
       }
     };
+
+    const handleLogOut = ()=>{
+      setIsLogin(false)
+      window.localStorage.setItem("isLogin", false)
+    }
   
 
     useEffect(() => {
@@ -86,7 +91,7 @@ const AuthContextProvider = (props)=>{
 
 
     return (
-        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin }}>
+        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleLogOut }}>
             {props.children}
         </AuthContext.Provider>
     )
