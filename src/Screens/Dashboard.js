@@ -31,6 +31,7 @@ const useStyles= makeStyles(theme=>({
 
 const Dashboard = ()=>{
     const classes = useStyles()
+    console.log("dashboard")
     return(
         <div>
         <AdminDashboardNavbar />
@@ -38,7 +39,7 @@ const Dashboard = ()=>{
         <SideDrawer />
         </Hidden>
         <div className={classes.bodySection}>
-       <Switch>
+            <Switch>
             <Route path="/admin/allteachers" component={ViewAllTeachers} />
             <Route path="/admin/allstudents" component={ViewAllStudents} />
             <Route path="/admin/addnewteacher" component={AddNewTeacher} />
@@ -49,7 +50,7 @@ const Dashboard = ()=>{
             <Route path="/admin/addnewcourse" component={AddNewCourse} />
             <Route path="/admin/accounts" component={Accounts} />
             <Route path="/admin/messages" component={Messages} />
-       </Switch>
+            </Switch>
        </div>
        </div>
 

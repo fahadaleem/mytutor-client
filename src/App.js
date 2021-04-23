@@ -11,9 +11,10 @@ function App() {
     <AuthContextProvider>
     <Switch>
       <Route path="/" exact render={()=><LandingPage />}></Route>
-      <Route path="/admin" exact render={()=><Admin />}></Route>    
-      <Route path="/teacher" exact render={()=><TeacherProfile />}></Route>   
-      <Route path="/resetpassword" exact render={()=><ResetPassword/>}></Route>    
+      <Route path="/admin"  render={()=><Admin />}></Route>    
+      <Route path="/teacher" render={()=><TeacherProfile />}></Route>   
+      <Route path="/resetpassword"  render={()=><ResetPassword/>}></Route>    
+      
       <Route render={()=><h1>Not Found</h1>}></Route>    
       {/* Student Route  */}
     </Switch>

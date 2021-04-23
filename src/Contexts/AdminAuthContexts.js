@@ -82,9 +82,15 @@ const AuthContextProvider = (props)=>{
       window.localStorage.setItem("isLogin", false)
     }
 
-    const handleResetPassword = (e)=>{
-        e.preventDefault()
+    const handleResetPassword = (emailAddress)=>{
         // login to reset the password.
+        firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
+          // Email sent.
+          alert("Email has be sent to your email!")
+        }).catch(function(error) {
+          alert(error.message)
+          // An error happened.
+        });
     }
   
 
@@ -96,7 +102,7 @@ const AuthContextProvider = (props)=>{
 
 
     return (
-        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleLogOut }}>
+        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleLogOut, handleResetPassword }}>
             {props.children}
         </AuthContext.Provider>
     )

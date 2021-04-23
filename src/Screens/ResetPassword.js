@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import {Container, Typography, makeStyles, Paper, TextField, Box, Button} from '@material-ui/core'
 import LockIcon from '@material-ui/icons/Lock';
+import {AuthContext} from "../Contexts/AdminAuthContexts"
 const useStyles = makeStyles(theme=>({
     root:{
         backgroundColor:"#7BA0EA",
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme=>({
 const ResetPassword = ()=>{
 
     const [email, setEmail] = useState("")
+    const {handleResetPassword} = React.useContext(AuthContext)
 
     const handleSetEmail = (e)=>{
         setEmail(e.target.value) 
@@ -50,7 +52,10 @@ const ResetPassword = ()=>{
                 </Box>
                 <Typography variant="h4" color="initial" align="center" className={classes.forgotPasswordTitle}>Forgot Password</Typography>
                 <Typography variant="p" color="initial" display="block" className={classes.forgotPasswordTagline}>Enter the email associated with your account, we'll send you a link to reset your password</Typography>
-                <form>
+                <form onSubmit={(e)=>{
+                    e.preventDefault();
+                    handleResetPassword(email);
+                }}>
                 <Box my={2}>
                 <TextField
                   id="email"
