@@ -14,11 +14,12 @@ import Messages from "./Messages"
 import Accounts from "./Accounts"
 import ViewAllCourses from "./ViewAllCourses"
 import ViewCourseDetails from "./ViewCourseDetails"
+import JobRequests from "./JobRequests"
 
 const useStyles= makeStyles(theme=>({
 
     bodySection:{
-        marginLeft:"240px", 
+        marginLeft:"230px", 
         padding: "25px 10px",
         [theme.breakpoints.down('xs')]:{
         marginLeft:"0", 
@@ -50,6 +51,7 @@ const Dashboard = ()=>{
             <Route path="/admin/addnewcourse" component={AddNewCourse} />
             <Route path="/admin/accounts" component={Accounts} />
             <Route path="/admin/messages" component={Messages} />
+            <Route path="/admin/jobs" component={JobRequests} />
             </Switch>
        </div>
        </div>

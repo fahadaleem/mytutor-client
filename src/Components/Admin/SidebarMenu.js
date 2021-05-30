@@ -12,6 +12,7 @@ import MoneyIcon from '@material-ui/icons/Money';
 import FaceIcon from '@material-ui/icons/Face';
 import PeopleIcon from '@material-ui/icons/People';
 import {Link} from "react-router-dom"
+import WorkIcon from '@material-ui/icons/Work';
 
 
 
@@ -34,20 +35,21 @@ import {Link} from "react-router-dom"
          fontWeight:"medium",
          fontSize:"20px",
          padding:"0"
-     }
+     }, 
  }))
 
 
 const SidebarMenu = ()=>{
     const classes = useStyles()
+    const [active, setActive] = React.useState('')
     return(
         <List component="nav" className={classes.menuList}>
-            <ListItem className={classes.listItem}>
+            <ListItem className={`${classes.listItem} `}>
                 <ListItemText primary="Teachers" primaryTypographyProps={{className:classes.categoryTitle}} />
             </ListItem>
             <Divider />
             <Link to="/admin/addnewteacher" className={classes.linkItem}>
-            <ListItem className={classes.listItem} button >
+            <ListItem className={`${classes.listItem} ${classes.active}`} button >
                 <ListItemIcon className={classes.menuIcon}>
                     <PersonAddIcon />
                 </ListItemIcon>
@@ -136,6 +138,14 @@ const SidebarMenu = ()=>{
                 <ForumIcon />
                 </ListItemIcon>
                 <ListItemText primary="Messages"/>
+            </ListItem>
+            </Link> 
+            <Link to="/admin/jobs" className={classes.linkItem}>
+            <ListItem className={classes.listItem} button >
+                <ListItemIcon className={classes.menuIcon}>
+                <WorkIcon />
+                </ListItemIcon>
+                <ListItemText primary="Jobs Request"/>
             </ListItem>
             </Link> 
         </List>

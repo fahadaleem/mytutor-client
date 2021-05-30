@@ -53,7 +53,7 @@ const AdminDashboardNavbar = ()=>{
                       className={classes.logoutBtn}
                       onClick={handleLogOut}
                     >
-                      Exit to dashboard
+                      Log Out
                     </Button>
                     
                    </Box>
