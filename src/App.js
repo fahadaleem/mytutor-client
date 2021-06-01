@@ -5,15 +5,17 @@ import LandingPage from "./Screens/LandingPage"
 import TeacherProfile from "./Screens/TeacherProfile"
 import {AuthContextProvider} from "./Contexts/AdminAuthContexts"
 import ResetPassword from "./Screens/ResetPassword"
+import ApplyForJobForm from "./Screens/ApplyForJobForm"
 
 function App() {
   return (
     <AuthContextProvider>
     <Switch>
-      <Route path="/" exact render={()=><LandingPage />}></Route>
-      <Route path="/admin"  render={()=><Admin />}></Route>    
-      <Route path="/teacher" render={()=><TeacherProfile />}></Route>   
-      <Route path="/resetpassword"  render={()=><ResetPassword/>}></Route>    
+      <Route path="/" exact component={LandingPage} />
+      <Route path="/admin"  component={Admin} />    
+      <Route path="/teacher" component={TeacherProfile} />   
+      <Route path="/resetpassword"  component={ResetPassword} />   
+      <Route path="/careers" component={ApplyForJobForm}/> 
       
       <Route render={()=><h1>Not Found</h1>}></Route>    
       {/* Student Route  */}
