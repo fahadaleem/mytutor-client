@@ -12,7 +12,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "75px",
-    zIndex: "-10",
     padding: "25px 10px",
     width: "230px",
     backgroundColor: "#EEEEEE",

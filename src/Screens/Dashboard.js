@@ -20,6 +20,7 @@ const useStyles= makeStyles(theme=>({
 
     bodySection:{
         marginLeft:"230px", 
+        marginTop:"80px",
         padding: "25px 10px",
         [theme.breakpoints.down('xs')]:{
         marginLeft:"0", 

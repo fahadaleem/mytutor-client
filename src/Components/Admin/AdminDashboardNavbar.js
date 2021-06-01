@@ -32,7 +32,7 @@ const AdminDashboardNavbar = ()=>{
 
     const classes = useStyles()
     return(
-        <AppBar position="relative" className={classes.root} elevation={1}>
+        <AppBar position="fixed" className={classes.root} elevation={1}>
           <Toolbar>
             <Grid container spacing={3} justify="space-between" alignItems="center">
               <Hidden lgUp mdUp smUp>
