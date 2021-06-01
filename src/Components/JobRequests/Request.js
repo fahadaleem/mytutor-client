@@ -132,7 +132,7 @@ export default function JobRequest(props) {
           <Typography variant="h6" color="initial">
             {getNumberOfDays(appliedDate)} ago
           </Typography>
-          <Link className={classes.link}>
+          <Link to="/admin/jobs/applicant/1" className={classes.link}>
             <Button color="primary" className={classes.viewDetailsBtn}>
               View Details
             </Button>
