@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <Box className={classes.header}>
       <Grid container spacing={1} alignItems="center">
-        <Grid item lg={6} md={6} className={classes.leftCol}>
+        <Grid item lg={6} sm={6} md={6} className={classes.leftCol}>
           <Typography
             variant="h2"
             color="initial"
@@ -75,7 +75,7 @@ const Header = () => {
             Fill out the below form, we'll reach out at your Email!
           </Typography>
         </Grid>
-        <Grid item lg={6} md={6} className={classes.rightCol}>
+        <Grid item lg={6} sm={6} md={6} className={classes.rightCol}>
           <img
             src={HeaderImage}
             alt="header-img"
