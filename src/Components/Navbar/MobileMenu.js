@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme=>({
           backgroundColor: "#f1faee",
           color: "#1d3557",
         },
+      },
+      menuIcon:{
+          backgroundColor:"#e63946 !important",
+          borderRadius:"10px",
+          color:"#f1faee"
       }
 }))
 
@@ -52,7 +57,7 @@ export default function SimpleMenu() {
 
   return (
     <div>
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} className={classes.menuIcon}>
         <MenuIcon />
       </IconButton>
       <Menu
