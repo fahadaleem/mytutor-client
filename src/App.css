@@ -10,3 +10,18 @@
   box-sizing:border-box;
   font-family: 'Product Sans', sans-serif !important;
 }
+
+
+.colors {
+  /* main color */
+  color:#2F1793;
+  
+  /* primary color */
+  color:#f1faee;
+
+  /* seconday color */
+  color:#a8dadc;
+
+  /* additional */
+  color:#e63946;
+}
