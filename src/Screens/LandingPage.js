@@ -5,7 +5,7 @@ const LandingPage = ()=>{
     return (
 
         <div>
-            <Navbar />
+            <Navbar pageName="home" />
             <h1>Landing here</h1>
         </div>
     )

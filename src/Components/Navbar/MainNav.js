@@ -70,13 +70,16 @@ const useStyles = makeStyles((theme) => ({
     height: "2px",
     margin: "5px 0",
   },
+  active:{
+    borderBottom: "solid #e63946 !important",
+  }
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
 
   return (
-    <AppBar position="relative" className={classes.appBar} elevation={0}>
+    <AppBar position="relative" className={classes.appBar}>
       <Toolbar>
         <Grid container spacing={3} justify="space-between" alignItems="center">
           <Hidden smUp>
@@ -126,7 +129,7 @@ const Navbar = () => {
             <Grid item lg={6} md={7}>
               <Box className={classes.menu}>
                 <Link>
-                  <Typography variant="h6" color="initial">
+                  <Typography variant="h6" color="initial" className={props.pageName==="home"&&classes.active}>
                     Home
                   </Typography>
                 </Link>
@@ -141,7 +144,7 @@ const Navbar = () => {
                   </Typography>
                 </Link>
                 <Link>
-                  <Typography variant="h6" color="initial">
+                  <Typography variant="h6" color="initial" className={props.pageName==="careers"&&classes.active}>
                     Careers
                   </Typography>
                 </Link>
