@@ -82,7 +82,7 @@ const Navbar = (props) => {
     <AppBar position="relative" className={classes.appBar}>
       <Toolbar>
         <Grid container spacing={3} justify="space-between" alignItems="center">
-          <Hidden smUp>
+          <Hidden mdUp>
             <Grid item lg={3} md={3}>
               <Typography
                 variant="h6"

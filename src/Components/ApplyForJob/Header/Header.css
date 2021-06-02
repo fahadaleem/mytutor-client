@@ -12,10 +12,11 @@
     position: relative;
     display: block;
     width: calc(163% + 1.3px);
-    height: 150px;
+    height: 100px;
     transform: rotateY(180deg);
 }
 
 .custom-shape-divider-bottom-1622634231 .shape-fill {
     fill: #FFFFFF;
 }
+

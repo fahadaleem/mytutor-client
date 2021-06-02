@@ -1,12 +1,55 @@
 import React from "react";
 import "./Header.css";
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography, Grid } from "@material-ui/core";
+import HeaderImage from "../../../Assests/header1.svg";
 
 const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: "#e63946",
-    height: "450px",
     position: "relative",
+    overflow: "hidden",
+    padding: "60px 80px 120px 80px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "60px 40px 120px 40px",
+    },
+  },
+  rightCol: {
+    textAlign: "center",
+  },
+
+  headerImage: {
+    width: "80%",
+  },
+  headerTitle: {
+    color: "#2F1793",
+    margin: "20px 0",
+    textTransform: "uppercase",
+    letterSpacing: "2px",
+    "& span": {
+      fontWeight: "bold",
+      color: "#f1faee",
+      fontSize: "3rem",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "2.5rem",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "2.2rem",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5rem",
+      textAlign: "center",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "2.2rem",
+    },
+  },
+  message: {
+    color: "#f1faee",
+    fontSize: "1.6rem",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
   },
 }));
 
@@ -14,8 +57,32 @@ const Header = () => {
   const classes = useStyles();
   return (
     <Box className={classes.header}>
-
-    <Typography variant="h2" color="initial">Do you wants to teach at My Tutor?</Typography>
+      <Grid container spacing={1} alignItems="center">
+        <Grid item lg={6} md={6} className={classes.leftCol}>
+          <Typography
+            variant="h2"
+            color="initial"
+            className={classes.headerTitle}
+          >
+            <span>Do you wants to teach at</span> My Tutor?
+          </Typography>
+          <Typography
+            variant="h6"
+            component="p"
+            className={classes.message}
+            color="initial"
+          >
+            Fill out the below form, we'll reach out at your Email!
+          </Typography>
+        </Grid>
+        <Grid item lg={6} md={6} className={classes.rightCol}>
+          <img
+            src={HeaderImage}
+            alt="header-img"
+            className={classes.headerImage}
+          />
+        </Grid>
+      </Grid>
       <div className="custom-shape-divider-bottom-1622634231">
         <svg
           data-name="Layer 1"
@@ -29,7 +96,6 @@ const Header = () => {
           ></path>
         </svg>
       </div>
-     
     </Box>
   );
 };
