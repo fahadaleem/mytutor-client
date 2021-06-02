@@ -36,7 +36,12 @@ const useStyles = makeStyles(theme=>({
           backgroundColor:"#e63946 !important",
           borderRadius:"10px",
           color:"#f1faee"
-      }
+      },
+      menu:{
+          backgroundColor:"#f1faee",
+            color:"#2F1793"
+        }
+      
 }))
 
 
@@ -67,6 +72,10 @@ export default function SimpleMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         TransitionComponent={Slide}
+        PaperProps={
+            {className:classes.menu}
+        }
+        transitionDuration={400}
       >
         <MenuItem onClick={handleClose}>Home</MenuItem>
         <MenuItem onClick={handleClose}>About My Tutor</MenuItem>
