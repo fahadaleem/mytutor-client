@@ -64,7 +64,7 @@ const Header = () => {
             color="initial"
             className={classes.headerTitle}
           >
-            <span>Do you wants to teach at</span> My Tutor?
+            <span>Do you want to teach at</span> My Tutor?
           </Typography>
           <Typography
             variant="h6"
