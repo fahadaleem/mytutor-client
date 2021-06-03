@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme=>({
           "& .MuiFormLabel-root.Mui-focused": {
             color: "#2F1793 !important",
           },
+    },
+    
+    radioBtn:{
+        '& .PrivateRadioButtonIcon-checked-31':{
+            color:"#2F1793 !important"
+        }
     }
 
 }))
@@ -102,8 +108,8 @@ const JobForm = ()=>{
                 <Grid item lg={6} sm={6} xs={12}>
                  <RadioGroup name="gender">
                      <FormLabel>Gender:</FormLabel>
-                 <FormControlLabel value="male" name="gender" label="Male" control={<Radio  />} />
-                   <FormControlLabel value="female" name="gender" label="Female" control={<Radio  />} />
+                 <FormControlLabel value="male" name="gender" label="Male" control={<Radio className={classes.radioBtn} />} />
+                   <FormControlLabel value="female" name="gender" label="Female" control={<Radio className={classes.radioBtn} />} />
                  </RadioGroup>
                 </Grid>
             </Grid>
