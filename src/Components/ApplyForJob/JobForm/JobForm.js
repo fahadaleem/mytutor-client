@@ -62,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   
+  chargeHourlyCheckBox:{
+    '& .MuiCheckbox-colorPrimary.Mui-checked':{
+      color:"#2F1793 !important" 
+    }
+  }
   
 }));
 
@@ -228,6 +233,7 @@ const JobForm = () => {
             </div>
             <FormControlLabel
               label="Do you want to charge it hourly?"
+              className={classes.chargeHourlyCheckBox}
               control={
                 <Checkbox
                   value="false"
