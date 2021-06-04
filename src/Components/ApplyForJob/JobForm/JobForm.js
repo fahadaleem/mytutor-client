@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   radioBtn: {
-    "& .PrivateRadioButtonIcon-checked-34": {
+    "& .MuiRadio-colorSecondary.Mui-checked": {
       color: "#2F1793 !important",
     },
   },
@@ -169,13 +169,15 @@ const JobForm = () => {
                 value="male"
                 name="gender"
                 label="Male"
-                control={<Radio className={classes.radioBtn} />}
+                className={classes.radioBtn}
+                control={<Radio />}
               />
               <FormControlLabel
                 value="female"
                 name="gender"
                 label="Female"
-                control={<Radio className={classes.radioBtn} />}
+                className={classes.radioBtn}
+                control={<Radio />}
               />
             </RadioGroup>
           </Grid>
