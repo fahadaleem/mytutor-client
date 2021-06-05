@@ -11,13 +11,16 @@ import {
   FormLabel,
   FormControlLabel,
   FormHelperText,
-  InputLabel,
+  InputLabel, Button,
 } from "@material-ui/core";
 import CountrySelect from "./Components/SelectCountry";
 import EducationSelect from "./Components/SelectEducation";
 import SelectTeachingExperience from "./Components/SelectTeachingExperience";
 import CourseSelect from "./Components/SelectCourse";
 import CurrencySelect from "./Components/SelectCurrency";
+import ChooseFileDialogue from "./Components/ChooseFileDialogue"
+import DropzoneDialogExample from "./Components/ChooseFile"
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -66,7 +69,29 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiCheckbox-colorPrimary.Mui-checked':{
       color:"#2F1793 !important" 
     }
+  },
+  twoLabels:{
+    display:"flex",
+    justifyContent:"space-between"
+  },
+  chooseFile:{
+    display:"flex"
+  },
+  submitBtn:{
+    backgroundColor:"#e63946",
+    color:"#f1faee",
+    padding:"15px 45px",
+    fontSize:"18px",
+    borderRadius:"40px",
+    '&:hover':{
+      backgroundColor:"#2F1793"
+    },
+    [theme.breakpoints.down('xs')]:{
+      width:"100%",
+      fontSize:"18px"
+    }
   }
+  
   
 }));
 
@@ -76,6 +101,19 @@ const JobForm = () => {
   const [country, setCountry] = useState({});
   const [phone, setPhone] = useState("");
   const [chargeHourly, setChargeHourly] = useState(false)
+  const [about, setAbout] = useState('')
+  const [resume, setResume] = useState([])
+
+
+  const getAboutWordsCount = ()=>{
+    if(about.length>0)
+    {
+      const words = about.trim().split(' ')
+      return words.length
+    }
+    return 0
+    
+  }
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -246,6 +284,40 @@ const JobForm = () => {
               }
             />
           </Grid>
+          <Grid item lg={12} sm={12} xs={12}>
+          <InputLabel className={classes.formLabel}>
+                  Short Intro About Yourself
+                </InputLabel>
+            <TextField
+              id="applicant-intro"
+              label="About You"
+              variant="outlined"
+              fullWidth
+              value={about}
+              onChange={(e)=>{
+                setAbout(e.target.value)
+              }}
+              multiline={true}
+              rows="7"
+              maxRows="15"
+            />
+          </Grid>
+          <Grid item lg={12} sm={12} xs={12}>
+          <InputLabel className={classes.formLabel} style={{display:"inline-block", marginRight:"25px"}}>
+                  Upload Your Resume
+                </InputLabel>
+                <div className={classes.chooseFile}>
+            <DropzoneDialogExample selectedFile = {resume} handleSelectFile = {setResume} />
+              <Typography variant="h6" color="initial">{resume.length>0&&resume[0].name}</Typography>
+                </div>
+              </Grid>
+          <Grid item lg={12} sm={12} xs={12}>
+            <div style={{textAlign:"right"}}>
+            <Button variant="contained" color="default" type="submit" className={classes.submitBtn}>
+              Submit Application
+            </Button>
+            </div>
+              </Grid>
         </Grid>
       </form>
     </Container>
