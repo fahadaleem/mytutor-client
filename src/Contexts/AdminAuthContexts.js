@@ -9,16 +9,21 @@ const AuthContext = createContext();
 
 const AuthContextProvider = (props)=>{
 
-    const [isLogin, setIsLogin] = useState(false);
+    // to check if the user is login or not
+    const [isLogin, setIsLogin] = useState(true);
+
+    // used for loader, it runs till the response comes from the firebase
     const [loading, setLoading] = useState(null);
+
+    // this is used for error checking
     const [error, setError] = useState({
       isError: false,
       errorMessage: "",
       errorCode: 0,
     });
 
-    const [isRemember, setIsRemember] = useState(false)
   
+    // function that will execute when the form is submitted
     const handleLogin = (credentials) => {
       setLoading(true);
   
@@ -71,17 +76,33 @@ const AuthContextProvider = (props)=>{
           });
       }
     };
+
+    const handleLogOut = ()=>{
+      setIsLogin(false)
+      window.localStorage.setItem("isLogin", false)
+    }
+
+    const handleResetPassword = (emailAddress)=>{
+        // login to reset the password.
+        firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
+          // Email sent.
+          alert("Email has be sent to your email!")
+        }).catch(function(error) {
+          alert(error.message)
+          // An error happened.
+        });
+    }
   
 
     useEffect(() => {
         const checkLogin = window.localStorage.getItem("isLogin")
-        setIsLogin(checkLogin)
+        setIsLogin(JSON.parse(checkLogin))
     }, []);
 
 
 
     return (
-        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleSetIsRememberMe:setIsRemember }}>
+        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleLogOut, handleResetPassword }}>
             {props.children}
         </AuthContext.Provider>
     )
