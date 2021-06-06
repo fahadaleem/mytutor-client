@@ -11,7 +11,7 @@ const SelectTeachingExperience = (props)=>{
         <InputLabel id="demo-simple-select-outlined-label">Teaching Experience</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
+          id="teaching-experience-select"
           label="Teaching Experience"
           onChange={(e)=>{
             props.handleSetTeachingExperience({

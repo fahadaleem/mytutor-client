@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles, Typography } from "@material-ui/core"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 
 
@@ -117,6 +118,12 @@ const StudentSignUp = () => {
                   label="Password"
                   variant="outlined"
                   className={`${classes.textField} ${classes.customFont}`} 
+                  inputProps={{
+                    autocomplete: 'new-password',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
                   type="password">
                   
                 </TextField>
@@ -125,6 +132,12 @@ const StudentSignUp = () => {
                   label="Confirm Password"
                   variant="outlined"
                   className={`${classes.textField} ${classes.customFont}`} 
+                  inputProps={{
+                    autocomplete: 'new-password',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
                   type="password">
                   
                 </TextField>

@@ -154,6 +154,11 @@ const JobForm = () => {
     {
       setErrors([...errors, 'education-select'])
     }
+    if(applicantData.teachingExperience)
+    {
+      setErrors([...errors, 'teaching-experience-select'])
+    }
+    
 
   }
 
