@@ -1,7 +1,31 @@
+@font-face {
+  font-family: 'Product Sans';
+  src: local('Product Sans'), url(./fonts/ProductSansRegular.ttf) format('truetype');
+}
+
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Product Sans', sans-serif !important;
+   
 }
 
+
+
+
+
+.colors {
+  /* main color */
+  color:#2F1793;
+  
+  /* primary color */
+  color:#f1faee;
+
+  /* seconday color */
+  color:#b57cff;
+
+  /* additional */
+  color:#e63946;
+}
