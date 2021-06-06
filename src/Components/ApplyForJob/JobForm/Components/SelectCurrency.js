@@ -40,7 +40,18 @@ export default function CurrencySelect(props) {
         option: classes.option,
       }}
       autoHighlight
-      
+      onChange={(event,val)=>{
+
+
+        console.log(val)
+        val!==null?props.handleSetPrefferedCurrency({
+          ...props.applicantData,
+          preferredCurrency:val.code
+        }):props.handleSetCountry({
+          ...props.applicantData,
+          preferredCurrency:''
+        })
+    }}
      
       getOptionLabel={(option) => option.code}
       renderOption={(option) => (

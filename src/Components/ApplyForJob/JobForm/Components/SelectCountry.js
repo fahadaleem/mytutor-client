@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 export default function CountrySelect(props) {
   const classes = useStyles();
 
-  const [country, setCountry] = useState('');
 
   return (
     <Autocomplete
@@ -39,7 +38,13 @@ export default function CountrySelect(props) {
       }}
       autoHighlight
       onChange={(event,val)=>{
-          val!==null?props.handleSetCountry(val):props.handleSetCountry({})
+          val!==null?props.handleSetCountry({
+            ...props.applicantData,
+            country:val
+          }):props.handleSetCountry({
+            ...props.applicantData,
+            country:{}
+          })
       }}
      
       getOptionLabel={(option) => option.label}

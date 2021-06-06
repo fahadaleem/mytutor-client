@@ -20,6 +20,7 @@ import CourseSelect from "./Components/SelectCourse";
 import CurrencySelect from "./Components/SelectCurrency";
 import ChooseFileDialogue from "./Components/ChooseFileDialogue"
 import DropzoneDialogExample from "./Components/ChooseFile"
+import Swal from 'sweetalert2'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -99,21 +100,65 @@ const JobForm = () => {
   const classes = useStyles();
 
   const [country, setCountry] = useState({});
+  const [userName, setUserName] = useState({
+    firstName:'',
+    lastName:''
+  })
   const [phone, setPhone] = useState("");
-  const [chargeHourly, setChargeHourly] = useState(false)
   const [about, setAbout] = useState('')
   const [resume, setResume] = useState([])
+  const [errors, setErrors] = useState([])
 
+  const [applicantData, setApplicantData] = useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    country:{},
+    phone:'',
+    gender:'',
+    education:'',
+    teachingExperience:'',
+    willingToTeachCourse1: '',
+    willingToTeachCourse2: '',
+    expectedSalary:'',
+    preferredCurrency:'',
+    shortIntro:'',
+    resume:[]
 
-  const getAboutWordsCount = ()=>{
-    if(about.length>0)
+  });
+
+  
+  
+  const handleValidate = ()=>{
+    if(applicantData.firstName)
     {
-      const words = about.trim().split(' ')
-      return words.length
+      setErrors([...errors, 'first-name'])
     }
-    return 0
-    
+    if(applicantData.lastName)
+    {
+      setErrors([...errors, 'last-name'])
+    }
+    if(applicantData.email)
+    {
+      setErrors([...errors, 'email'])
+    }
+    if(applicantData.phone)
+    {
+      setErrors([...errors, 'phone-no'])
+    }
+    if(applicantData.country)
+    {
+      setErrors([...errors, 'country-select'])
+    }
+    if(applicantData.education)
+    {
+      setErrors([...errors, 'education-select'])
+    }
+
   }
+
+
+  
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -135,6 +180,14 @@ const JobForm = () => {
               id="first-name"
               label="First Name*"
               variant="outlined"
+              error={errors.includes('first-name')}
+              value={applicantData.firstName}
+              onChange={(e)=>{
+                setApplicantData({
+                  ...applicantData,
+                  firstName:e.target.value
+                })
+              }}
               fullWidth
               className={classes.textField}
               InputLabelProps={{ className: classes.inputLabel }}
@@ -149,6 +202,14 @@ const JobForm = () => {
               label="Last Name*"
               variant="outlined"
               fullWidth
+              value={applicantData.lastName}
+              error={errors.includes('last-name')}
+              onChange={(e)=>{
+               setApplicantData({
+                 ...applicantData,
+                 lastName:e.target.value
+               })
+              }}
               className={classes.textField}
               InputLabelProps={{ className: classes.inputLabel }}
             />
@@ -162,7 +223,15 @@ const JobForm = () => {
               label="Email*"
               variant="outlined"
               fullWidth
+              error={errors.includes('email')}
               type="email"
+              value = {applicantData.email}
+              onChange={(e)=>{
+                setApplicantData({
+                  ...applicantData,
+                  email:e.target.value
+                })
+              }}
               className={classes.textField}
               InputLabelProps={{ className: classes.inputLabel }}
             />
@@ -171,7 +240,7 @@ const JobForm = () => {
             <InputLabel className={classes.formLabel}>
               Enter Your Country
             </InputLabel>
-            <CountrySelect handleSetCountry={setCountry} />
+            <CountrySelect applicantData={applicantData} handleSetCountry={setApplicantData} />
           </Grid>
           <Grid item lg={6} sm={6} xs={12}>
             <InputLabel className={classes.formLabel}>
@@ -183,9 +252,9 @@ const JobForm = () => {
                 disabled
                 InputLabelProps={
                   ({ className: classes.inputLabel },
-                  { shrink: country.phone ? true : false })
+                  { shrink: applicantData.country.phone ? true : false })
                 }
-                value={country.phone ? `+${country.phone}` : ""}
+                value={applicantData.country.phone ? `+${applicantData.country.phone}` : ""}
                 label="Code"
                 variant="outlined"
                 className={`${classes.countryCodeField} ${classes.textField} `}
@@ -194,11 +263,15 @@ const JobForm = () => {
                 id="phone-no"
                 label="Phone No*"
                 variant="outlined"
+                error={errors.includes('phone-no')}
                 type="phone"
                 fullWidth
-                value={phone}
+                value={applicantData.phone}
                 onChange={(e) => {
-                  setPhone(e.target.value);
+                  setApplicantData({
+                    ...applicantData,
+                    phone: e.target.value
+                  })
                 }}
                 className={classes.textField}
               />
@@ -206,7 +279,12 @@ const JobForm = () => {
           </Grid>
 
           <Grid item lg={12} sm={12} xs={12}>
-            <RadioGroup name="gender">
+            <RadioGroup name="gender" onChange={(e)=>{
+              setApplicantData({
+                ...applicantData,
+                gender:e.target.value
+              })
+            }}>
               <FormLabel className={classes.formLabel}>Gender:</FormLabel>
               <FormControlLabel
                 value="male"
@@ -228,21 +306,21 @@ const JobForm = () => {
             <InputLabel className={classes.formLabel}>
               Enter Your Current Education Level
             </InputLabel>
-            <EducationSelect />
+            <EducationSelect applicantData={applicantData} handleSetEducation = {setApplicantData} />
           </Grid>
           <Grid item lg={6} sm={6} xs={12}>
             <InputLabel className={classes.formLabel}>
               Enter Your Teaching Experience
             </InputLabel>
-            <SelectTeachingExperience />
+            <SelectTeachingExperience applicantData={applicantData} handleSetTeachingExperience= {setApplicantData} />
           </Grid>
           <Grid item lg={6} sm={6} xs={12}>
             <InputLabel className={classes.formLabel}>
               Which Course Do You Want To Teach? (Choose any Two)
             </InputLabel>
-            <CourseSelect />
+            <CourseSelect id="course-1" applicantData={applicantData} handleSetSelectedCourse= {setApplicantData}/>
             <div style={{ margin: "15px 0" }}>
-              <CourseSelect />
+              <CourseSelect id="course-2" applicantData={applicantData} handleSetSelectedCourse= {setApplicantData} />
             </div>
           </Grid>
           <Grid item lg={6} sm={6} xs={12}>
@@ -255,6 +333,13 @@ const JobForm = () => {
                   id="salary"
                   label="Salary*"
                   variant="outlined"
+                  value={applicantData.expectedSalary}
+                  onChange={(e)=>[
+                    setApplicantData({
+                      ...applicantData,
+                      expectedSalary:e.target.value
+                    })
+                  ]}
                   type="number"
                   fullWidth
                   min="0"
@@ -266,23 +351,10 @@ const JobForm = () => {
                 <InputLabel className={classes.formLabel}>
                   Preferred Currency
                 </InputLabel>
-                <CurrencySelect />
+                <CurrencySelect applicantData={applicantData} handleSetPrefferedCurrency = {setApplicantData}/>
               </div>
             </div>
-            <FormControlLabel
-              label="Do you want to charge it hourly?"
-              className={classes.chargeHourlyCheckBox}
-              control={
-                <Checkbox
-                  value="false"
-                  checked={chargeHourly}
-                  onChange={()=>{
-                    setChargeHourly(!chargeHourly)
-                  }}
-                  color="primary"
-                />
-              }
-            />
+            
           </Grid>
           <Grid item lg={12} sm={12} xs={12}>
           <InputLabel className={classes.formLabel}>
@@ -292,11 +364,15 @@ const JobForm = () => {
               id="applicant-intro"
               label="About You"
               variant="outlined"
+              value={applicantData.shortIntro}
+              onChange={(e)=>[
+                setApplicantData({
+                  ...applicantData,
+                  shortIntro:e.target.value
+
+                })
+              ]}
               fullWidth
-              value={about}
-              onChange={(e)=>{
-                setAbout(e.target.value)
-              }}
               multiline={true}
               rows="7"
               maxRows="15"
@@ -307,8 +383,8 @@ const JobForm = () => {
                   Upload Your Resume
                 </InputLabel>
                 <div className={classes.chooseFile}>
-            <DropzoneDialogExample selectedFile = {resume} handleSelectFile = {setResume} />
-              <Typography variant="h6" color="initial">{resume.length>0&&resume[0].name}</Typography>
+            <DropzoneDialogExample selectedFile = {resume} applicantData={applicantData} handleSelectFile = {setApplicantData} />
+              <Typography variant="h6" color="initial">{applicantData.resume.length>0&&applicantData.resume[0].name}</Typography>
                 </div>
               </Grid>
           <Grid item lg={12} sm={12} xs={12}>

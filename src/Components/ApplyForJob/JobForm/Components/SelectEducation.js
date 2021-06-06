@@ -38,7 +38,15 @@ export default function EducationSelect(props) {
         option: classes.option,
       }}
       autoHighlight
-      
+      onChange={(event,val)=>{
+        val!==null?props.handleSetEducation({
+          ...props.applicantData,
+          education:val.degreeName
+        }):props.handleSetEducation({
+          ...props.applicantData,
+          education:{}
+        })
+    }}
      
       getOptionLabel={(option) => option.degreeName}
       renderOption={(option) => (
