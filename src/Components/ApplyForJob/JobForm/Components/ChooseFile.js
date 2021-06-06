@@ -22,8 +22,12 @@ export default class DropzoneDialogExample extends Component {
     }
  
     handleSave(files) {
+        
         //Saving files to state for further use and closing Modal.
-        this.props.handleSelectFile(files)
+        this.props.handleSelectFile({
+            ...this.props.applicantData,
+            resume:files
+        })
         this.setState({
             open: false
         });

@@ -46,10 +46,10 @@ export default function CurrencySelect(props) {
         console.log(val)
         val!==null?props.handleSetPrefferedCurrency({
           ...props.applicantData,
-          preferedCurrency:val.code
+          preferredCurrency:val.code
         }):props.handleSetCountry({
           ...props.applicantData,
-          preferedCurrency:''
+          preferredCurrency:''
         })
     }}
      

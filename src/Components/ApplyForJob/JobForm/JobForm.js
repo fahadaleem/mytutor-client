@@ -107,11 +107,13 @@ const JobForm = () => {
   const [phone, setPhone] = useState("");
   const [about, setAbout] = useState('')
   const [resume, setResume] = useState([])
+  const [errors, setErrors] = useState([])
 
   const [applicantData, setApplicantData] = useState({
-    name:'',
+    firstName:'',
+    lastName:'',
     email:'',
-    country:'',
+    country:{},
     phone:'',
     gender:'',
     education:'',
@@ -125,7 +127,33 @@ const JobForm = () => {
 
   });
 
+  
+  
   const handleValidate = ()=>{
+    if(applicantData.firstName)
+    {
+      setErrors([...errors, 'first-name'])
+    }
+    if(applicantData.lastName)
+    {
+      setErrors([...errors, 'last-name'])
+    }
+    if(applicantData.email)
+    {
+      setErrors([...errors, 'email'])
+    }
+    if(applicantData.phone)
+    {
+      setErrors([...errors, 'phone-no'])
+    }
+    if(applicantData.country)
+    {
+      setErrors([...errors, 'country-select'])
+    }
+    if(applicantData.education)
+    {
+      setErrors([...errors, 'education-select'])
+    }
 
   }
 
@@ -152,10 +180,11 @@ const JobForm = () => {
               id="first-name"
               label="First Name*"
               variant="outlined"
-              value={userName.firstName}
+              error={errors.includes('first-name')}
+              value={applicantData.firstName}
               onChange={(e)=>{
-                setUserName({
-                  ...userName,
+                setApplicantData({
+                  ...applicantData,
                   firstName:e.target.value
                 })
               }}
@@ -173,12 +202,13 @@ const JobForm = () => {
               label="Last Name*"
               variant="outlined"
               fullWidth
-              value={userName.lastName}
+              value={applicantData.lastName}
+              error={errors.includes('last-name')}
               onChange={(e)=>{
-                setUserName({
-                  ...userName,
-                  lastName:e.target.value
-                })
+               setApplicantData({
+                 ...applicantData,
+                 lastName:e.target.value
+               })
               }}
               className={classes.textField}
               InputLabelProps={{ className: classes.inputLabel }}
@@ -193,6 +223,7 @@ const JobForm = () => {
               label="Email*"
               variant="outlined"
               fullWidth
+              error={errors.includes('email')}
               type="email"
               value = {applicantData.email}
               onChange={(e)=>{
@@ -232,6 +263,7 @@ const JobForm = () => {
                 id="phone-no"
                 label="Phone No*"
                 variant="outlined"
+                error={errors.includes('phone-no')}
                 type="phone"
                 fullWidth
                 value={applicantData.phone}
@@ -351,8 +383,8 @@ const JobForm = () => {
                   Upload Your Resume
                 </InputLabel>
                 <div className={classes.chooseFile}>
-            <DropzoneDialogExample selectedFile = {resume} handleSelectFile = {setResume} />
-              <Typography variant="h6" color="initial">{resume.length>0&&resume[0].name}</Typography>
+            <DropzoneDialogExample selectedFile = {resume} applicantData={applicantData} handleSelectFile = {setApplicantData} />
+              <Typography variant="h6" color="initial">{applicantData.resume.length>0&&applicantData.resume[0].name}</Typography>
                 </div>
               </Grid>
           <Grid item lg={12} sm={12} xs={12}>

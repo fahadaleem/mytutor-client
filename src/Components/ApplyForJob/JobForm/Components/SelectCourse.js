@@ -33,7 +33,7 @@ export default function CourseSelect(props) {
 
   return (
     <Autocomplete
-      id="country-select-demo"
+      id="country-select"
       fullWidth
       options={courses}
       classes={{
