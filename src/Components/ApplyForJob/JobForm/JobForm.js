@@ -155,6 +155,11 @@ const JobForm = () => {
       allErrors.splice(errorIndex, 1);
       setErrors(allErrors);
     }
+    if (applicantData.gender !== "" && allErrors.includes("gender")) {
+      const errorIndex = allErrors.indexOf("gender");
+      allErrors.splice(errorIndex, 1);
+      setErrors(allErrors);
+    }
     if (
       applicantData.education !== "" &&
       allErrors.includes("education-select")
@@ -225,6 +230,13 @@ const JobForm = () => {
       setErrors(errors);
     }
     if (
+      !Boolean(applicantData.gender) &&
+      !errors.includes("gender")
+    ) {
+      errors = errors.concat("gender");
+      setErrors(errors);
+    }
+    if (
       !Boolean(applicantData.willingToTeachCourse1) &&
       !Boolean(applicantData.willingToTeachCourse2) &&
       !errors.includes("course-select")
@@ -257,16 +269,38 @@ const JobForm = () => {
       errors = errors.concat("currency");
       setErrors(errors);
     }
+    
     if (resume.length <= 0 && !errors.includes("resume")) {
       errors = errors.concat("resume");
       setErrors(errors);
     }
+
+
+    if(errors.length>0 && applicantData.resume.length<=0)
+    {
+      return true
+    }
+    else {
+      return false
+    }
+
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleValidate();
+    const checkForErrors = handleValidate();
     removedError();
+    if(checkForErrors)
+    {
+      console.log(errors)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Fill out all the required fields!',
+      })
+    }
+
+    console.log(checkForErrors)
   };
 
   return (
@@ -408,17 +442,18 @@ const JobForm = () => {
               <FormLabel className={classes.formLabel}>Gender:</FormLabel>
               <FormControlLabel
                 value="male"
+
                 name="gender"
                 label="Male"
                 className={classes.radioBtn}
-                control={<Radio required={true} />}
+                control={<Radio required={errors.includes("gender")} />}
               />
               <FormControlLabel
                 value="female"
                 name="gender"
                 label="Female"
                 className={classes.radioBtn}
-                control={<Radio required={true} />}
+                control={<Radio required={errors.includes("gender")}/>}
               />
             </RadioGroup>
           </Grid>
