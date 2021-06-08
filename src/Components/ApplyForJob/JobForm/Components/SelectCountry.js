@@ -59,6 +59,7 @@ export default function CountrySelect(props) {
           {...params}
           label="Choose a country"
           variant="outlined"
+          error={props.errors.includes("country-select")}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill

@@ -29,7 +29,6 @@ export default function CurrencySelect(props) {
   const classes = useStyles();
 
   const [country, setCountry] = useState('');
-  console.log(Currencies,"curren")
 
   return (
     <Autocomplete
@@ -65,7 +64,9 @@ export default function CurrencySelect(props) {
         <TextField
           {...params}
           label="Choose Currency"
+          id="currency"
           variant="outlined"
+          error={props.errors.includes("currency")}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
