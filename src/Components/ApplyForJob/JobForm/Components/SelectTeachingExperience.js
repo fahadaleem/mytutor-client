@@ -4,15 +4,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {makeStyles} from "@material-ui/core"
+
+
+
+
 
 const SelectTeachingExperience = (props)=>{
-    return(
-        <FormControl variant="outlined" fullWidth>
+
+  return(
+        <FormControl variant="outlined" fullWidth error={props.errors.includes("teaching-experience-select")} >
         <InputLabel id="demo-simple-select-outlined-label">Teaching Experience</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="teaching-experience-select"
           label="Teaching Experience"
+          
           onChange={(e)=>{
             props.handleSetTeachingExperience({
               ...props.applicantData,

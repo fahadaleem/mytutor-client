@@ -61,6 +61,7 @@ export default function EducationSelect(props) {
           {...params}
           label="Education"
           variant="outlined"
+          error = {props.errors.includes("education-select")}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill
