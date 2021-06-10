@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -27,7 +27,10 @@ const useStyle = makeStyles(theme => ({
         backgroundColor: "white",
         marginTop: "20px",
         marginBottom: "20px",
-        padding: "30px 50px"
+        padding: "30px 50px",
+        borderRadius: "15px 50px"
+        
+
     },
     customFont: {
         fontFamily: "'Quicksand', sans-serif",
@@ -40,7 +43,7 @@ const useStyle = makeStyles(theme => ({
     textField: {
         margin: "10px 0",
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#29524A !important",
+          borderColor: "#3d275a !important",
         },
         width: "100%",
     },
@@ -54,6 +57,10 @@ const useStyle = makeStyles(theme => ({
         align: "center",
         
       },
+      inputLabel: {
+        color: "#3d275a !important",
+        fontWeight: "500",
+      },
     
 }))
 
@@ -64,7 +71,16 @@ const StudentSignUp = () => {
     const classes = useStyle()
 
 
-    const [studentData, setStudentData] = setState();
+    const [studentData, setStudentData] = useState({
+        fullName: "",
+        fatherName: "",
+        CNIC: "",
+        currentInstitute: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+
+    });
 
 
 
@@ -79,44 +95,96 @@ const StudentSignUp = () => {
                     Sign Up
                 </Typography>
                 <TextField
+                  
                   id="name"
                   label="Full Name"
                   variant="outlined"
-                  className={`${classes.textField} ${classes.customFont}`} >
+                  InputLabelProps={{className: classes.inputLabel}}
+                  className={`${classes.textField} ${classes.customFont}`}
+                  value={studentData.fullName}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      fullName: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="fatherName"
                   label="Father's Name"
                   variant="outlined"
-                  className={`${classes.textField} ${classes.customFont}`} >
+                  InputLabelProps={{className: classes.inputLabel}}
+                  className={`${classes.textField} ${classes.customFont}`} 
+                  value={studentData.fatherName}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      fatherName: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="cnic"
                   label="CNIC"
                   variant="outlined"
-                  className={`${classes.textField} ${classes.customFont}`} >
+                  InputLabelProps={{className: classes.inputLabel}}
+                  className={`${classes.textField} ${classes.customFont}`} 
+                  value={studentData.CNIC}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      CNIC: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="institute"
                   label="Current Institute"
                   variant="outlined"
-                  className={`${classes.textField} ${classes.customFont}`} >
+                  InputLabelProps={{className: classes.inputLabel}}
+                  className={`${classes.textField} ${classes.customFont}`} 
+                  value={studentData.currentInstitute}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      currentInstitute: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="email"
                   label="Email Address"
                   variant="outlined"
-                  className={`${classes.textField} ${classes.customFont}`} >
+                  InputLabelProps={{className: classes.inputLabel}}
+                  className={`${classes.textField} ${classes.customFont}`} 
+                  value={studentData.email}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      email: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="password"
                   label="Password"
                   variant="outlined"
+                  InputLabelProps={{className: classes.inputLabel}}
                   className={`${classes.textField} ${classes.customFont}`} 
                   inputProps={{
                     autocomplete: 'new-password',
@@ -124,13 +192,23 @@ const StudentSignUp = () => {
                       autocomplete: 'off',
                     },
                   }}
-                  type="password">
+                  type="password"
+                  value={studentData.password}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      password: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <TextField
                   id="cPassword"
                   label="Confirm Password"
                   variant="outlined"
+                  InputLabelProps={{className: classes.inputLabel}}
                   className={`${classes.textField} ${classes.customFont}`} 
                   inputProps={{
                     autocomplete: 'new-password',
@@ -138,7 +216,16 @@ const StudentSignUp = () => {
                       autocomplete: 'off',
                     },
                   }}
-                  type="password">
+                  type="password"
+                  value={studentData.confirmPassword}
+                  onChange = {(e)=>{
+                    setStudentData({
+                      ...studentData,
+                      confirmPassword: e.target.value,
+                    });
+                    console.log(studentData);
+                  }}
+                  >
                   
                 </TextField>
                 <Button variant="contained"
@@ -146,7 +233,8 @@ const StudentSignUp = () => {
                 endIcon={<KeyboardArrowRightIcon />}
                 className={`${classes.submitBtn} ${classes.textField}`}
                 size="large"
-                type="submit" >
+                type="submit"
+                 >
                   Sign Up
                 </Button>
             </Container>
