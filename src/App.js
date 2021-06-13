@@ -4,14 +4,16 @@ import Admin from "./Screens/Admin"
 import LandingPage from "./Screens/LandingPage"
 import TeacherProfile from "./Screens/TeacherProfile"
 import {AuthContextProvider} from "./Contexts/AdminAuthContexts"
+import {JobFormContextProvider} from "./Contexts/JobFormContext"
 import ResetPassword from "./Screens/ResetPassword"
 import ApplyForJob from "./Screens/ApplyForJob"
 import StudentSignUp from "./Screens/StudentSignUp"
 import StudentLogin from "./Screens/StudentLogin"
+import CombineContext from "./Contexts/CombineContext"
 
 function App() {
   return (
-    <AuthContextProvider>
+    <CombineContext>
     <Switch>
       <Route path="/" exact component={LandingPage} />
       <Route path="/admin"  component={Admin} />    
@@ -24,7 +26,8 @@ function App() {
       <Route render={()=><h1>Not Found</h1>}></Route>    
       {/* Student Route  */}
     </Switch>
-    </AuthContextProvider>
+    </CombineContext>
+    
   );
 }
 
