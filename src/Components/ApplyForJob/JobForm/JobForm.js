@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -22,6 +22,7 @@ import CurrencySelect from "./Components/SelectCurrency";
 import ChooseFileDialogue from "./Components/ChooseFileDialogue";
 import DropzoneDialogExample from "./Components/ChooseFile";
 import Swal from "sweetalert2";
+import { ErrorSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -106,6 +107,7 @@ const JobForm = () => {
   const [about, setAbout] = useState("");
   const [resume, setResume] = useState([]);
   let [errors, setErrors] = useState([]);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const [applicantData, setApplicantData] = useState({
     firstName: "",
@@ -125,7 +127,6 @@ const JobForm = () => {
   });
 
   const removedError = () => {
-    console.log("hello");
     const allErrors = [...errors];
     if (applicantData.firstName !== "" && allErrors.includes("first-name")) {
       const errorIndex = allErrors.indexOf("first-name");
@@ -229,10 +230,7 @@ const JobForm = () => {
       errors = errors.concat("country-select");
       setErrors(errors);
     }
-    if (
-      !Boolean(applicantData.gender) &&
-      !errors.includes("gender")
-    ) {
+    if (!Boolean(applicantData.gender) && !errors.includes("gender")) {
       errors = errors.concat("gender");
       setErrors(errors);
     }
@@ -269,39 +267,39 @@ const JobForm = () => {
       errors = errors.concat("currency");
       setErrors(errors);
     }
-    
-    if (resume.length <= 0 && !errors.includes("resume")) {
+
+    if (applicantData.resume.length <= 0 && !errors.includes("resume")) {
       errors = errors.concat("resume");
       setErrors(errors);
     }
-
-
-    if(errors.length>0 && applicantData.resume.length<=0)
-    {
-      return true
-    }
-    else {
-      return false
-    }
-
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const checkForErrors = handleValidate();
-    removedError();
-    if(checkForErrors)
-    {
-      console.log(errors)
+    handleValidate();
+
+    if (errors.length > 0 && !showErrorMessage) {
       Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Fill out all the required fields!',
-      })
+        icon: "error",
+        title: "Error!",
+        text: "Fill out all the required fields!",
+      });
+      setShowErrorMessage(true);
+    }
+    if (errors[0] === "resume") {
+      Swal.fire({
+        icon: "error",
+        title: "Resume Required!",
+        text: "Upload Your Resume!",
+      });
     }
 
-    console.log(checkForErrors)
+    console.log(applicantData);
   };
+
+  useEffect(() => {
+    removedError();
+  }, [applicantData]);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -442,7 +440,6 @@ const JobForm = () => {
               <FormLabel className={classes.formLabel}>Gender:</FormLabel>
               <FormControlLabel
                 value="male"
-
                 name="gender"
                 label="Male"
                 className={classes.radioBtn}
@@ -453,7 +450,7 @@ const JobForm = () => {
                 name="gender"
                 label="Female"
                 className={classes.radioBtn}
-                control={<Radio required={errors.includes("gender")}/>}
+                control={<Radio required={errors.includes("gender")} />}
               />
             </RadioGroup>
           </Grid>
