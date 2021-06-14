@@ -1,19 +1,11 @@
 /* eslint-disable no-use-before-define */
-import React, {useState} from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import Currencies from "./Currency.json"
 
-// ISO 3166-1 alpha-2
-// ⚠️ No support for IE 11
-function countryToFlag(isoCode) {
-  return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-    : isoCode;
-}
+
 
 const useStyles = makeStyles({
   option: {
@@ -28,7 +20,6 @@ const useStyles = makeStyles({
 export default function CurrencySelect(props) {
   const classes = useStyles();
 
-  const [country, setCountry] = useState('');
 
   return (
     <Autocomplete
@@ -78,18 +69,7 @@ export default function CurrencySelect(props) {
   );
 }
 
-// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
 
-const courses = [
-    {courseName:'c#'},
-    {courseName:'Maths'},
-    {courseName:'States'},
-    {courseName:'Physics'},
-    {courseName:'Python'},
-    {courseName:'JS'},
-    {courseName:'HTML'},
-    {courseName:'Flutter'}
-]
 
 
 

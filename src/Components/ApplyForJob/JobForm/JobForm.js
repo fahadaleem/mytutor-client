@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Container,
   Typography,
   makeStyles,
   TextField,
   Grid,
-  Checkbox,
   Radio,
   RadioGroup,
   FormLabel,
   FormControlLabel,
-  FormHelperText,
   InputLabel,
   Button,
 } from "@material-ui/core";
@@ -19,10 +17,7 @@ import EducationSelect from "./Components/SelectEducation";
 import SelectTeachingExperience from "./Components/SelectTeachingExperience";
 import CourseSelect from "./Components/SelectCourse";
 import CurrencySelect from "./Components/SelectCurrency";
-import ChooseFileDialogue from "./Components/ChooseFileDialogue";
 import DropzoneDialogExample from "./Components/ChooseFile";
-import Swal from "sweetalert2";
-import { ErrorSharp } from "@material-ui/icons";
 import { JobFormContext } from "../../../Contexts/JobFormContext";
 
 const useStyles = makeStyles((theme) => ({

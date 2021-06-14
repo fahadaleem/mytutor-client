@@ -1,20 +1,10 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 
-// ISO 3166-1 alpha-2
-// ⚠️ No support for IE 11
-function countryToFlag(isoCode) {
-  return typeof String.fromCodePoint !== "undefined"
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, (char) =>
-          String.fromCodePoint(char.charCodeAt(0) + 127397)
-        )
-    : isoCode;
-}
+
 
 const useStyles = makeStyles({
   option: {
@@ -28,8 +18,6 @@ const useStyles = makeStyles({
 
 export default function CourseSelect(props) {
   const classes = useStyles();
-
-  const [country, setCountry] = useState("");
 
   return (
     <Autocomplete

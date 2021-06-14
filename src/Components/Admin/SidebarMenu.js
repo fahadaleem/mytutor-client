@@ -1,7 +1,6 @@
 import React from "react"
 import {List,ListItem, ListItemIcon, ListItemText, Divider, makeStyles} from "@material-ui/core"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import ImportContactsOutlinedIcon from '@material-ui/icons/ImportContactsOutlined';
 import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
@@ -41,7 +40,6 @@ import WorkIcon from '@material-ui/icons/Work';
 
 const SidebarMenu = ()=>{
     const classes = useStyles()
-    const [active, setActive] = React.useState('')
     return(
         <List component="nav" className={classes.menuList}>
             <ListItem className={`${classes.listItem} `}>
