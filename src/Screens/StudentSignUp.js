@@ -6,13 +6,16 @@ import TextField from '@material-ui/core/TextField'
 import { makeStyles, Typography } from "@material-ui/core"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-
+import StudentSignUpForm from "../Components/StudentSignupForm/SignupForm"
+import Image from "../Assests/create-account.png"
+import Navbar from "../Components/Navbar/MainNav"
 
 
 const useStyle = makeStyles(theme => ({
     root: {
         // backgroundColor: "#E9EAED",
-        backgroundColor: "#3d275a",
+        // backgroundColor: "#3d275a",
+        backgroundColor:"#f1faee",
         position: "absolute",
         height: "maxContent",
         width: "100%",
@@ -28,7 +31,9 @@ const useStyle = makeStyles(theme => ({
         marginTop: "20px",
         marginBottom: "20px",
         padding: "30px 50px",
-        borderRadius: "15px 50px"
+        borderRadius: "15px 50px",
+        boxShadow: '0 6px 8px 0px rgba(0,0,0,0.2)'
+
         
 
     },
@@ -61,6 +66,15 @@ const useStyle = makeStyles(theme => ({
         color: "#3d275a !important",
         fontWeight: "500",
       },
+      sideImage:{
+        width:"100%"
+      },
+      sideDiv:{
+        textAlign:"center"
+      },
+      grid:{
+        flexDirection:"row-reverse"
+      }
     
 }))
 
@@ -71,165 +85,21 @@ const StudentSignUp = () => {
     const classes = useStyle()
 
 
-    const [studentData, setStudentData] = useState({
-        fullName: "",
-        fatherName: "",
-        CNIC: "",
-        currentInstitute: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-
-    });
-
-
-
     return (
         <div className={classes.root}>
-            <Container maxWidth="xs" className={classes.mainContainer}>
-                <Typography variant="h3"
-                            color="initial"
-                            align="center"
-                            className={`${classes.customFont} ${classes.mainHeading}`} 
-                            style={{marginBottom: "30px"}}>
-                    Sign Up
-                </Typography>
-                <TextField
-                  
-                  id="name"
-                  label="Full Name"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`}
-                  value={studentData.fullName}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      fullName: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="fatherName"
-                  label="Father's Name"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  value={studentData.fatherName}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      fatherName: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="cnic"
-                  label="CNIC"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  value={studentData.CNIC}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      CNIC: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="institute"
-                  label="Current Institute"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  value={studentData.currentInstitute}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      currentInstitute: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="email"
-                  label="Email Address"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  value={studentData.email}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      email: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="password"
-                  label="Password"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  inputProps={{
-                    autocomplete: 'new-password',
-                    form: {
-                      autocomplete: 'off',
-                    },
-                  }}
-                  type="password"
-                  value={studentData.password}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      password: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <TextField
-                  id="cPassword"
-                  label="Confirm Password"
-                  variant="outlined"
-                  InputLabelProps={{className: classes.inputLabel}}
-                  className={`${classes.textField} ${classes.customFont}`} 
-                  inputProps={{
-                    autocomplete: 'new-password',
-                    form: {
-                      autocomplete: 'off',
-                    },
-                  }}
-                  type="password"
-                  value={studentData.confirmPassword}
-                  onChange = {(e)=>{
-                    setStudentData({
-                      ...studentData,
-                      confirmPassword: e.target.value,
-                    });
-                  }}
-                  >
-                  
-                </TextField>
-                <Button variant="contained"
-                color="primary"
-                endIcon={<KeyboardArrowRightIcon />}
-                className={`${classes.submitBtn} ${classes.textField}`}
-                size="large"
-                type="submit"
-                 >
-                  Sign Up
-                </Button>
+            <Navbar />
+            <Container maxWidth="lg" className={classes.mainContainer}>
+              <Grid container spacing={3} alignItems="center" className={classes.grid}>
+                <Grid item lg={6}>
+                <StudentSignUpForm />
+                </Grid>
+                <Grid item lg={6} className={classes.sideDiv}>
+                  <Typography variant="h3" color="initial">Welcome to MyTutor!</Typography>
+                <Typography variant="body1" color="initial">Create your account here to started your journey</Typography>
+                <img src={Image} alt="side-img" className={classes.sideImage}/>
+                </Grid>
+              </Grid>
+               
             </Container>
 
         </div>
