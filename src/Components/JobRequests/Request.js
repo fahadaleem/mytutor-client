@@ -8,6 +8,10 @@ import {
 } from "@material-ui/core";
 import { Height } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import Skeleton from "@material-ui/lab/Skeleton";
+import { JobRequestContext } from "../../Contexts/JobRequestContext";
+import maleAvatar from "../../Assests/male-avatar2.png"
+import femaleAvatar from "../../Assests/female-avatar.png"
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -16,11 +20,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 30px",
     margin: "15px 0",
     borderRadius: "5px",
-    border:"1px solid #29524A",
-    [theme.breakpoints.down('sm')]:{
-        padding: "35px 30px",
-
-    }
+    border: "1px solid #29524A",
+    [theme.breakpoints.down("sm")]: {
+      padding: "35px 30px",
+    },
   },
   avatarContainer: {
     borderRadius: "50%",
@@ -80,30 +83,60 @@ const useStyles = makeStyles((theme) => ({
 export default function JobRequest(props) {
   const classes = useStyles();
 
-  const { image, name, appliedDate, designation, country } = props;
+  const { gender, name, appliedDate, teachingExperience, country } = props;
 
   const getNumberOfDays = (date) => {
-    const differenceBetweenDates =
-      new Date().getTime() - new Date(date).getTime();
-
-    let days = Math.floor(differenceBetweenDates / (1000 * 3600 * 24));
-
-    if (days > 365) {
-      const year = Math.floor(days / 365);
-      return year > 1 ? `${year} years` : `${year} year`;
-    } else if (days > 30) {
-      const month = Math.floor(days / 30);
-      return month > 1 ? `${month} Months` : `${month} Month`;
+    if (typeof date !== 'object') {
+      date = new Date(date);
     }
-
-    return days > 1 ? `${days} days` : `${days} day`;
+  
+    var seconds = Math.floor((new Date() - date) / 1000);
+    var intervalType;
+  
+    var interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+      intervalType = 'year';
+    } else {
+      interval = Math.floor(seconds / 2592000);
+      if (interval >= 1) {
+        intervalType = 'month';
+      } else {
+        interval = Math.floor(seconds / 86400);
+        if (interval >= 1) {
+          intervalType = 'day';
+        } else {
+          interval = Math.floor(seconds / 3600);
+          if (interval >= 1) {
+            intervalType = "hour";
+          } else {
+            interval = Math.floor(seconds / 60);
+            if (interval >= 1) {
+              intervalType = "minute";
+            } else {
+              interval = seconds;
+              intervalType = "second";
+            }
+          }
+        }
+      }
+    }
+  
+    if (interval > 1 || interval === 0) {
+      intervalType += 's';
+    }
+  
+    return interval + ' ' + intervalType;
   };
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3} alignItems="center">
         <Grid item className={classes.avatarContainer} lg={1} xs={12}>
-          <img src={image} alt="avatar" className={classes.userImage} />
+          {props ? (
+            <img src={gender==="male"?maleAvatar:femaleAvatar} alt="avatar" className={classes.userImage} />
+          ) : (
+            <Skeleton />
+          )}
         </Grid>
         <Grid item className={classes.userInfo} lg={8} xs={12}>
           <Typography
@@ -118,7 +151,7 @@ export default function JobRequest(props) {
             color="initial"
             className={classes.userBasicInfo}
           >
-            {designation}
+            {teachingExperience} Experienced
           </Typography>
           <Typography
             variant="h6"

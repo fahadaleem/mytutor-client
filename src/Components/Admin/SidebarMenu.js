@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useContext} from "react"
 import {List,ListItem, ListItemIcon, ListItemText, Divider, makeStyles} from "@material-ui/core"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
@@ -12,7 +12,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import PeopleIcon from '@material-ui/icons/People';
 import {Link} from "react-router-dom"
 import WorkIcon from '@material-ui/icons/Work';
-
+import {JobRequestContext} from "../../Contexts/JobRequestContext"
 
 
 
@@ -35,11 +35,18 @@ import WorkIcon from '@material-ui/icons/Work';
          fontSize:"20px",
          padding:"0"
      }, 
+     count:{
+         backgroundColor:"#29524A",
+         textAlign:"center",
+         color:"#FFFFFF",
+         borderRadius:"30px",
+     }
  }))
 
 
 const SidebarMenu = ()=>{
     const classes = useStyles()
+    const {jobRequests} = useContext(JobRequestContext)
     return(
         <List component="nav" className={classes.menuList}>
             <ListItem className={`${classes.listItem} `}>
@@ -144,6 +151,7 @@ const SidebarMenu = ()=>{
                 <WorkIcon />
                 </ListItemIcon>
                 <ListItemText primary="Jobs Request"/>
+                <ListItemText className={classes.count} primary={`+${jobRequests.length}`}/>
             </ListItem>
             </Link> 
         </List>

@@ -259,7 +259,6 @@ const JobFormContextProvider = (props) => {
       url: `https://mytutor-iad-backend.herokuapp.com/add-new-applicant`,
     })
       .then((resp) => {
-        console.log(resp);
         if (resp.data.code === "201") {
           Swal.fire({
             title: "Stop",

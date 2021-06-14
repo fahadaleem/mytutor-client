@@ -107,7 +107,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       fullName: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -124,7 +123,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       fatherName: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -141,7 +139,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       CNIC: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -158,7 +155,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       currentInstitute: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -175,7 +171,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       email: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -199,7 +194,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       password: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   
@@ -223,7 +217,6 @@ const StudentSignUp = () => {
                       ...studentData,
                       confirmPassword: e.target.value,
                     });
-                    console.log(studentData);
                   }}
                   >
                   

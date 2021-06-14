@@ -1,16 +1,14 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { makeStyles } from '@material-ui/core/styles';
-import Currencies from "./Currency.json"
-
-
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { makeStyles } from "@material-ui/core/styles";
+import Currencies from "./Currency.json";
 
 const useStyles = makeStyles({
   option: {
     fontSize: 15,
-    '& > span': {
+    "& > span": {
       marginRight: 10,
       fontSize: 18,
     },
@@ -19,7 +17,6 @@ const useStyles = makeStyles({
 
 export default function CurrencySelect(props) {
   const classes = useStyles();
-
 
   return (
     <Autocomplete
@@ -30,19 +27,17 @@ export default function CurrencySelect(props) {
         option: classes.option,
       }}
       autoHighlight
-      onChange={(event,val)=>{
-
-
-        console.log(val)
-        val!==null?props.handleSetPrefferedCurrency({
-          ...props.applicantData,
-          preferredCurrency:val.code
-        }):props.handleSetCountry({
-          ...props.applicantData,
-          preferredCurrency:''
-        })
-    }}
-     
+      onChange={(event, val) => {
+        val !== null
+          ? props.handleSetPrefferedCurrency({
+              ...props.applicantData,
+              preferredCurrency: val.code,
+            })
+          : props.handleSetCountry({
+              ...props.applicantData,
+              preferredCurrency: "",
+            });
+      }}
       getOptionLabel={(option) => option.code}
       renderOption={(option) => (
         <React.Fragment>
@@ -61,15 +56,10 @@ export default function CurrencySelect(props) {
           error={props.errors.includes("currency")}
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
+            autoComplete: "new-password", // disable autocomplete and autofill
           }}
         />
       )}
     />
   );
 }
-
-
-
-
-

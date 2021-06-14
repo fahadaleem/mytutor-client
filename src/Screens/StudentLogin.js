@@ -109,7 +109,6 @@ const StudentLogin = () => {
                             ...studentData,
                             email: e.target.value,
                         });
-                        console.log(studentData);
                     }}
                 >
 
@@ -133,7 +132,6 @@ const StudentLogin = () => {
                             ...studentData,
                             password: e.target.value,
                         });
-                        console.log(studentData);
                     }}
                 ></TextField>
                 <FormControlLabel

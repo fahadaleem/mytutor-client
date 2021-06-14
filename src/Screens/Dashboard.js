@@ -34,7 +34,6 @@ const useStyles= makeStyles(theme=>({
 
 const Dashboard = ()=>{
     const classes = useStyles()
-    console.log("dashboard")
     return(
         <div>
         <AdminDashboardNavbar />
