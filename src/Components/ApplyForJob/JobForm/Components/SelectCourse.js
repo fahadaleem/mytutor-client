@@ -76,6 +76,7 @@ export default function CourseSelect(props) {
           {...params}
           label="Course Name"
           variant="outlined"
+          value={props.selectedText}
           error={props.errors.includes("course-select")}
           inputProps={{
             ...params.inputProps,

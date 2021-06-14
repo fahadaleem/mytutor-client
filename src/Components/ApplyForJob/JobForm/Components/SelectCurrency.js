@@ -66,6 +66,7 @@ export default function CurrencySelect(props) {
           label="Choose Currency"
           id="currency"
           variant="outlined"
+          value={props.applicantData.preferredCurrency}
           error={props.errors.includes("currency")}
           inputProps={{
             ...params.inputProps,

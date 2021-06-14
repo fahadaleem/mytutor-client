@@ -284,6 +284,7 @@ const JobForm = () => {
               applicantData={applicantData}
               handleSetSelectedCourse={setApplicantData}
               errors={errors}
+              selectedText={applicantData.willingToTeachCourse2}
             />
             <div style={{ margin: "15px 0" }}>
               <CourseSelect
@@ -291,6 +292,7 @@ const JobForm = () => {
                 applicantData={applicantData}
                 handleSetSelectedCourse={setApplicantData}
                 errors={errors}
+                selectedText={applicantData.willingToTeachCourse2}
               />
             </div>
           </Grid>

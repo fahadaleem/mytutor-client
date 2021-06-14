@@ -59,6 +59,7 @@ export default function CountrySelect(props) {
           {...params}
           label="Choose a country"
           variant="outlined"
+          value={props.applicantData.country.label}
           error={props.errors.includes("country-select")}
           inputProps={{
             ...params.inputProps,

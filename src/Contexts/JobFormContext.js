@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import firebase from "../Components/firebaseconfig";
 import Swal from "sweetalert2";
-import axios from "axios"
+import axios from "axios";
 
 const JobFormContext = createContext();
 
@@ -176,7 +176,7 @@ const JobFormContextProvider = (props) => {
     }
   };
 
-  async function uploadResumeToFirebase() {
+  const handleUploadApplicant =  ()=> {
     const resumeFile = applicantData.resume[0];
 
     const fileUrl = firebase
@@ -202,16 +202,15 @@ const JobFormContextProvider = (props) => {
           .child(resumeFile.name)
           .getDownloadURL()
           .then((url) => {
-            setResumeDownloadUrl(url);
+            const applicantDataJSON = handleFormatDataForSend(url);
+            handleAddNewApplicant(applicantDataJSON);
           });
-
       }
     );
   }
 
-  const handleFormatDataForSend = () => {
-    console.log(resumeDownloadUrl, "url");
-    const finalJson = {
+  const handleFormatDataForSend = (resumeDownloadUrl) => {
+    return {
       name: `${applicantData.firstName} ${applicantData.lastName}`,
       email: applicantData.email,
       phone_no: applicantData.phone,
@@ -225,14 +224,14 @@ const JobFormContextProvider = (props) => {
       intro: applicantData.shortIntro,
       resume: resumeDownloadUrl,
     };
-
-    setJson(finalJson);
   };
 
   const handleFormSubmit = (e) => {
+    // stop page to reload
     e.preventDefault();
+    // check for errors
     handleValidate();
-
+    // if there is errors then show an alert one time
     if (errors.length > 0 && !showErrorMessage) {
       Swal.fire({
         icon: "error",
@@ -240,73 +239,66 @@ const JobFormContextProvider = (props) => {
         text: "Fill out all the required fields!",
       });
       setShowErrorMessage(true);
+      // if resume not uploaded, then alert for the resume
     } else if (errors[0] === "resume") {
       Swal.fire({
         icon: "error",
         title: "Resume Required!",
         text: "Upload Your Resume!",
       });
+      // if there is not error, then send the applicant data to the backend
     } else {
-    uploadResumeToFirebase();
+      handleUploadApplicant();
     }
   };
 
-  function handleAddNewApplicant(){
+  function handleAddNewApplicant(applicantDataJSON) {
     const resp = axios({
-        method:"POST",
-        data:json,
-        url:`https://mytutor-iad-backend.herokuapp.com/add-new-applicant`
-    }).then(resp=>{
-        console.log(resp)
-        if(resp.data.code==="201"){
-            Swal.fire({
-                title:"Stop",
-                icon:"warning",
-                text:"You already submitted application, your application is under consideration. we'll inform you soon. Be patience!"
-            })
+      method: "POST",
+      data: applicantDataJSON,
+      url: `https://mytutor-iad-backend.herokuapp.com/add-new-applicant`,
+    })
+      .then((resp) => {
+        console.log(resp);
+        if (resp.data.code === "201") {
+          Swal.fire({
+            title: "Stop",
+            icon: "warning",
+            text: "You already submitted application, your application is under consideration. we'll inform you soon. Be patience!",
+          });
+        } else if (resp.data.code === "200") {
+          Swal.fire({
+            title: "Application Submitted",
+            icon: "success",
+            text: "Thank you for taking interest to teach at Mytutor, we'll inform you soon once you hired.",
+          });
+
+          setApplicantData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            country: {},
+            phone: "",
+            gender: "",
+            education: "",
+            teachingExperience: "",
+            willingToTeachCourse1: "",
+            willingToTeachCourse2: "",
+            expectedSalary: "",
+            preferredCurrency: "",
+            shortIntro: "",
+            resume: [],
+          });
         }
-        else if(resp.data.code==="200"){
-            Swal.fire({
-                title:"Application Submitted",
-                icon:"success",
-                text:"Thank you for taking interest to teach at Mytutor, we'll inform you soon once you hired."
-            })
-
-            setApplicantData({
-                firstName: "",
-                lastName: "",
-                email: "",
-                country: {},
-                phone: "",
-                gender: "",
-                education: "",
-                teachingExperience: "",
-                willingToTeachCourse1: "",
-                willingToTeachCourse2: "",
-                expectedSalary: "",
-                preferredCurrency: "",
-                shortIntro: "",
-                resume: [],
-              })
-        }    
-    })
-    .catch(error=>{
-        console.log(error)
-        return false
-    })
-
-    
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   }
-
-  useEffect(() => {
-    handleFormatDataForSend();
-    handleAddNewApplicant()
-  }, [resumeDownloadUrl]);
 
   useEffect(() => {
     removedError();
     handleFormatDataForSend();
-
   }, [applicantData]);
 
   return (
