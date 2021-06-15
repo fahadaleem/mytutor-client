@@ -8,6 +8,7 @@ import ApplyForJob from "./Screens/ApplyForJob"
 import StudentSignUp from "./Screens/StudentSignUp"
 import StudentLogin from "./Screens/StudentLogin"
 import CombineContext from "./Contexts/CombineContext"
+import StudentDashboard from './Screens/StudentDashboard';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/careers" component={ApplyForJob}/> 
       <Route path="/login" component={StudentLogin}/> 
       <Route path="/signup" component={StudentSignUp}/> 
+      <Route path="/student" component={StudentDashboard}/> 
       
       <Route render={()=><h1>Not Found</h1>}></Route>    
       {/* Student Route  */}
