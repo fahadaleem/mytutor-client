@@ -29,28 +29,28 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "15px 50px",
   },
   customFont: {
-    fontFamily: "'Quicksand', sans-serif",
-    color: "#3d275a",
+    // fontFamily: "'Quicksand', sans-serif",
+    color: "#2F1793",
   },
 
   textField: {
     margin: "10px 0",
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#3d275a !important",
+      borderColor: "#2F1793 !important",
     },
     width: "100%",
   },
   submitBtn: {
     width: "100%",
     marginTop: "20px",
-    backgroundColor: "#3d275a",
+    backgroundColor: "#2F1793",
     "&:hover": {
-      backgroundColor: "#b57cff",
+      backgroundColor: "#e63946",
     },
     align: "center",
   },
   inputLabel: {
-    color: "#3d275a !important",
+    color: "#2F1793 !important",
     fontWeight: "500",
   },
   formControl: {
@@ -85,7 +85,7 @@ const StudentSignUpForm = () => {
         className={`${classes.customFont}`}
         style={{ marginBottom: "30px" }}
       >
-        Sign Up
+        Sign Up Here
       </Typography>
       <form>
         <TextField

@@ -16,9 +16,11 @@ const useStyle = makeStyles(theme => ({
         // backgroundColor: "#E9EAED",
         // backgroundColor: "#3d275a",
         backgroundColor:"#f1faee",
-        position: "absolute",
-        height: "maxContent",
-        width: "100%",
+        paddingBottom:"30px",
+       
+        [theme.breakpoints.down('xs')]:{
+          backgroundColor:"white"
+        }
     },
     button: {
         backgroundColor: "orange",
@@ -29,9 +31,9 @@ const useStyle = makeStyles(theme => ({
     mainContainer: {
         backgroundColor: "white",
         marginTop: "20px",
-        marginBottom: "20px",
-        padding: "30px 50px",
-        borderRadius: "15px 50px",
+        // marginBottom: "20px",
+        padding: "70px 50px",
+        borderRadius: "15px",
         boxShadow: '0 6px 8px 0px rgba(0,0,0,0.2)'
 
         
@@ -48,7 +50,7 @@ const useStyle = makeStyles(theme => ({
     textField: {
         margin: "10px 0",
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#3d275a !important",
+          borderColor: "#2F1793 !important",
         },
         width: "100%",
     },
@@ -63,7 +65,7 @@ const useStyle = makeStyles(theme => ({
         
       },
       inputLabel: {
-        color: "#3d275a !important",
+        color: "#2F1793 !important",
         fontWeight: "500",
       },
       sideImage:{
@@ -72,6 +74,12 @@ const useStyle = makeStyles(theme => ({
       sideDiv:{
         textAlign:"center"
       },
+      welcomeHeading:{
+        color:"#e63946 !important",
+        [theme.breakpoints.down('xs')]:{
+          fontSize:"2.75rem"
+        }
+      }
      
     
 }))
@@ -88,12 +96,12 @@ const StudentSignUp = () => {
             <Navbar />
             <Container maxWidth="lg" className={classes.mainContainer}>
               <Grid container spacing={3} alignItems="center" className={classes.grid}>
-              <Grid item lg={6} sm={12} className={classes.sideDiv}>
-                  <Typography variant="h3" color="initial">Welcome to MyTutor!</Typography>
-                <Typography variant="body1" color="initial">Create your account here to started your journey</Typography>
+              <Grid item lg={6} md={6} sm={12} className={classes.sideDiv}>
+                  <Typography variant="h2" className={classes.welcomeHeading}>Welcome to MyTutor!</Typography>
+                <Typography variant="h6" color="initial">Create your account here to started your journey</Typography>
                 <img src={Image} alt="side-img" className={classes.sideImage}/>
                 </Grid>
-                <Grid item lg={6}>
+                <Grid item lg={6} md={6}>
                 <StudentSignUpForm />
                 </Grid>
                 
