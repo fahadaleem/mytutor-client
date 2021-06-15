@@ -86,35 +86,35 @@ export default function SimpleMenu() {
           <MenuItem onClick={handleClose}>Testimonials</MenuItem>
         </Link>
         <Link to="/careers" className={classes.link}>
-         <MenuItem onClick={handleClose}>Careers</MenuItem>
+          <MenuItem onClick={handleClose}>Careers</MenuItem>
         </Link>
         <Link className={classes.link}>
           <MenuItem onClick={handleClose}>Contact Us</MenuItem>
         </Link>
         <Link to="/login" className={classes.link}>
-        <MenuItem>
-          {" "}
-          <Button
-            size="large"
-            variant="contained"
-            color="default"
-            className={`${classes.btn} ${classes.loginBtn}`}
-          >
-            Login
-          </Button>
-        </MenuItem>
+          <MenuItem>
+            {" "}
+            <Button
+              size="large"
+              variant="contained"
+              color="default"
+              className={`${classes.btn} ${classes.loginBtn}`}
+            >
+              Login
+            </Button>
+          </MenuItem>
         </Link>
         <Link to="/signup" className={classes.link}>
-        <MenuItem>
-          <Button
-            size="large"
-            variant="contained"
-            color="default"
-            className={`${classes.btn} ${classes.signupBtn}`}
-          >
-            Sign Up
-          </Button>
-        </MenuItem>
+          <MenuItem>
+            <Button
+              size="large"
+              variant="contained"
+              color="default"
+              className={`${classes.btn} ${classes.signupBtn}`}
+            >
+              Sign Up
+            </Button>
+          </MenuItem>
         </Link>
       </Menu>
     </div>

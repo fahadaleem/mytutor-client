@@ -15,7 +15,7 @@ import Accounts from "./Accounts"
 import ViewAllCourses from "./ViewAllCourses"
 import ViewCourseDetails from "./ViewCourseDetails"
 import JobRequests from "./JobRequests"
-import RequestUserDetails from "./RequestUserDetails"
+import ApplicantDetails from "./ApplicantDetails"
 
 const useStyles= makeStyles(theme=>({
 
@@ -53,7 +53,7 @@ const Dashboard = ()=>{
             <Route path="/admin/accounts" component={Accounts} />
             <Route path="/admin/messages" component={Messages} />
             <Route exact path="/admin/jobs" component={JobRequests} />
-            <Route path="/admin/jobs/applicant/:id" component={RequestUserDetails} />
+            <Route path="/admin/jobs/applicant/:id" component={ApplicantDetails} />
             </Switch>
        </div>
        </div>

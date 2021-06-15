@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 export default function JobRequest(props) {
   const classes = useStyles();
 
-  const { gender, name, appliedDate, teachingExperience, country } = props;
+  const {id, gender, name, appliedDate, teachingExperience, country , handleFetchApplicantDetails} = props;
 
   const getNumberOfDays = (date) => {
     if (typeof date !== 'object') {
@@ -166,7 +166,9 @@ export default function JobRequest(props) {
             {getNumberOfDays(appliedDate)} ago
           </Typography>
           <Link to="/admin/jobs/applicant/1" className={classes.link}>
-            <Button color="primary" className={classes.viewDetailsBtn}>
+            <Button color="primary" onClick={()=>{
+              handleFetchApplicantDetails(id)
+            }} className={classes.viewDetailsBtn}>
               View Details
             </Button>
           </Link>
