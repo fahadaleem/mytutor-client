@@ -72,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
   },
   active:{
     borderBottom: "solid #e63946 !important",
+  },
+  btnLink:{
+    textDecoration:"none"
   }
 }));
 
@@ -156,6 +159,7 @@ const Navbar = (props) => {
               </Box>
             </Grid>
             <Grid item lg={3} md={5} style={{ textAlign: "right" }}>
+              <Link to="login" className={classes.btnLink}>
               <Button
                 size="large"
                 variant="contained"
@@ -164,6 +168,8 @@ const Navbar = (props) => {
               >
                 Login
               </Button>
+              </Link>
+              <Link to="signup" className={classes.btnLink}>
               <Button
                 size="large"
                 variant="contained"
@@ -172,6 +178,7 @@ const Navbar = (props) => {
               >
                 Sign Up
               </Button>
+              </Link>
             </Grid>
           </Hidden>
         </Grid>
