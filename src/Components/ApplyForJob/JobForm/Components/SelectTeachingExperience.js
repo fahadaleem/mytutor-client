@@ -27,7 +27,7 @@ const SelectTeachingExperience = (props)=>{
             })
           }}
         >
-          <MenuItem value={'less than 1'}>Less than 1 year</MenuItem>
+          <MenuItem value={'less than 1 Year'}>Less than 1 year</MenuItem>
           <MenuItem value={'1 Year'}>1 year</MenuItem>
           <MenuItem value={'2 Years'}>2 years</MenuItem>
           <MenuItem value={'3 Years'}>3 years</MenuItem>

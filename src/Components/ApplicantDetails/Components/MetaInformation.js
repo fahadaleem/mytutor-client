@@ -1,56 +1,91 @@
-import React from "react"
-import {Typography, makeStyles, Box, Button} from '@material-ui/core'
-import maleAvatar from "../../../Assests/male-avatar2.png"
+import React from "react";
+import { Typography, makeStyles, Box, Button } from "@material-ui/core";
+import maleAvatar from "../../../Assests/male-avatar2.png";
+import femaleAvatar from "../../../Assests/female-avatar.png";
 
-
-
-const useStyles = makeStyles(theme=>({
-    root:{
-        padding:"25px 10px",
-        // textAlign:"center",
-        [theme.breakpoints.down('sm')]:{
-            textAlign:"center"
-        }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // padding:"25px 10px",
+    textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
     },
-    avatar:{
-        width:"150px"
+  },
+  avatar: {
+    width: "150px",
+  },
+
+  info: {
+    margin: "15px 0 5px 0",
+    textTransform: "uppercase",
+    textAlign: "left",
+    fontSize: "1.75rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.5rem",
+      textAlign: "center",
     },
-   
-    info:{
-        margin:"15px 0 5px 0",
-      textTransform:"uppercase",
-      fontSize:"1.75rem",
-      [theme.breakpoints.down('xs')]:{
-          fontSize:"1.5rem"
-      }
-    }
-}))
+  },
+  ap_info: {
+    textAlign: "left",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center",
+    },
+  },
+}));
 
+const ApplicantMetaInformation = (props) => {
+  const { gender, email, phone, appliedDate, country, resume } = props;
 
-const ApplicantMetaInformation = ()=>{
-    
-    const classes = useStyles()
+  const classes = useStyles();
+  console.log(appliedDate);
 
-    return (
-        <div className={classes.root}>
-            <img src={maleAvatar} className={classes.avatar} />
-            <Box className={classes.metaInformation}>
-                <Typography variant="h4" color="initial" className={classes.info}>From:</Typography>
-                <Typography variant="body1" color="initial">Pakistan</Typography>
-                <Typography variant="h4" color="initial" className={classes.info}>Contact:</Typography>
-                <Typography variant="body1" color="initial">+923162036048</Typography>
-                <Typography variant="h4" color="initial" className={classes.info}>Email:</Typography>
-                <Typography variant="body1" color="initial">faleem396@gmail.com</Typography>
-                <Typography variant="h4" color="initial" className={classes.info}>Resume:</Typography>
-                <Button variant="outlined" color="default">
-                  View Resume
-                </Button>
-                <Typography variant="h4" color="initial" className={classes.info}>Applied On: </Typography>
-                <Typography variant="body1" color="initial">02-08-2020</Typography>
+  return (
+    <div className={classes.root}>
+      <img
+        src={gender === "male" ? maleAvatar : femaleAvatar}
+        className={classes.avatar}
+      />
+      <Typography variant="h4" color="initial" className={classes.info}>
+        From:
+      </Typography>
+      <Typography variant="body1" color="initial" className={classes.ap_info}>
+        {country}
+      </Typography>
+      <Typography variant="h4" color="initial" className={classes.info}>
+        Contact:
+      </Typography>
+      <Typography variant="body1" color="initial" className={classes.ap_info}>
+        +{phone}
+      </Typography>
+      <Typography variant="h4" color="initial" className={classes.info}>
+        Email:
+      </Typography>
+      <Typography
+        variant="body1"
+        color="initial"
+        style={{ overflowWrap: "anywhere" }}
+        className={classes.ap_info}
+      >
+        {email}
+      </Typography>
+      <Typography variant="h4" color="initial" className={classes.info}>
+        Resume:
+      </Typography>
+      <Box className={classes.ap_info}>
+        <a href={resume} target="_blank">
+        <Button variant="outlined" color="default">
+          View Resume
+        </Button>
+        </a>
+      </Box>
+      <Typography variant="h4" color="initial" className={classes.info}>
+        Applied On:{" "}
+      </Typography>
+      <Typography variant="body1" color="initial" className={classes.ap_info}>
+        {appliedDate.slice(0,11)}
+      </Typography>
+    </div>
+  );
+};
 
-            </Box>
-        </div>
-    )
-}
-
-export default ApplicantMetaInformation
+export default ApplicantMetaInformation;

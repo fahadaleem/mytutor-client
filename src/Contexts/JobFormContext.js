@@ -214,7 +214,7 @@ const JobFormContextProvider = (props) => {
     return {
       name: `${applicantData.firstName} ${applicantData.lastName}`,
       email: applicantData.email,
-      phone_no: applicantData.phone,
+      phone_no: `${applicantData.country.phone} ${applicantData.phone}` ,
       country: applicantData.country.label,
       gender: applicantData.gender,
       education: applicantData.education,

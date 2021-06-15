@@ -7,34 +7,55 @@ const JobRequestContext = createContext();
 const JobRequestContextProvider = (props) => {
   const [jobRequests, setJobRequests] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [applicantDetails, setApplicantDetails] = useState(null)
+  const [applicantDetailsLoading, setApplicantDetailsLoading] = useState(false);
+  const [applicantDetails, setApplicantDetails] = useState({});
+  const [willingToTeachCourses, setWillingToTeachCourses] = useState([]);
 
   async function handleLoadJobRequests() {
     setLoading(true);
     const response = await axios
       .get(`${baseUrl}/get-all-applicants`)
+      .then((resp) => {
+        setJobRequests(resp.data.applicants);
+        setLoading(false);
+      })
       .catch((error) => {
         alert(error);
       });
-
-    setJobRequests(response.data.applicants);
-    setLoading(false);
   }
 
-
-  async function handleFetchApplicantDetails(id){
-    const response = await axios.get(`${baseUrl}/view-applicant/${id}`).catch(error=>{
-        alert(error)
-    })
-
-    console.log(response)
-}
+  async function handleFetchApplicantDetails(id) {
+    setApplicantDetailsLoading(true);
+    await axios
+      .get(`${baseUrl}/view-applicant/${id}`)
+      .then((resp) => {
+        const json = {
+          ...resp.data,
+        };
+        setApplicantDetails({
+          ...json,
+          willing_to_teach_courses: json.willing_to_teach_courses.split(","),
+        });
+        setApplicantDetailsLoading(false);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
 
   useEffect(() => {
     handleLoadJobRequests();
   }, []);
   return (
-    <JobRequestContext.Provider value={{ jobRequests, loading, handleFetchApplicantDetails }}>
+    <JobRequestContext.Provider
+      value={{
+        jobRequests,
+        loading,
+        handleFetchApplicantDetails,
+        applicantDetails,
+        applicantDetailsLoading,
+      }}
+    >
       {props.children}
     </JobRequestContext.Provider>
   );
