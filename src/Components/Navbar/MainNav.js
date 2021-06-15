@@ -143,7 +143,7 @@ const Navbar = (props) => {
                     Testimonials
                   </Typography>
                 </Link>
-                <Link>
+                <Link to="/careers">
                   <Typography variant="h6" color="initial" className={props.pageName==="careers"&&classes.active}>
                     Careers
                   </Typography>

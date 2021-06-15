@@ -72,9 +72,7 @@ const useStyle = makeStyles(theme => ({
       sideDiv:{
         textAlign:"center"
       },
-      grid:{
-        flexDirection:"row-reverse"
-      }
+     
     
 }))
 
@@ -90,14 +88,15 @@ const StudentSignUp = () => {
             <Navbar />
             <Container maxWidth="lg" className={classes.mainContainer}>
               <Grid container spacing={3} alignItems="center" className={classes.grid}>
-                <Grid item lg={6}>
-                <StudentSignUpForm />
-                </Grid>
-                <Grid item lg={6} className={classes.sideDiv}>
+              <Grid item lg={6} sm={12} className={classes.sideDiv}>
                   <Typography variant="h3" color="initial">Welcome to MyTutor!</Typography>
                 <Typography variant="body1" color="initial">Create your account here to started your journey</Typography>
                 <img src={Image} alt="side-img" className={classes.sideImage}/>
                 </Grid>
+                <Grid item lg={6}>
+                <StudentSignUpForm />
+                </Grid>
+                
               </Grid>
                
             </Container>
