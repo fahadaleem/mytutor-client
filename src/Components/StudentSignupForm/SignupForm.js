@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography, Select, MenuItem, InputLabel, Menu, FormControl } from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
@@ -32,7 +32,7 @@ const useStyle = makeStyles((theme) => ({
     fontFamily: "'Quicksand', sans-serif",
     color: "#3d275a",
   },
- 
+
   textField: {
     margin: "10px 0",
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -53,23 +53,29 @@ const useStyle = makeStyles((theme) => ({
     color: "#3d275a !important",
     fontWeight: "500",
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
 const StudentSignUpForm = () => {
 
-    const classes = useStyle()
+  const classes = useStyle()
 
 
-    const [studentData, setStudentData] = useState({
-        fullName: "",
-        fatherName: "",
-        CNIC: "",
-        currentInstitute: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+  const [studentData, setStudentData] = useState({
+    fullName: "",
+    fatherName: "",
+    CNIC: "",
+    age: "",
+    gender: "",
+    currentInstitute: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
 
-    });
+  });
   return (
     <div>
       <Typography
@@ -124,6 +130,52 @@ const StudentSignUpForm = () => {
             });
           }}
         ></TextField>
+
+        <TextField
+          id="age"
+          label="Age"
+          variant="outlined"
+          type="number"
+          InputLabelProps={{ className: classes.inputLabel }}
+          className={`${classes.textField} ${classes.customFont}`}
+          value={studentData.age}
+          onChange={(e) => {
+            setStudentData({
+              ...studentData,
+              age: e.target.value,
+            });
+          }}
+        ></TextField>
+
+        <TextField
+          id="gender"
+          select
+          label="Gender"
+          variant="outlined"
+          InputLabelProps={{ className: classes.inputLabel }}
+          className={`${classes.textField} ${classes.customFont}`}
+          value={studentData.gender}
+          onChange={(e) => {
+            setStudentData({
+              ...studentData,
+              gender: e.target.value,
+            });
+          }}
+        >
+
+          <MenuItem key={"1"} value={"male"}>
+            Male
+              </MenuItem>
+          <MenuItem key={"2"} value={"female"}>
+            Female
+              </MenuItem>
+          <MenuItem key={"3"} value={"other"}>
+            Other
+              </MenuItem>
+
+        </TextField>
+
+
         <TextField
           id="institute"
           label="Current Institute"
@@ -194,6 +246,8 @@ const StudentSignUpForm = () => {
             });
           }}
         ></TextField>
+
+
         <Button
           variant="contained"
           color="primary"
