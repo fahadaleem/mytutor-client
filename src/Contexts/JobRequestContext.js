@@ -1,6 +1,8 @@
 import React, { useEffect, createContext, useState } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
+import Swal from "sweetalert2";
+import {useHistory} from "react-router-dom"
 
 const JobRequestContext = createContext();
 
@@ -10,6 +12,8 @@ const JobRequestContextProvider = (props) => {
   const [applicantDetailsLoading, setApplicantDetailsLoading] = useState(false);
   const [applicantDetails, setApplicantDetails] = useState({});
   const [willingToTeachCourses, setWillingToTeachCourses] = useState([]);
+
+  const History = useHistory()
 
   async function handleLoadJobRequests() {
     setLoading(true);
@@ -43,6 +47,32 @@ const JobRequestContextProvider = (props) => {
       });
   }
 
+  async function handleDeleteApplicant (id){
+    try {
+      const resp = await axios.get(`https://mytutor-iad-backend.herokuapp.com/delete-applicant/${id}`);
+      
+      if(resp.data.code==="200"){
+        Swal.fire({
+          icon:"success",
+          title:"Success",
+          text:"Applicant Deleted Successfully!"
+        }).then(resp=>{
+          History.push("/admin/jobs")
+          window.location.reload();
+        })
+
+        
+        
+      }
+    }catch(error){
+      Swal.fire({
+        icon:"error",
+        title:"Error",
+        text:`${error.message}`
+      })
+    }
+  }
+
   useEffect(() => {
     handleLoadJobRequests();
   }, []);
@@ -54,6 +84,8 @@ const JobRequestContextProvider = (props) => {
         handleFetchApplicantDetails,
         applicantDetails,
         applicantDetailsLoading,
+        handleDeleteApplicant,
+        handleLoadJobRequests
       }}
     >
       {props.children}

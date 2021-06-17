@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Container,
   makeStyles,
@@ -83,7 +83,12 @@ const useStyles = makeStyles((theme) => ({
 export default function JobRequest(props) {
   const classes = useStyles();
 
-  const {id, gender, name, appliedDate, teachingExperience, country , handleFetchApplicantDetails} = props;
+  const {id, gender, name, appliedDate, teachingExperience, country , handleLoadJobRequests, handleDeleteApplicant} = props;
+
+  useEffect(()=>{
+    console.log("fahad")
+  },[])
+
 
   const getNumberOfDays = (date) => {
     if (typeof date !== 'object') {

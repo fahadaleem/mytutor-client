@@ -61,12 +61,14 @@ const ApplicantMainInformation = (props) => {
   const classes = useStyles();
 
   const {
+    id,
     experience,
     willingToTeachCourses,
     expectedSalary,
     preferredCurrency,
     name,
-    intro
+    intro,
+    handleDeleteApplicant
   } = props;
   return (
     <div className={classes.root}>
@@ -122,6 +124,9 @@ const ApplicantMainInformation = (props) => {
         variant="contained"
         color="primary"
         className={classes.actionBtns}
+        onClick={()=>{
+          handleDeleteApplicant(id)
+        }}
       >
         Reject Application
       </Button>

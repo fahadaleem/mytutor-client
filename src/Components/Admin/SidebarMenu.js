@@ -151,7 +151,7 @@ const SidebarMenu = ()=>{
                 <WorkIcon />
                 </ListItemIcon>
                 <ListItemText primary="Jobs Request"/>
-                <ListItemText className={classes.count} primary={`+${jobRequests.length}`}/>
+                <ListItemText className={classes.count} primary={jobRequests.length>0&&`+${jobRequests.length}`}/>
             </ListItem>
             </Link> 
         </List>
