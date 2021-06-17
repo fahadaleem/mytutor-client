@@ -14,6 +14,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Hidden, Grid, Divider } from '@material-ui/core/';
+import Container from '@material-ui/core/Container'
+import SideBar from './SideBar';
+import AllCourses from './AllCourses';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
-    marginLeft: "600px !important",
+    marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
@@ -76,6 +80,18 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  divider: {
+    width: "15%",
+    backgroundColor: "#a8dadc",
+    height: "2px",
+    margin: "5px 0",
+  },
+  title2: {
+    color: "#f1faee",
+  },
+  tagLine: {
+    color: "#a8dadc",
   },
 }));
 
@@ -161,34 +177,61 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+ 
+
   return (
+    <div id="Dashboard">
+        
     <div className={classes.grow}>
+    
+      
+       
+
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar style={{background: "#2F1793",}}>
+        
+        
+          
+          <Hidden mdDown>
+          <Grid item lg={3} md={3} style={{marginTop:"10px",marginBottom:"10px"}}>
+              <Typography
+                variant="h6"
+                color="initial"
+                className={classes.title2}
+              >
+                My Tutor
+              </Typography>
+              <Divider className={classes.divider} />
+              <Typography
+                variant="p"
+                color="initial"
+                className={classes.tagLine}
+              >
+                Your Online Teaching and <br />
+                Learning Solution
+              </Typography>
+              </Grid>
+          </Hidden>
+          
           <Typography className={classes.title} variant="h6" noWrap>
-            Hammad Saeed Khan   
+            Hammad Saeed Khan
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search Courses..."
+              placeholder="Search Courses…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
+            
           </div>
+          
+          
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -223,10 +266,27 @@ export default function PrimarySearchAppBar() {
               <MoreIcon />
             </IconButton>
           </div>
+          
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+    
+              
+      
+      
+    
+    </div>
+    <SideBar/>
+    
+        <div id="courses">
+              <Container maxWidth="xl">
+                    <AllCourses/>
+              </Container>
+
+        </div>
+
     </div>
   );
+  
 }
