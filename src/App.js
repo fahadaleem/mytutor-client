@@ -9,6 +9,7 @@ import StudentSignUp from "./Screens/StudentSignUp"
 import StudentLogin from "./Screens/StudentLogin"
 import CombineContext from "./Contexts/CombineContext"
 import StudentDashboard from './Screens/StudentDashboard';
+import Page404 from "./Screens/Page404"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route path="/signup" component={StudentSignUp}/> 
       <Route path="/student" component={StudentDashboard}/> 
       
-      <Route render={()=><h1>Not Found</h1>}></Route>    
+      <Route component={Page404}></Route>    
       {/* Student Route  */}
     </Switch>
     </CombineContext>

@@ -82,7 +82,7 @@ const ApplicantMetaInformation = (props) => {
         Applied On:{" "}
       </Typography>
       <Typography variant="body1" color="initial" className={classes.ap_info}>
-        {appliedDate.slice(0,11)}
+        {appliedDate&&appliedDate.slice(0,11)}
       </Typography>
     </div>
   );
