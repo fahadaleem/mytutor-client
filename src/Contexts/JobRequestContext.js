@@ -57,8 +57,10 @@ const JobRequestContextProvider = (props) => {
           title:"Success",
           text:"Applicant Deleted Successfully!"
         }).then(resp=>{
+          handleLoadJobRequests();
           History.push("/admin/jobs")
-          window.location.reload();
+          // window.location.reload();
+
         })
 
         

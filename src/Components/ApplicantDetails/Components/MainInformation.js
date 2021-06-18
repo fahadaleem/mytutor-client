@@ -7,6 +7,8 @@ import {
   Button,
   ButtonGroup,
 } from "@material-ui/core";
+import HireApplicantForm from "./HireApplicantForm"
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +61,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ApplicantMainInformation = (props) => {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
 
   const {
     id,
@@ -113,10 +127,13 @@ const ApplicantMainInformation = (props) => {
       <Typography variant="body1" color="initial">
         - {expectedSalary} {preferredCurrency}/Month
       </Typography>
+      <HireApplicantForm formState={open} handleClose={handleClose}/>
+
       <Button
         variant="contained"
         color="primary"
         className={`${classes.actionBtns} ${classes.hireBtn}`}
+        onClick={handleClickOpen}
       >
         Hire Applicant
       </Button>
