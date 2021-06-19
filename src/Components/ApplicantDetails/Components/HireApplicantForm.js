@@ -1,141 +1,269 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Box from '@material-ui/core/Box';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import {makeStyles, Typography, IconButton} from '@material-ui/core';
-import HiringDatePicker from "./HiringDatePicker"
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  Box,
+  Select,
+  InputLabel,
+  MenuItem,
+  makeStyles,
+  Typography,
+  IconButton,
+  InputAdornment,
+} from "@material-ui/core";
+import HiringDatePicker from "./HiringDatePicker";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    marginTop:"20px"
+    marginTop: "20px",
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#29524A",
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "#29524A",
+      fontSize: "18px",
+    },
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  dialogCancelBtn: {
+    backgroundColor: "#2A2A2A",
+    padding: "10px 20px",
+    "&:hover": {
+      backgroundColor: "#6d6b6b",
+    },
+  },
+  dialogSubmitBtn: {
+    backgroundColor: "#29524A",
+    padding: "10px 20px",
+    "&:hover": {
+      backgroundColor: "#427c71",
+    },
+  },
 }));
 
+const handleGetFormattedDate = () => {
+  const newDate = new Date();
+  const day =
+    newDate.getDate().toString().length === 1
+      ? `0${newDate.getDate()}`
+      : newDate.getDate();
+  const month =
+    newDate.getMonth().toString().length === 1
+      ? `0${newDate.getMonth() + 1}`
+      : newDate.getMonth();
+  const year = newDate.getFullYear();
+  const completeDate = `${year}-${month}-${day}`;
+  return completeDate;
+};
 
 export default function HireApplicantForm(props) {
-  
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const [passwordVisiblity, setPasswordVisibility] = React.useState(false)
+  const [age, setAge] = useState("");
+  const [passwordVisiblity, setPasswordVisibility] = useState(false);
+  const [TeacherPassword, setTeacherPassword] = useState("");
+  const [error, setError] = useState(false);
 
+  const [hiredTeacherDetails, setHiredTeacherDetails] = useState({
+    hiringDate: handleGetFormattedDate(),
+    salary: "",
+    courseCode: "",
+    email: props.email,
+    password: "",
+  });
 
-  const handleGeneratePassword = ()=>{
+  const checkValidation = () => {
+    if (
+      hiredTeacherDetails.salary === "" ||
+      hiredTeacherDetails.courseCode === "" ||
+      hiredTeacherDetails.email === "" ||
+      hiredTeacherDetails.password === ""
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
 
-  }
+  useEffect(() => {
+    checkValidation();
+  }, [hiredTeacherDetails]);
 
+  const handleGeneratePassword = () => {
+    const characters =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*<>?-+";
+    const randomNo = Math.floor(Math.random() * 20 + 8);
+    let password = "";
+    for (let i = 0; i < randomNo; i++) {
+      const rand = Math.floor(Math.random() * characters.length);
+      password += characters[rand];
+    }
+
+    setHiredTeacherDetails({
+      ...hiredTeacherDetails,
+      password,
+    });
+  };
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
   return (
     <div>
-      
-      <Dialog open={props.formState} scroll={'paper'} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">New Teacher Hiring Form</DialogTitle>
-        <DialogContent>
+      <Dialog
+        open={props.formState}
+        scroll={"paper"}
+        aria-labelledby="form-dialog-title"
+        PaperProps={{
+          className: classes.dialog,
+        }}
+      >
+        <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
+          New Teacher Hiring Form
+        </DialogTitle>
+        <DialogContent className={classes.dialogContent}>
           <DialogContentText>
-            To hire new teacher, Please enter the following intormation to complete the hiring process.
+            To hire new teacher, Please enter the following intormation to
+            complete the hiring process.
           </DialogContentText>
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          /> */}
-          <HiringDatePicker />
-          <TextField
-            id="salary"
-            label="Salary Per Month"
-            margin="dense"
-            type="number"
-            fullWidth
-          />
-           <FormControl fullWidth className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Course Code</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>PY-01</MenuItem>
-          <MenuItem value={20}>CSHARP-01</MenuItem>
-          <MenuItem value={30}>STATS-03</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl fullWidth className={classes.formControl}>
-          <TextField
-            id="course-name"
-            label="CourseName"
-            className={classes.courseNameField}
-          />
-      </FormControl>
-      <FormControl fullWidth className={classes.formControl}>
-      <Typography variant="h5" color="initial">Login Credentials</Typography>
-          <TextField
-            id="teacher-email"
-            label="Email"
-            inputProps={{
-              autocomplete: 'new-password',
-              form: {
-                autocomplete: 'off',
-              },
-            }}
-
-          />
-      </FormControl>
-      <FormControl fullWidth className={classes.formControl}>
-          <TextField
-            id="teacher-password"
-            label="Password"
-            autoComplete="off"
-            type={passwordVisiblity?"text":"password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={()=>{
-                    setPasswordVisibility(!passwordVisiblity)
-                  }}>
-                  {passwordVisiblity?<VisibilityIcon />:<VisibilityOffIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-              autocomplete: 'new-password',
-            form: {
-              autocomplete: 'off',
-              },
-            }}
-          />
-          <Box my={2}>
-          <Button variant="outlined" color="default">
-            Generate Password
-          </Button>
-          </Box>
-      </FormControl>
+          <form>
+            <FormControl fullWidth className={classes.formControl}>
+              <HiringDatePicker
+                hiredTeacherDetails={hiredTeacherDetails}
+                handleSetHiredTeacherDetails={setHiredTeacherDetails}
+              />
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <TextField
+                id="salary"
+                label="Salary Per Month"
+                type="number"
+                fullWidth
+                value={hiredTeacherDetails.salary}
+                onChange={(e) => {
+                  setHiredTeacherDetails({
+                    ...hiredTeacherDetails,
+                    salary: e.target.value,
+                  });
+                }}
+              />
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Course Code</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={hiredTeacherDetails.courseCode}
+                onChange={(e) => {
+                  setHiredTeacherDetails({
+                    ...hiredTeacherDetails,
+                    courseCode: e.target.value,
+                  });
+                }}
+              >
+                <MenuItem value={"PY-01"}>PY-01</MenuItem>
+                <MenuItem value={"CSHARP-01"}>CSHARP-01</MenuItem>
+                <MenuItem value={"STATS-03"}>STATS-03</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <Typography variant="h5" color="initial">
+                Account Creation:
+              </Typography>
+              <TextField
+                id="teacher-email"
+                label="Email"
+                value={hiredTeacherDetails.email}
+                onChange={(e) => {
+                  setHiredTeacherDetails({
+                    ...hiredTeacherDetails,
+                    email: e.target.value,
+                  });
+                }}
+                inputProps={{
+                  autocomplete: "email",
+                  form: {
+                    autocomplete: "off",
+                  },
+                }}
+              />
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <TextField
+                id="teacher-password"
+                label="Password"
+                autoComplete="off"
+                value={hiredTeacherDetails.password}
+                onChange={(e) => {
+                  setHiredTeacherDetails({
+                    ...hiredTeacherDetails,
+                    password: e.target.value,
+                  });
+                }}
+                type={passwordVisiblity ? "text" : "password"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => {
+                          setPasswordVisibility(!passwordVisiblity);
+                        }}
+                      >
+                        {passwordVisiblity ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                inputProps={{
+                  autocomplete: "new-password",
+                  form: {
+                    autocomplete: "off",
+                  },
+                }}
+              />
+              <Box my={2}>
+                <Button
+                  variant="outlined"
+                  color="default"
+                  onClick={handleGeneratePassword}
+                >
+                  Generate Password
+                </Button>
+              </Box>
+            </FormControl>
+          </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.handleClose} variant="contained" color="secondary">
+          <Button
+            onClick={props.handleClose}
+            variant="contained"
+            color="secondary"
+            className={classes.dialogCancelBtn}
+          >
             Cancel
           </Button>
-          <Button onClick={props.handleClose} variant="contained" color="primary">
+          <Button
+            onClick={() => {
+              props.handleHireTeacher(hiredTeacherDetails);
+            }}
+            variant="contained"
+            color="primary"
+            className={classes.dialogSubmitBtn}
+            disabled={error}
+          >
             Submit
           </Button>
         </DialogActions>

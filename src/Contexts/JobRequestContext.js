@@ -75,6 +75,27 @@ const JobRequestContextProvider = (props) => {
     }
   }
 
+
+  async function handleHireTeacher (teacherInfo){
+
+    const teacher = {
+      name: applicantDetails.name,
+      country:applicantDetails.country,
+      email:applicantDetails.email,
+      phone_no:applicantDetails.phone_no,
+      gender:applicantDetails.gender,
+      intro:applicantDetails.intro,
+      preferred_currency:applicantDetails.preferred_currency,
+      resume:applicantDetails.resume,
+      teaching_experience:applicantDetails.teaching_experience,
+      education:applicantDetails.education,
+      ...teacherInfo,
+    }
+
+    console.log(teacher)
+  }
+
+
   useEffect(() => {
     handleLoadJobRequests();
   }, []);
@@ -87,7 +108,8 @@ const JobRequestContextProvider = (props) => {
         applicantDetails,
         applicantDetailsLoading,
         handleDeleteApplicant,
-        handleLoadJobRequests
+        handleLoadJobRequests,
+        handleHireTeacher
       }}
     >
       {props.children}

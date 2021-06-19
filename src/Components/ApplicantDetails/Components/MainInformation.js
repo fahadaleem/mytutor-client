@@ -82,7 +82,8 @@ const ApplicantMainInformation = (props) => {
     preferredCurrency,
     name,
     intro,
-    handleDeleteApplicant
+    handleDeleteApplicant,
+    handleHireTeacher
   } = props;
   return (
     <div className={classes.root}>
@@ -115,7 +116,7 @@ const ApplicantMainInformation = (props) => {
         willingToTeachCourses.map((elem, index) => {
           return (
             elem.trim().length > 0 && (
-              <Typography variant="body1" color="initial">
+              <Typography variant="body1" color="initial" key={index} >
                 {index + 1}- {elem}
               </Typography>
             )
@@ -127,7 +128,7 @@ const ApplicantMainInformation = (props) => {
       <Typography variant="body1" color="initial">
         - {expectedSalary} {preferredCurrency}/Month
       </Typography>
-      <HireApplicantForm formState={open} handleClose={handleClose}/>
+      {open&&<HireApplicantForm formState={open} handleClose={handleClose} handleHireTeacher={handleHireTeacher}/>} 
 
       <Button
         variant="contained"

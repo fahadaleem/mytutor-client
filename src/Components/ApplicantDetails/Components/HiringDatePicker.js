@@ -8,12 +8,18 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-export default function HiringDatePicker() {
-  // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+export default function HiringDatePicker(props) {
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    const newDate = new Date(date)
+    const day = newDate.getDate().toString().length===1?`0${newDate.getDate()}`:newDate.getDate();
+    const month = newDate.getMonth().toString().length===1?`0${newDate.getMonth()+1}`:newDate.getMonth()
+    const year = newDate.getFullYear()
+    const completeDate = `${year}-${month}-${day}` 
+    props.handleSetHiredTeacherDetails({
+      ...props.hiredApplicantDetails,
+      hiringDate:completeDate
+    })
   };
 
   return (
@@ -25,7 +31,7 @@ export default function HiringDatePicker() {
           label="Hiring Date"
           format="MM/dd/yyyy"
           fullWidth
-          value={selectedDate}
+          value={props.hiredTeacherDetails.hiringDate}
           onChange={handleDateChange}
           KeyboardButtonProps={{
             'aria-label': 'change date',

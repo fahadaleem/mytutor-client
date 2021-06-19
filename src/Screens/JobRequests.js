@@ -6,7 +6,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import LoadingSkeleton from "../Components/JobRequests/Component/LoadingSkeleton";
 
 const JobRequests = () => {
-  const { jobRequests, loading, handleFetchApplicantDetails,handleDeleteApplicant } = useContext(JobRequestContext);
+  const { jobRequests, loading, handleFetchApplicantDetails,handleDeleteApplicant, handleHireTeacher } = useContext(JobRequestContext);
 
   return (
     <Container maxWidth="lg">
