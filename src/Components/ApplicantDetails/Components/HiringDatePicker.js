@@ -16,6 +16,9 @@ export default function HiringDatePicker(props) {
     const month = newDate.getMonth().toString().length===1?`0${newDate.getMonth()+1}`:newDate.getMonth()
     const year = newDate.getFullYear()
     const completeDate = `${year}-${month}-${day}` 
+
+    console.log(completeDate)
+
     props.handleSetHiredTeacherDetails({
       ...props.hiredApplicantDetails,
       hiringDate:completeDate

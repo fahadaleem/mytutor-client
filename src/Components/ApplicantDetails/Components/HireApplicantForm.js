@@ -206,9 +206,9 @@ export default function HireApplicantForm(props) {
                   });
                 }}
                 inputProps={{
-                  autocomplete: "email",
+                  autoComplete: "email",
                   form: {
-                    autocomplete: "off",
+                    autoComplete: "off",
                   },
                 }}
               />
@@ -244,9 +244,9 @@ export default function HireApplicantForm(props) {
                   ),
                 }}
                 inputProps={{
-                  autocomplete: "new-password",
+                  autoComplete: "new-password",
                   form: {
-                    autocomplete: "off",
+                    autoComplete: "off",
                   },
                 }}
               />

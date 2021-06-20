@@ -82,6 +82,7 @@ const ApplicantMainInformation = (props) => {
     preferredCurrency,
     name,
     intro,
+    email,
     handleDeleteApplicant,
     handleHireTeacher
   } = props;
@@ -128,7 +129,7 @@ const ApplicantMainInformation = (props) => {
       <Typography variant="body1" color="initial">
         - {expectedSalary} {preferredCurrency}/Month
       </Typography>
-      {open&&<HireApplicantForm formState={open} handleClose={handleClose} handleHireTeacher={handleHireTeacher}/>} 
+      {open&&<HireApplicantForm formState={open} email = {email} handleClose={handleClose} handleHireTeacher={handleHireTeacher}/>} 
 
       <Button
         variant="contained"

@@ -42,7 +42,7 @@ const Details = (props)=>{
           <ApplicantMetaInformation gender={applicantDetails.gender} country={applicantDetails.country} phone = {applicantDetails.phone_no} email = {applicantDetails.email} appliedDate = {applicantDetails.applied_date} resume={applicantDetails.resume} />
           </Grid>
           <Grid item lg={9} md={9} sm={12} xs={12}>
-           <ApplicantMainInformation id={applicantDetails.id} name={applicantDetails.name} intro = {applicantDetails.intro} experience = {applicantDetails.teaching_experience} willingToTeachCourses = {applicantDetails.willing_to_teach_courses} expectedSalary = {applicantDetails.expected_salary} preferredCurrency={applicantDetails.preferred_currency} handleDeleteApplicant={handleDeleteApplicant} handleHireTeacher={handleHireTeacher} />
+           <ApplicantMainInformation id={applicantDetails.id} name={applicantDetails.name} intro = {applicantDetails.intro} email = {applicantDetails.email} experience = {applicantDetails.teaching_experience} willingToTeachCourses = {applicantDetails.willing_to_teach_courses} expectedSalary = {applicantDetails.expected_salary} preferredCurrency={applicantDetails.preferred_currency} handleDeleteApplicant={handleDeleteApplicant} handleHireTeacher={handleHireTeacher} />
           </Grid>
          
        </Grid>

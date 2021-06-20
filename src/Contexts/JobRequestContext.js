@@ -73,38 +73,40 @@ const JobRequestContextProvider = (props) => {
     }
   }
 
+  const handleFormatJSONtoSend = (data) => {
+    return {
+      name: data.name,
+      country: data.country,
+      email: data.email,
+      password: data.password,
+      phone_no: data.phone_no,
+      gender: data.gender,
+      intro: data.intro,
+      education: data.education,
+      course_code_1: data.courseCode1,
+      course_code_2: data.courseCode2,
+      teaching_experience: data.teaching_experience,
+      salary: data.salary,
+      preferred_currency: data.preferred_currency,
+      hiring_date: data.hiringDate,
+      resume: data.resume,
+    };
+  };
+
   async function handleHireTeacher(teacherInfo) {
     try {
-      const teacherData = {
-        name: applicantDetails.name,
-        country: applicantDetails.country,
-        email: applicantDetails.email,
-        phone_no: applicantDetails.phone_no,
-        gender: applicantDetails.gender,
-        intro: applicantDetails.intro,
-        preferred_currency: applicantDetails.preferred_currency,
-        resume: applicantDetails.resume,
-        teaching_experience: applicantDetails.teaching_experience,
-        education: applicantDetails.education,
-        ...teacherInfo,
-      };
-
       const resp = await axios({
-        method:"POST",
+        method: "POST",
         url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
-        data:teacherData
-      })
+        data: handleFormatJSONtoSend({ ...applicantDetails, ...teacherInfo }),
+      });
 
-      console.log(resp)
+      console.log(resp);
       handleLoadJobRequests();
       History.push("/admin/jobs");
+    } catch (error) {
+      alert(error);
     }
-    catch(error)
-    {
-      alert(error)
-    }
-
-  
   }
 
   useEffect(() => {
