@@ -2,7 +2,7 @@ import React, { useEffect, createContext, useState } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
 import Swal from "sweetalert2";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 const JobRequestContext = createContext();
 
@@ -13,7 +13,7 @@ const JobRequestContextProvider = (props) => {
   const [applicantDetails, setApplicantDetails] = useState({});
   const [willingToTeachCourses, setWillingToTeachCourses] = useState([]);
 
-  const History = useHistory()
+  const History = useHistory();
 
   async function handleLoadJobRequests() {
     setLoading(true);
@@ -47,54 +47,65 @@ const JobRequestContextProvider = (props) => {
       });
   }
 
-  async function handleDeleteApplicant (id){
+  async function handleDeleteApplicant(id) {
     try {
-      const resp = await axios.get(`https://mytutor-iad-backend.herokuapp.com/delete-applicant/${id}`);
-      
-      if(resp.data.code==="200"){
+      const resp = await axios.get(
+        `https://mytutor-iad-backend.herokuapp.com/delete-applicant/${id}`
+      );
+
+      if (resp.data.code === "200") {
         Swal.fire({
-          icon:"success",
-          title:"Success",
-          text:"Applicant Deleted Successfully!"
-        }).then(resp=>{
+          icon: "success",
+          title: "Success",
+          text: "Applicant Deleted Successfully!",
+        }).then((resp) => {
           handleLoadJobRequests();
-          History.push("/admin/jobs")
+          History.push("/admin/jobs");
           // window.location.reload();
-
-        })
-
-        
-        
+        });
       }
-    }catch(error){
+    } catch (error) {
       Swal.fire({
-        icon:"error",
-        title:"Error",
-        text:`${error.message}`
+        icon: "error",
+        title: "Error",
+        text: `${error.message}`,
+      });
+    }
+  }
+
+  async function handleHireTeacher(teacherInfo) {
+    try {
+      const teacher = {
+        name: applicantDetails.name,
+        country: applicantDetails.country,
+        email: applicantDetails.email,
+        phone_no: applicantDetails.phone_no,
+        gender: applicantDetails.gender,
+        intro: applicantDetails.intro,
+        preferred_currency: applicantDetails.preferred_currency,
+        resume: applicantDetails.resume,
+        teaching_experience: applicantDetails.teaching_experience,
+        education: applicantDetails.education,
+        ...teacherInfo,
+      };
+
+      const resp = await axios({
+        method:"POST",
+        url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
+        data:teacher
       })
+
+      console.log(resp)
+      handleLoadJobRequests();
+      History.push("/admin/jobs");
     }
-  }
-
-
-  async function handleHireTeacher (teacherInfo){
-
-    const teacher = {
-      name: applicantDetails.name,
-      country:applicantDetails.country,
-      email:applicantDetails.email,
-      phone_no:applicantDetails.phone_no,
-      gender:applicantDetails.gender,
-      intro:applicantDetails.intro,
-      preferred_currency:applicantDetails.preferred_currency,
-      resume:applicantDetails.resume,
-      teaching_experience:applicantDetails.teaching_experience,
-      education:applicantDetails.education,
-      ...teacherInfo,
+    catch(error)
+    {
+      alert(error)
     }
 
-    console.log(teacher)
+  
   }
-
 
   useEffect(() => {
     handleLoadJobRequests();
@@ -109,7 +120,7 @@ const JobRequestContextProvider = (props) => {
         applicantDetailsLoading,
         handleDeleteApplicant,
         handleLoadJobRequests,
-        handleHireTeacher
+        handleHireTeacher,
       }}
     >
       {props.children}

@@ -76,7 +76,8 @@ export default function HireApplicantForm(props) {
   const [hiredTeacherDetails, setHiredTeacherDetails] = useState({
     hiringDate: handleGetFormattedDate(),
     salary: "",
-    courseCode: "",
+    course_code_1: "",
+    course_code_2:"",
     email: props.email,
     password: "",
   });
@@ -113,10 +114,7 @@ export default function HireApplicantForm(props) {
       password,
     });
   };
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+ 
   return (
     <div>
       <Dialog
@@ -158,7 +156,7 @@ export default function HireApplicantForm(props) {
               />
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Course Code</InputLabel>
+              <InputLabel id="demo-simple-select-label">Teaching Course 1</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -166,7 +164,25 @@ export default function HireApplicantForm(props) {
                 onChange={(e) => {
                   setHiredTeacherDetails({
                     ...hiredTeacherDetails,
-                    courseCode: e.target.value,
+                    course_code_1: e.target.value,
+                  });
+                }}
+              >
+                <MenuItem value={"PY-01"}>PY-01</MenuItem>
+                <MenuItem value={"CSHARP-01"}>CSHARP-01</MenuItem>
+                <MenuItem value={"STATS-03"}>STATS-03</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Teaching Course 2</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={hiredTeacherDetails.courseCode}
+                onChange={(e) => {
+                  setHiredTeacherDetails({
+                    ...hiredTeacherDetails,
+                    course_code_2: e.target.value,
                   });
                 }}
               >
