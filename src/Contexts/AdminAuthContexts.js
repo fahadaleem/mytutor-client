@@ -1,9 +1,5 @@
 import React, { createContext, useState, useEffect } from "react"
 import firebase from "../Components/firebaseconfig"
-import AdminLogin from "../Screens/AdminLogin";
-import Dashboard from "../Screens/Dashboard"
-import Admin from "../Screens/Admin"
-
 
 const AuthContext = createContext();
 

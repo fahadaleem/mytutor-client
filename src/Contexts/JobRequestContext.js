@@ -1,8 +1,11 @@
-import React, { useEffect, createContext, useState } from "react";
+import React, { useEffect, createContext, useState, useContext } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
+import {TeacherAuthContext} from "./TeacherAuthContext"
+
+
 
 const JobRequestContext = createContext();
 
@@ -12,6 +15,7 @@ const JobRequestContextProvider = (props) => {
   const [applicantDetailsLoading, setApplicantDetailsLoading] = useState(false);
   const [applicantDetails, setApplicantDetails] = useState({});
   const [willingToTeachCourses, setWillingToTeachCourses] = useState([]);
+  const {handleSignup} = useContext(TeacherAuthContext)
 
   const History = useHistory();
 
@@ -94,11 +98,17 @@ const JobRequestContextProvider = (props) => {
   };
 
   async function handleHireTeacher(teacherInfo) {
+
+
     try {
+      const jsonData = handleFormatJSONtoSend({ ...applicantDetails, ...teacherInfo }) 
+
+      const isUserSignup =  handleSignup(jsonData.email, jsonData.password)
+
       const resp = await axios({
         method: "POST",
         url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
-        data: handleFormatJSONtoSend({ ...applicantDetails, ...teacherInfo }),
+        data: jsonData,
       });
 
       console.log(resp);
