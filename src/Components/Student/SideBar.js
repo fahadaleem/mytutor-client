@@ -4,7 +4,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { List, ListItem, ListItemIcon, ListItemText, Divider, Typography, Button } from '@material-ui/core';
 import BookIcon from '@material-ui/icons/Book';
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-
+import AllCourses from './AllCourses'
 
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -13,10 +13,10 @@ const drawerWidth = 240;
 
 
 const useStyles = makeStyles((theme) => ({
-    toolbar: theme.mixins.toolbar,
+     toolbar: theme.mixins.toolbar,
 
     custom:{
-        width: "190px !important",
+        
         height: "100% !important",
         backgroundColor: "lightBlue",
         drawerPaper: {
@@ -59,14 +59,12 @@ const SideBar = () => {
     const classes = useStyles();
 
 
-    return ( <div className={classes.custom} style={{height:"100%"}}>
-        <div className={classes.toolbar} />
+    return ( 
+      <div >
+        <div className={`${classes.toolbar} ${classes.custom}`} >
         <Typography variant="h6" color="initial" className={classes.heading}>Your Courses</Typography>
-
-        <Divider /> 
-        
+        <Divider />
         <List>
-
           {['Course1', 'Course2', 'Course3', 'Course4'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon><BookIcon/></ListItemIcon>
@@ -78,7 +76,7 @@ const SideBar = () => {
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -93,7 +91,11 @@ const SideBar = () => {
         >
           Logout
         </Button>
-      </div> );
+      </div> 
+      
+      </div>
+      
+      );
 }
  
 export default SideBar;
