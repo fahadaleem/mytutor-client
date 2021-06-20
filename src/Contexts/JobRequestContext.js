@@ -75,7 +75,7 @@ const JobRequestContextProvider = (props) => {
 
   async function handleHireTeacher(teacherInfo) {
     try {
-      const teacher = {
+      const teacherData = {
         name: applicantDetails.name,
         country: applicantDetails.country,
         email: applicantDetails.email,
@@ -92,7 +92,7 @@ const JobRequestContextProvider = (props) => {
       const resp = await axios({
         method:"POST",
         url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
-        data:teacher
+        data:teacherData
       })
 
       console.log(resp)

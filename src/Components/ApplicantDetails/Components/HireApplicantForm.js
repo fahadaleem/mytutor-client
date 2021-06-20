@@ -76,8 +76,8 @@ export default function HireApplicantForm(props) {
   const [hiredTeacherDetails, setHiredTeacherDetails] = useState({
     hiringDate: handleGetFormattedDate(),
     salary: "",
-    course_code_1: "",
-    course_code_2:"",
+    courseCode1: "",
+    courseCode2:"",
     email: props.email,
     password: "",
   });
@@ -164,7 +164,7 @@ export default function HireApplicantForm(props) {
                 onChange={(e) => {
                   setHiredTeacherDetails({
                     ...hiredTeacherDetails,
-                    course_code_1: e.target.value,
+                    courseCode1: e.target.value,
                   });
                 }}
               >
@@ -182,7 +182,7 @@ export default function HireApplicantForm(props) {
                 onChange={(e) => {
                   setHiredTeacherDetails({
                     ...hiredTeacherDetails,
-                    course_code_2: e.target.value,
+                    courseCode2: e.target.value,
                   });
                 }}
               >
