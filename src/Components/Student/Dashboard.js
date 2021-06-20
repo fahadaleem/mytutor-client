@@ -272,16 +272,21 @@ export default function PrimarySearchAppBar() {
       {renderMobileMenu}
       {renderMenu}
     
-              
+            
       
-      
+
     
     </div>
-    <SideBar/>
+    <div style={{display: "block"}}>
+    <SideBar />
     
-        <div id="courses">
+    </div>  
+    <div id="courses" style={{display: "block"}}>
+              
               <Container maxWidth="xl">
-                    <AllCourses/>
+              
+              <AllCourses/>          
+
               </Container>
 
         </div>
