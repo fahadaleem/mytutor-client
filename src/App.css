@@ -14,7 +14,9 @@
 
 
 
-
+.my-swal {
+  z-index: 10000 !important;
+}
 
 .colors {
   /* main color */

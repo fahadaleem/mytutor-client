@@ -111,9 +111,18 @@ const JobRequestContextProvider = (props) => {
         data: jsonData,
       });
 
-      console.log(resp);
-      handleLoadJobRequests();
-      History.push("/admin/jobs");
+      Swal.fire({
+        icon:"success",
+        title:"Teacher Hired!",
+        text:"Teacher account created and hired succesfully.",
+        customClass:{
+          container:"my-swal"
+        }
+      }).then(rep=>{
+        handleLoadJobRequests();
+        History.push("/admin/jobs");
+      })
+      
     } catch (error) {
       alert(error);
     }
