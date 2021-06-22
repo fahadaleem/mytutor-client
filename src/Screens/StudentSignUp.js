@@ -34,7 +34,10 @@ const useStyle = makeStyles(theme => ({
         // marginBottom: "20px",
         padding: "70px 50px",
         borderRadius: "15px",
-        boxShadow: '0 6px 8px 0px rgba(0,0,0,0.2)'
+        boxShadow: '0 6px 8px 0px rgba(0,0,0,0.2)',
+        [theme.breakpoints.down('xs')]:{
+        padding: "70px 15px",
+        }
 
         
 
