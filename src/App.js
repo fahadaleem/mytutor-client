@@ -11,6 +11,7 @@ import StudentLogin from "./Screens/StudentLogin";
 import CombineContext from "./Contexts/CombineContext";
 import StudentDashboard from "./Screens/StudentDashboard";
 import Page404 from "./Screens/Page404";
+import NoInternetError from "./Screens/NoInternetError"
 
 function App() {
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
@@ -56,7 +57,7 @@ function App() {
           </Switch>
         </CombineContext>
       ) : (
-        <h1>Offline</h1>
+        <NoInternetError />
       )}
     </>
   );
