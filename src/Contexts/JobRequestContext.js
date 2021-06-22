@@ -128,9 +128,9 @@ const JobRequestContextProvider = (props) => {
     }
   }
 
-  useEffect(() => {
-    handleLoadJobRequests();
-  }, []);
+  // useEffect(() => {
+  //   handleLoadJobRequests();
+  // }, []);
   return (
     <JobRequestContext.Provider
       value={{
