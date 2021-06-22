@@ -83,12 +83,7 @@ const useStyles = makeStyles((theme) => ({
 export default function JobRequest(props) {
   const classes = useStyles();
 
-  const {id, gender, name, appliedDate, teachingExperience, country , handleLoadJobRequests, handleDeleteApplicant} = props;
-
-  useEffect(()=>{
-    console.log("fahad")
-  },[])
-
+  const {id, gender, name, appliedDate, teachingExperience, country , handleLoadJobRequests, handleDeleteApplicant, handleHireTeacher} = props;
 
   const getNumberOfDays = (date) => {
     if (typeof date !== 'object') {
