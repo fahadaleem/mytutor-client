@@ -1,11 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles, Typography, Select, MenuItem, InputLabel, Menu, FormControl } from "@material-ui/core";
+import {
+  makeStyles,
+  Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+  Menu,
+  FormControl,
+} from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import {AppAuthContext} from "../../Contexts/AuthContext"
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -38,6 +47,9 @@ const useStyle = makeStyles((theme) => ({
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#2F1793 !important",
     },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "#2F1793 !important",
+    },
     width: "100%",
   },
   submitBtn: {
@@ -49,10 +61,10 @@ const useStyle = makeStyles((theme) => ({
     },
     align: "center",
   },
-  inputLabel: {
-    color: "#2F1793 !important",
-    fontWeight: "500",
-  },
+  // inputLabel: {
+  //   color: "#2F1793 !important",
+  //   fontWeight: "500",
+  // },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -60,11 +72,12 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const StudentSignUpForm = () => {
+  const classes = useStyle();
 
-  const classes = useStyle()
+  const {handleValidateSignup} = useContext(AppAuthContext)
+  const [errors, setErrors] = useState([])
 
-
-  const [studentData, setStudentData] = useState({
+  const [data, setData] = useState({
     fullName: "",
     fatherName: "",
     CNIC: "",
@@ -74,8 +87,16 @@ const StudentSignUpForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-
   });
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    const errorsArr = handleValidateSignup(data);
+    setErrors(errorsArr);
+  }
+
+ 
+
   return (
     <div>
       <Typography
@@ -87,31 +108,35 @@ const StudentSignUpForm = () => {
       >
         Sign Up Here
       </Typography>
-      <form>
+      <form onSubmit = {handleSubmit}>
+        <FormControl error = {true} fullWidth>
         <TextField
           id="name"
           label="Full Name"
           variant="outlined"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.fullName}
+          error={errors.includes('fullName')}
+          value={data.fullName}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               fullName: e.target.value,
             });
           }}
         ></TextField>
+        </FormControl>
         <TextField
           id="fatherName"
           label="Father's Name"
           variant="outlined"
+          error={errors.includes('fatherName')}
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.fatherName}
+          value={data.fatherName}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               fatherName: e.target.value,
             });
           }}
@@ -122,10 +147,11 @@ const StudentSignUpForm = () => {
           variant="outlined"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.CNIC}
+          error={errors.includes('CNIC')}
+          value={data.CNIC}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               CNIC: e.target.value,
             });
           }}
@@ -138,10 +164,11 @@ const StudentSignUpForm = () => {
           type="number"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.age}
+          value={data.age}
+          error={errors.includes('age')}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               age: e.target.value,
             });
           }}
@@ -151,30 +178,28 @@ const StudentSignUpForm = () => {
           id="gender"
           select
           label="Gender"
+          error={errors.includes('gender')}
           variant="outlined"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.gender}
+          value={data.gender}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               gender: e.target.value,
             });
           }}
         >
-
           <MenuItem key={"1"} value={"male"}>
             Male
-              </MenuItem>
+          </MenuItem>
           <MenuItem key={"2"} value={"female"}>
             Female
-              </MenuItem>
+          </MenuItem>
           <MenuItem key={"3"} value={"other"}>
             Other
-              </MenuItem>
-
+          </MenuItem>
         </TextField>
-
 
         <TextField
           id="institute"
@@ -182,10 +207,11 @@ const StudentSignUpForm = () => {
           variant="outlined"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.currentInstitute}
+          error={errors.includes('currentInstitute')}
+          value={data.currentInstitute}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               currentInstitute: e.target.value,
             });
           }}
@@ -196,10 +222,11 @@ const StudentSignUpForm = () => {
           variant="outlined"
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
-          value={studentData.email}
+          value={data.email}
+          error={errors.includes('email')}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               email: e.target.value,
             });
           }}
@@ -208,6 +235,7 @@ const StudentSignUpForm = () => {
           id="password"
           label="Password"
           variant="outlined"
+          error={errors.includes('password')}
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
           inputProps={{
@@ -217,10 +245,10 @@ const StudentSignUpForm = () => {
             },
           }}
           type="password"
-          value={studentData.password}
+          value={data.password}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               password: e.target.value,
             });
           }}
@@ -229,6 +257,7 @@ const StudentSignUpForm = () => {
           id="cPassword"
           label="Confirm Password"
           variant="outlined"
+          error={errors.includes('confirmPassword')}
           InputLabelProps={{ className: classes.inputLabel }}
           className={`${classes.textField} ${classes.customFont}`}
           inputProps={{
@@ -238,15 +267,14 @@ const StudentSignUpForm = () => {
             },
           }}
           type="password"
-          value={studentData.confirmPassword}
+          value={data.confirmPassword}
           onChange={(e) => {
-            setStudentData({
-              ...studentData,
+            setData({
+              ...data,
               confirmPassword: e.target.value,
             });
           }}
         ></TextField>
-
 
         <Button
           variant="contained"
