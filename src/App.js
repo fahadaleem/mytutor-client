@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AppRoutes from "./Routes";
 import CombineContext from "./Contexts/CombineContext";
 
-import Error from "./Screens/NoInternetError";
+import NoInternetError from "./Screens/NoInternetError";
 
 function App() {
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
@@ -37,7 +37,7 @@ function App() {
           <AppRoutes />
         </CombineContext>
       ) : (
-        <Error />
+        <NoInternetError />
       )}
     </>
   );
