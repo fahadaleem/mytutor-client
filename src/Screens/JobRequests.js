@@ -1,12 +1,17 @@
-import React, { useContext } from "react";
-import { Typography, Container, makeStyles } from "@material-ui/core";
+import React, {useContext, useEffect} from "react";
+import {Typography, Container, makeStyles} from "@material-ui/core";
 import JobRequest from "../Components/JobRequests/Request";
-import { JobRequestContext } from "../Contexts/JobRequestContext";
+import {JobRequestContext} from "../Contexts/JobRequestContext";
 import Skeleton from "@material-ui/lab/Skeleton";
 import LoadingSkeleton from "../Components/JobRequests/Component/LoadingSkeleton";
 
 const JobRequests = () => {
-  const { jobRequests, loading, handleFetchApplicantDetails,handleDeleteApplicant, handleHireTeacher } = useContext(JobRequestContext);
+  const {
+    jobRequests,
+    loading,
+    handleFetchApplicantDetails,
+    handleDeleteApplicant,
+  } = useContext(JobRequestContext);
 
   return (
     <Container maxWidth="lg">
@@ -20,13 +25,13 @@ const JobRequests = () => {
           return (
             <JobRequest
               key={element.id}
-              id = {element.id}
+              id={element.id}
               name={element.name}
               country={element.country}
               appliedDate={element.applied_date}
               teachingExperience={element.teaching_experience}
               gender={element.gender}
-              handleFetchApplicantDetails = {handleFetchApplicantDetails}
+              handleFetchApplicantDetails={handleFetchApplicantDetails}
               handleDeleteApplicant={handleDeleteApplicant}
             />
           );
