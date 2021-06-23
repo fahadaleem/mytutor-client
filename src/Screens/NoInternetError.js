@@ -1,5 +1,5 @@
 import React from "react";
-import NoInternetErrorImage from "../Assests/internet-issue-error.jpg";
+import NoInternetErrorImage from "../Assests/internet-issue-error.png";
 import {
   Container,
   makeStyles,
