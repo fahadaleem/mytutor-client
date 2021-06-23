@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {useState, useContext, useEffect} from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import {AppAuthContext} from "../../Contexts/AuthContext"
+import {AppAuthContext} from "../../Contexts/AuthContext";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -74,8 +74,8 @@ const useStyle = makeStyles((theme) => ({
 const StudentSignUpForm = () => {
   const classes = useStyle();
 
-  const {handleValidateSignup} = useContext(AppAuthContext)
-  const [errors, setErrors] = useState([])
+  const {handleValidateSignup, handleRemoveErrors} = useContext(AppAuthContext);
+  const [errors, setErrors] = useState([]);
 
   const [data, setData] = useState({
     fullName: "",
@@ -89,13 +89,16 @@ const StudentSignUpForm = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     const errorsArr = handleValidateSignup(data);
     setErrors(errorsArr);
-  }
+  };
 
- 
+  useEffect(() => {
+    const removedError = handleRemoveErrors(data, errors);
+    setErrors(removedError);
+  }, [data]);
 
   return (
     <div>
@@ -104,34 +107,34 @@ const StudentSignUpForm = () => {
         color="initial"
         align="center"
         className={`${classes.customFont}`}
-        style={{ marginBottom: "30px" }}
+        style={{marginBottom: "30px"}}
       >
         Sign Up Here
       </Typography>
-      <form onSubmit = {handleSubmit}>
-        <FormControl error = {true} fullWidth>
-        <TextField
-          id="name"
-          label="Full Name"
-          variant="outlined"
-          InputLabelProps={{ className: classes.inputLabel }}
-          className={`${classes.textField} ${classes.customFont}`}
-          error={errors.includes('fullName')}
-          value={data.fullName}
-          onChange={(e) => {
-            setData({
-              ...data,
-              fullName: e.target.value,
-            });
-          }}
-        ></TextField>
+      <form onSubmit={handleSubmit}>
+        <FormControl error={true} fullWidth>
+          <TextField
+            id="name"
+            label="Full Name"
+            variant="outlined"
+            InputLabelProps={{className: classes.inputLabel}}
+            className={`${classes.textField} ${classes.customFont}`}
+            error={errors.includes("fullName")}
+            value={data.fullName}
+            onChange={(e) => {
+              setData({
+                ...data,
+                fullName: e.target.value,
+              });
+            }}
+          ></TextField>
         </FormControl>
         <TextField
           id="fatherName"
           label="Father's Name"
           variant="outlined"
-          error={errors.includes('fatherName')}
-          InputLabelProps={{ className: classes.inputLabel }}
+          error={errors.includes("fatherName")}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           value={data.fatherName}
           onChange={(e) => {
@@ -145,9 +148,9 @@ const StudentSignUpForm = () => {
           id="cnic"
           label="CNIC"
           variant="outlined"
-          InputLabelProps={{ className: classes.inputLabel }}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
-          error={errors.includes('CNIC')}
+          error={errors.includes("CNIC")}
           value={data.CNIC}
           onChange={(e) => {
             setData({
@@ -162,10 +165,10 @@ const StudentSignUpForm = () => {
           label="Age"
           variant="outlined"
           type="number"
-          InputLabelProps={{ className: classes.inputLabel }}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           value={data.age}
-          error={errors.includes('age')}
+          error={errors.includes("age")}
           onChange={(e) => {
             setData({
               ...data,
@@ -178,9 +181,9 @@ const StudentSignUpForm = () => {
           id="gender"
           select
           label="Gender"
-          error={errors.includes('gender')}
+          error={errors.includes("gender")}
           variant="outlined"
-          InputLabelProps={{ className: classes.inputLabel }}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           value={data.gender}
           onChange={(e) => {
@@ -205,9 +208,9 @@ const StudentSignUpForm = () => {
           id="institute"
           label="Current Institute"
           variant="outlined"
-          InputLabelProps={{ className: classes.inputLabel }}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
-          error={errors.includes('currentInstitute')}
+          error={errors.includes("currentInstitute")}
           value={data.currentInstitute}
           onChange={(e) => {
             setData({
@@ -220,10 +223,10 @@ const StudentSignUpForm = () => {
           id="email"
           label="Email Address"
           variant="outlined"
-          InputLabelProps={{ className: classes.inputLabel }}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           value={data.email}
-          error={errors.includes('email')}
+          error={errors.includes("email")}
           onChange={(e) => {
             setData({
               ...data,
@@ -235,8 +238,8 @@ const StudentSignUpForm = () => {
           id="password"
           label="Password"
           variant="outlined"
-          error={errors.includes('password')}
-          InputLabelProps={{ className: classes.inputLabel }}
+          error={errors.includes("password")}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           inputProps={{
             autocomplete: "new-password",
@@ -257,8 +260,8 @@ const StudentSignUpForm = () => {
           id="cPassword"
           label="Confirm Password"
           variant="outlined"
-          error={errors.includes('confirmPassword')}
-          InputLabelProps={{ className: classes.inputLabel }}
+          error={errors.includes("confirmPassword")}
+          InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
           inputProps={{
             autocomplete: "new-password",

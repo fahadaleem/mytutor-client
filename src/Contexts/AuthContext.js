@@ -1,38 +1,35 @@
-import React, {createContext} from "react"
+import React, {createContext} from "react";
 
-const AppAuthContext = createContext()
-
-
-const AppAuthContextProvider = (props)=>{
+const AppAuthContext = createContext();
 
 
-    const handleValidateSignup = (signupData)=>{
-        
-        const signupFields = Object.keys(signupData);
-        let isError ;
-        const errors = [];
-        signupFields.forEach((elem, index)=>{
-            if(signupData[elem]==="")
-            {
-               errors.push(elem)
-            }
-        })
-
-        return errors
-        
-    }
-
-  
-
-    return (
-        <AppAuthContext.Provider value={{handleValidateSignup}}>
-            {props.children}
-        </AppAuthContext.Provider>
-    )
+const handleSignupForm  = ()=>{
+    
 }
 
+const AppAuthContextProvider = (props) => {
+  const handleValidate = (data) => {
+    const fields = Object.keys(data);
+    const errors = fields.filter((elem, index) => {
+      return data[elem] === "";
+    });
 
-export {
-    AppAuthContext,
-    AppAuthContextProvider
-}
+    return errors;
+  };
+
+  const handleRemoveErrors = (state, errors) => {
+    return errors.filter((elem) => {
+      return state[elem] === "";
+    });
+  };
+
+  return (
+    <AppAuthContext.Provider
+      value={{handleValidateSignup: handleValidate, handleRemoveErrors}}
+    >
+      {props.children}
+    </AppAuthContext.Provider>
+  );
+};
+
+export {AppAuthContext, AppAuthContextProvider};
