@@ -14,6 +14,9 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Swal from "sweetalert2"
+
+
 import {AppAuthContext} from "../../Contexts/AuthContext";
 
 const useStyle = makeStyles((theme) => ({
@@ -74,12 +77,12 @@ const useStyle = makeStyles((theme) => ({
 const StudentSignUpForm = () => {
   const classes = useStyle();
 
-  const {handleValidateSignup, handleRemoveErrors} = useContext(AppAuthContext);
+  const {handleValidateSignup, handleRemoveErrors,handleCreateAccount} = useContext(AppAuthContext);
   const [errors, setErrors] = useState([]);
 
   const [data, setData] = useState({
     fullName: "",
-    fatherName: "",
+    guardianName: "",
     CNIC: "",
     age: "",
     gender: "",
@@ -93,6 +96,43 @@ const StudentSignUpForm = () => {
     e.preventDefault();
     const errorsArr = handleValidateSignup(data);
     setErrors(errorsArr);
+    if(errorsArr.length==0)
+    {
+      handleCreateAccount(data).then(resp=>{
+        if(resp.data.code==="200")
+      {
+          Swal.fire({
+              icon:"success",
+              title:"Account Created",
+              text:"Your student account is created successfully!"
+          }).then(resp=>{
+            setData({
+              fullName: "",
+              guardianName: "",
+              CNIC: "",
+              age: "",
+              gender: "",
+              currentInstitute: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            })
+          })
+      }
+      else if(resp.data.code==="201")
+      {
+          Swal.fire({
+              icon:"error",
+              title:"Error",
+              text:"This account already exist!"
+          }).then(resp=>{
+
+          })
+      }
+      })
+      
+      
+    }
   };
 
   useEffect(() => {
@@ -130,17 +170,17 @@ const StudentSignUpForm = () => {
           ></TextField>
         </FormControl>
         <TextField
-          id="fatherName"
-          label="Father's Name"
+          id="guardian-name"
+          label="Guardian's Name"
           variant="outlined"
-          error={errors.includes("fatherName")}
+          error={errors.includes("guardianName")}
           InputLabelProps={{className: classes.inputLabel}}
           className={`${classes.textField} ${classes.customFont}`}
-          value={data.fatherName}
+          value={data.guardianName}
           onChange={(e) => {
             setData({
               ...data,
-              fatherName: e.target.value,
+              guardianName: e.target.value,
             });
           }}
         ></TextField>

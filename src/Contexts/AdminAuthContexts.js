@@ -1,110 +1,136 @@
-import React, { createContext, useState, useEffect } from "react"
-import firebase from "../Components/firebaseconfig"
+import React, { createContext, useState, useEffect } from "react";
+import firebase from "../Components/firebaseconfig";
+import baseUrl from "../mytutor-backend";
+import axios from "axios";
 
 const AuthContext = createContext();
 
-const AuthContextProvider = (props)=>{
+const AuthContextProvider = (props) => {
+  // to check if the user is login or not
+  const [isLogin, setIsLogin] = useState(true);
 
-    // to check if the user is login or not
-    const [isLogin, setIsLogin] = useState(true);
+  // used for loader, it runs till the response comes from the firebase
+  const [loading, setLoading] = useState(null);
 
-    // used for loader, it runs till the response comes from the firebase
-    const [loading, setLoading] = useState(null);
+  // this is used for error checking
+  const [error, setError] = useState({
+    isError: false,
+    errorMessage: "",
+    errorCode: 0,
+  });
 
-    // this is used for error checking
-    const [error, setError] = useState({
-      isError: false,
-      errorMessage: "",
-      errorCode: 0,
-    });
+  // function that will execute when the form is submitted
+  const handleLogin = (credentials) => {
+    setLoading(true);
 
-  
-    // function that will execute when the form is submitted
-    const handleLogin = (credentials) => {
-      setLoading(true);
-  
-      if (credentials.email === "" && credentials.password === "") {
-        setError({
-          isError: true,
-          errorMessage: "Please Enter Email and Password",
-          errorCode: 104,
-        });
-        setLoading(false);
-  
-        return false;
-      } else if (credentials.email === "") {
-        setError({
-          isError: true,
-          errorMessage: "Please Enter Email",
-          errorCode: 102,
-        });
-        setLoading(false);
-  
-        return false;
-      } else if (credentials.password === "") {
-        setError({
-          isError: true,
-          errorMessage: "Please Enter Password",
-          errorCode: 103,
-        });
-        setLoading(false);
-  
-        return false;
-      } else if (credentials.email && credentials.password) {
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(credentials.email, credentials.password)
-          .then((data) => {
-              setLoading(false)
-              setIsLogin(true)
-              if(credentials.rememberMe)
-              {
-                  window.localStorage.setItem("isLogin", true)
-              }
-          })
-          .catch((error) => {
+    if (credentials.email === "" && credentials.password === "") {
+      setError({
+        isError: true,
+        errorMessage: "Please Enter Email and Password",
+        errorCode: 104,
+      });
+      setLoading(false);
+
+      return false;
+    } else if (credentials.email === "") {
+      setError({
+        isError: true,
+        errorMessage: "Please Enter Email",
+        errorCode: 102,
+      });
+      setLoading(false);
+
+      return false;
+    } else if (credentials.password === "") {
+      setError({
+        isError: true,
+        errorMessage: "Please Enter Password",
+        errorCode: 103,
+      });
+      setLoading(false);
+
+      return false;
+    } else if (credentials.email && credentials.password) {
+      const resp = axios
+        .get(`${baseUrl}//get-all-admin?email=${credentials.email}`)
+        .then((resp) => {
+          if (resp.data.code === "201") {
             setLoading(false);
             setError({
               isError: true,
-              errorMessage: error.message,
-              errorCode: 101,
+              errorMessage: "Email does not exist!",
+              errorCode: 102,
             });
-          });
-      }
-    };
+          } else if (resp.data.code === "200") {
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(
+                credentials.email,
+                credentials.password
+              )
+              .then((data) => {
+                setLoading(false);
+                setIsLogin(true);
+                if (credentials.rememberMe) {
+                  window.localStorage.setItem("isLogin", true);
+                }
+              })
+              .catch((error) => {
+                setLoading(false);
+                setError({
+                  isError: true,
+                  errorMessage: error.message,
+                  errorCode: 101,
+                });
+              });
+          }
 
-    const handleLogOut = ()=>{
-      setIsLogin(false)
-      window.localStorage.setItem("isLogin", false)
+          console.log(resp);
+        })
+        .catch((error) => console.log(error));
     }
+  };
 
-    const handleResetPassword = (emailAddress)=>{
-        // login to reset the password.
-        firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
-          // Email sent.
-          alert("Email has be sent to your email!")
-        }).catch(function(error) {
-          alert(error.message)
-          // An error happened.
-        });
-    }
-  
+  const handleLogOut = () => {
+    setIsLogin(false);
+    window.localStorage.setItem("isLogin", false);
+  };
 
-    useEffect(() => {
-        const checkLogin = window.localStorage.getItem("isLogin")
-        setIsLogin(JSON.parse(checkLogin))
-    }, []);
+  const handleResetPassword = (emailAddress) => {
+    // login to reset the password.
+    firebase
+      .auth()
+      .sendPasswordResetEmail(emailAddress)
+      .then(function () {
+        // Email sent.
+        alert("Email has be sent to your email!");
+      })
+      .catch(function (error) {
+        alert(error.message);
+        // An error happened.
+      });
+  };
 
+  useEffect(() => {
+    const checkLogin = window.localStorage.getItem("isLogin");
+    setIsLogin(JSON.parse(checkLogin));
+  }, []);
 
+  return (
+    <AuthContext.Provider
+      value={{
+        handleSubmit: handleLogin,
+        loading,
+        error,
+        handleSetError: setError,
+        isLogin,
+        handleLogOut,
+        handleResetPassword,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
 
-    return (
-        <AuthContext.Provider value={{handleSubmit:handleLogin, loading, error, handleSetError:setError, isLogin, handleLogOut, handleResetPassword }}>
-            {props.children}
-        </AuthContext.Provider>
-    )
-}
-
-export {
-    AuthContext, AuthContextProvider
-}
-
+export { AuthContext, AuthContextProvider };

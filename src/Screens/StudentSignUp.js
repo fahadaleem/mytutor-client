@@ -9,6 +9,9 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import StudentSignUpForm from "../Components/StudentSignupForm/SignupForm";
 import Image from "../Assests/create-account.png";
 import Navbar from "../Components/Navbar/MainNav";
+import { AppAuthContext } from "../Contexts/AuthContext";
+import SimpleBackdrop from "../Components/Utilities/BackdropLoader"
+
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -82,6 +85,7 @@ const useStyle = makeStyles((theme) => ({
 const StudentSignUp = () => {
   const classes = useStyle();
 
+  const {loading} = useContext(AppAuthContext)
   return (
     <div className={classes.root}>
       <Navbar />
