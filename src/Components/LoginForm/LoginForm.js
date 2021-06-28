@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import {
@@ -16,7 +15,9 @@ import {
   Radio,
 } from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { AppAuthContext } from "../../Contexts/AuthContext";
+import Alert from "@material-ui/lab/Alert";
+
 
 const useStyle = makeStyles((theme) => ({
   button: {
@@ -78,18 +79,29 @@ const LoginForm = () => {
   const classes = useStyle();
 
   const [rememberMe, setRememberMe] = useState(false);
+  const {handleLogin, loginErrors} = useContext(AppAuthContext)
 
-  const [studentData, setStudentData] = useState({
+  const [loginCredentials, setLoginCredentials] = useState({
     email: "",
     password: "",
+    accountType:"",
   });
 
   const handleToggleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
 
+  const handleSubmit = (e)=>{
+      e.preventDefault();
+      handleLogin({
+          ...loginCredentials,
+          rememberMe
+      });
+  }
+
   return (
     <Container maxWidth="xs" className={classes.mainContainer}>
+        <form onSubmit={handleSubmit}>
       <Typography
         variant="h3"
         color="initial"
@@ -99,22 +111,29 @@ const LoginForm = () => {
       >
         Login Here!
       </Typography>
+      <Box my={1}>
+            {loginErrors.isError ? (
+              <Alert severity="error">{loginErrors.errorMessage}</Alert>
+            ) : (
+              ""
+            )}
+          </Box>
       <TextField
         id="user-email"
         label="Email Address"
         variant="outlined"
         InputLabelProps={{ className: classes.inputLabel }}
         className={`${classes.textField} ${classes.customFont}`}
-        value={studentData.email}
+        value={loginCredentials.email}
         inputProps={{
-            autocomplete: "new-user-password",
-            form: {
-              autocomplete: "off",
-            },
-          }}
+          autocomplete: "new-user-password",
+          form: {
+            autocomplete: "off",
+          },
+        }}
         onChange={(e) => {
-          setStudentData({
-            ...studentData,
+          setLoginCredentials({
+            ...loginCredentials,
             email: e.target.value,
           });
         }}
@@ -127,10 +146,10 @@ const LoginForm = () => {
         className={`${classes.textField} ${classes.customFont}`}
         autoComplete="off"
         type="password"
-        value={studentData.password}
+        value={loginCredentials.password}
         onChange={(e) => {
-          setStudentData({
-            ...studentData,
+          setLoginCredentials({
+            ...loginCredentials,
             password: e.target.value,
           });
         }}
@@ -138,7 +157,10 @@ const LoginForm = () => {
       <FormLabel component="p" style={{ marginTop: "15px" }}>
         Account Type:
       </FormLabel>
-      <FormControl component="div">
+      <FormControl component="div" onChange={(e)=>setLoginCredentials({
+          ...loginCredentials, 
+            accountType:e.target.value
+      })}>
         <RadioGroup aria-label="" name="account-type">
           <FormControlLabel
             value="student"
@@ -188,7 +210,9 @@ const LoginForm = () => {
       >
         Login
       </Button>
+      </form>
     </Container>
+    
   );
 };
 

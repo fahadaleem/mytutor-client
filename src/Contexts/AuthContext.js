@@ -9,6 +9,53 @@ const handleSignupForm = () => {};
 
 const AppAuthContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
+  const [loginErrors, setLoginErrors] = useState({
+    isError:false,
+    errorCode:'',
+    errorMessage:''
+  })
+  const [isUserLogin, setIsUserLogin] = useState(false)
+  const handleValidateLogin = (credentials)=>{
+    if(credentials.email==="" && credentials.password==="" )
+    {
+      setLoginErrors({
+        isError:true,
+        errorCode:201,
+        errorMessage:'Please Enter Email and Password'
+      })
+    }
+    else if(credentials.email==="")
+    {
+      setLoginErrors({
+        isError:true,
+        errorCode:202,
+        errorMessage:'Please Enter Email'
+      })
+    }
+    else if(credentials.password==="")
+    {
+      setLoginErrors({
+        isError:true,
+        errorCode:203,
+        errorMessage:'Please Enter Password'
+      })
+    }
+    else if(credentials.accountType==="")
+    {
+      setLoginErrors({
+        isError:true,
+        errorCode:204,
+        errorMessage:'Please Enter Your Account Type'
+      })
+    }
+    else {
+      setLoginErrors({
+        isError:false,
+        errorCode:200,
+      })
+    }
+  }
+
   const handleValidate = (data) => {
     const fields = Object.keys(data);
     const errors = fields.filter((elem, index) => {
@@ -58,12 +105,66 @@ const AppAuthContextProvider = (props) => {
     }
   }
 
+
+  async function handleLogin (credentials){
+    handleValidateLogin(credentials)
+    if(loginErrors.errorCode===200)
+    {
+      if(credentials.accountType==='student')
+      {
+        try {
+          const resp = await axios.get(`${baseUrl}/get-all-students?email=${credentials.email}`)
+          console.log(resp)
+          if(resp.data.code==='201')
+          {
+            setLoginErrors({
+              isError:true, 
+              errorCode:202,
+              errorMessage:'Email Not Found'
+            })
+          }
+          else if(resp.data.code==='200')
+          {
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(
+                credentials.email,
+                credentials.password
+              )
+              .then((data) => {
+                setLoading(false);
+                setIsUserLogin(true);
+                if (credentials.rememberMe) {
+                  window.localStorage.setItem("isLogin", true);
+
+                  // after login route to the page here
+                }
+              })
+              .catch((error) => {
+                setLoading(false);
+                setLoginErrors({
+                  isError: true,
+                  errorMessage: error.message,
+                  errorCode: 101,
+                });
+              });
+          }
+        }
+        catch(error){
+          console.log(error)
+        }
+      }
+    }
+  }
   return (
     <AppAuthContext.Provider
       value={{
         handleValidateSignup: handleValidate,
         handleRemoveErrors,
         handleCreateAccount,
+        handleLogin,
+        loginErrors,
+        isUserLogin,
         loading,
       }}
     >
