@@ -5,7 +5,7 @@ import TeacherProfile from "./Screens/TeacherProfile";
 import ResetPassword from "./Screens/ResetPassword";
 import ApplyForJob from "./Screens/ApplyForJob";
 import StudentSignUp from "./Screens/StudentSignUp";
-import StudentLogin from "./Screens/StudentLogin";
+import Login from "./Screens/Login";
 import StudentDashboard from "./Screens/StudentDashboard";
 import Page404 from "./Screens/Page404";
 const AppRoutes = () => {
@@ -16,7 +16,7 @@ const AppRoutes = () => {
       <Route path="/teacher" component={TeacherProfile} />
       <Route path="/resetpassword" component={ResetPassword} />
       <Route path="/careers" component={ApplyForJob} />
-      <Route path="/login" component={StudentLogin} />
+      <Route path="/login" component={Login} />
       <Route path="/signup" component={StudentSignUp} />
       <Route path="/student" component={StudentDashboard} />
 
