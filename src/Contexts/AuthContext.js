@@ -1,19 +1,14 @@
-import React, {createContext, useState} from "react";
-import axios from "axios"
-import baseUrl from "../mytutor-backend"
-
+import React, { createContext, useState } from "react";
+import axios from "axios";
+import baseUrl from "../mytutor-backend";
+import firebase from "../Components/firebaseconfig";
 
 const AppAuthContext = createContext();
 
-
-const handleSignupForm  = ()=>{
-    
-}
+const handleSignupForm = () => {};
 
 const AppAuthContextProvider = (props) => {
-
-
-  const [loading, setLoading] = useState(false)  
+  const [loading, setLoading] = useState(false);
   const handleValidate = (data) => {
     const fields = Object.keys(data);
     const errors = fields.filter((elem, index) => {
@@ -29,41 +24,52 @@ const AppAuthContextProvider = (props) => {
     });
   };
 
+  async function handleCreateAccount(data) {
+    setLoading(true);
+    const studentData = {
+      full_name: data.fullName,
+      guardian_name: data.guardianName,
+      gender: data.gender,
+      CNIC: data.CNIC,
+      age: data.age,
+      current_institute: data.currentInstitute,
+      email: data.email,
+    };
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: `${baseUrl}/add-new-student`,
+        data: studentData,
+      });
 
-  async function handleCreateAccount (data){
-        setLoading(true)
-      const studentData = {
-          full_name:data.fullName,
-          guardian_name:data.guardianName,
-          gender: data.gender,
-          CNIC: data.CNIC,
-          age: data.age,
-          current_institute: data.currentInstitute,
-          email: data.email
-      }
-      try {
-        const resp = await axios({
-            method:'POST',
-            url: `${baseUrl}/add-new-student`,
-            data:studentData
+      const response = firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email, data.password)
+        .then((userCredential) => {
+          return resp;
         })
-        setLoading(false)
-        return resp
-       
-      }
-      catch (error)
-      {
-          console.log(error)
-      }
+        .catch((error) => {
+          return resp;
+        });
+      setLoading(false);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <AppAuthContext.Provider
-      value={{handleValidateSignup: handleValidate, handleRemoveErrors, handleCreateAccount, loading}}
+      value={{
+        handleValidateSignup: handleValidate,
+        handleRemoveErrors,
+        handleCreateAccount,
+        loading,
+      }}
     >
       {props.children}
     </AppAuthContext.Provider>
   );
 };
 
-export {AppAuthContext, AppAuthContextProvider};
+export { AppAuthContext, AppAuthContextProvider };

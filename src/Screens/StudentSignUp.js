@@ -109,6 +109,7 @@ const StudentSignUp = () => {
             <StudentSignUpForm />
           </Grid>
         </Grid>
+        {loading&&<SimpleBackdrop />}
       </Container>
     </div>
   );
