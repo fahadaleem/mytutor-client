@@ -1,18 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Card, CardActions, CardContent,Button, Typography} from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
+import {Card, CardActions, CardContent,Button, Typography, makeStyles} from '@material-ui/core';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme=>({
   root: {
     minWidth: 275,
     backgroundColor:"#29524A",
     padding:"40px 25px",
     margin:"10px 0",
     borderRadius:"10px",
-    marginRight:"15px"
+    marginRight:"15px",
+    [theme.breakpoints.down('xs')]:{
+      marginRight:0
+  }
+},
 
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -30,7 +33,7 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-});
+}));
 
 export default function TotalTeacherCard() {
   const classes = useStyles();

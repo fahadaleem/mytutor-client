@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
+import {makeStyles} from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,6 +17,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import Button from "@material-ui/core/Button";
+import Filter from "./Filter"
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -123,25 +125,26 @@ const rows = [
   createData(16, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
 ];
 
-const useStyles2 = makeStyles({
-  table: {
-    minWidth: 1000,
-    '& tbody tr td':{
-        fontSize:"16px !important",
+const useStyles2 = makeStyles(theme=>({
+    table: {
+      minWidth: 1000,
+      '& tbody tr td':{
+          fontSize:"16px !important",
+      },
+      
+    },
+    tableHead:{
+        backgroundColor:"#29524A",
+        '& th':{
+              color:"white",
+              fontSize:"16px"
+        }
+    },
+    viewDetailsBtn:{
+        backgroundColor:"#29524A",
+        boxShadow:"none"
     }
-  },
-  tableHead:{
-      backgroundColor:"#29524A",
-      '& th':{
-            color:"white",
-            fontSize:"16px"
-      }
-  },
-  viewDetailsBtn:{
-      backgroundColor:"#29524A",
-      boxShadow:"none"
-  }
-});
+  }));
 
 export default function TeachersTable() {
   const classes = useStyles2();
@@ -161,7 +164,8 @@ export default function TeachersTable() {
   };
 
   return (
-    <TableContainer component={Paper} elevation={4}>
+    <TableContainer component={Paper} elevation={1}>
+        <Filter />
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead className={classes.tableHead}>
           <TableCell>ID</TableCell>
