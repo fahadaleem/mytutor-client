@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme=>({
     margin:"10px 0",
     borderRadius:"10px",
     marginRight:"15px",
-    [theme.breakpoints.down('xs')]:{
+    [theme.breakpoints.down('sm')]:{
       marginRight:0
   }
 },
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme=>({
   },
 }));
 
-export default function TotalTeacherCard() {
+export default function TotalTeacherCard(props) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -44,7 +44,7 @@ export default function TotalTeacherCard() {
           Total Teachers
         </Typography>
         <Typography variant="h2" className={classes.count}>
-          +267
+          +{props.totalTeachers}
         </Typography>
       </CardContent>
     </Card>

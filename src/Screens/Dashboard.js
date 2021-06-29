@@ -24,6 +24,7 @@ import ViewCourseDetails from "./ViewCourseDetails";
 import JobRequests from "./JobRequests";
 import ApplicantDetails from "./ApplicantDetails";
 import {JobRequestContext} from "../Contexts/JobRequestContext";
+import {TeachersContext} from "../Contexts/TeachersContext"
 
 const useStyles = makeStyles((theme) => ({
   bodySection: {
@@ -40,10 +41,12 @@ const Dashboard = () => {
   const classes = useStyles();
 
   const {handleLoadJobRequests} = useContext(JobRequestContext);
+  const {handleGetTeachers} = useContext(TeachersContext)
 
   // fetch job requests when dashboard is shown
   useEffect(() => {
     handleLoadJobRequests();
+    handleGetTeachers();
   }, []);
 
   return (

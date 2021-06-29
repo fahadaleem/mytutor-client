@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
@@ -17,7 +17,7 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import Button from "@material-ui/core/Button";
-import Filter from "./Filter"
+import Filter from "./Filter";
 
 const useStyles1 = makeStyles((theme) => ({
   root: {
@@ -100,56 +100,35 @@ function createData(id, name, email, salary, course, details) {
   return { id, name, email, salary, course, details };
 }
 
-const rows = [
-  createData(1, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(
-    2,
-    "Muhammad Ammar Sohail Siddiqui",
-    "muhammadammarsohailsiddiqui@gmail.com",
-    "200USD",
-    "Javascript"
-  ),
-  createData(3, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(4, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(5, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(6, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(7, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(8, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(9, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(10, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(11, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(12, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(13, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(14, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(15, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-  createData(16, "Fahad", "faleem396@gmail.com", "200USD", "Javascript"),
-];
+// const rows = [
 
-const useStyles2 = makeStyles(theme=>({
-    table: {
-      minWidth: 1000,
-      '& tbody tr td':{
-          fontSize:"16px !important",
-      },
-      
-    },
-    tableHead:{
-        backgroundColor:"#29524A",
-        '& th':{
-              color:"white",
-              fontSize:"16px"
-        }
-    },
-    viewDetailsBtn:{
-        backgroundColor:"#29524A",
-        boxShadow:"none"
-    }
-  }));
+// ];
 
-export default function TeachersTable() {
+const useStyles2 = makeStyles((theme) => ({
+  table: {
+    minWidth: 1000,
+    "& tbody tr td": {
+      fontSize: "16px !important",
+    },
+  },
+  tableHead: {
+    backgroundColor: "#29524A",
+    "& th": {
+      color: "white",
+      fontSize: "16px",
+    },
+  },
+  viewDetailsBtn: {
+    backgroundColor: "#29524A",
+    boxShadow: "none",
+  },
+}));
+
+export default function TeachersTable(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rows, setRows] = React.useState(props.teachersDetails);
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -165,7 +144,7 @@ export default function TeachersTable() {
 
   return (
     <TableContainer component={Paper} elevation={1}>
-        <Filter />
+      <Filter data={props.teachersDetails} handleSetData={setRows} />
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead className={classes.tableHead}>
           <TableCell>ID</TableCell>
@@ -181,15 +160,21 @@ export default function TeachersTable() {
             : rows
           ).map((row) => (
             <TableRow key={row.id}>
-              <TableCell style={{ width: 50 }}>
-                {row.id}
-              </TableCell>
+              <TableCell style={{ width: 50 }}>{row.id}</TableCell>
               <TableCell style={{ width: 200 }}>{row.name}</TableCell>
               <TableCell style={{ width: 260 }}>{row.email}</TableCell>
-              <TableCell style={{ width: 150 }}>{row.salary}</TableCell>
-              <TableCell style={{ width: 200 }}>{row.course}</TableCell>
+              <TableCell style={{ width: 150 }}>
+                {row.salary} {row.preferred_currency}
+              </TableCell>
+              <TableCell style={{ width: 200 }}>
+                {row.course_code_1}, {row.course_code_2}
+              </TableCell>
               <TableCell style={{ width: 160 }}>
-                <Button variant="contained" color="primary" className={classes.viewDetailsBtn}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.viewDetailsBtn}
+                >
                   View Details
                 </Button>
               </TableCell>
@@ -205,7 +190,7 @@ export default function TeachersTable() {
         <TableFooter>
           <TableRow>
             <TablePagination
-            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={3}
               count={rows.length}
               rowsPerPage={rowsPerPage}
