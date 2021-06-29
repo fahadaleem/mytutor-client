@@ -16,6 +16,8 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { AppAuthContext } from "../../Contexts/AuthContext";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import Alert from "@material-ui/lab/Alert";
 
 
@@ -79,7 +81,7 @@ const LoginForm = () => {
   const classes = useStyle();
 
   const [rememberMe, setRememberMe] = useState(false);
-  const {handleLogin, loginErrors} = useContext(AppAuthContext)
+  const {handleLogin, loginErrors, loading} = useContext(AppAuthContext)
 
   const [loginCredentials, setLoginCredentials] = useState({
     email: "",
@@ -200,16 +202,28 @@ const LoginForm = () => {
         </Button>
       </Box>
 
-      <Button
-        variant="contained"
-        color="primary"
-        endIcon={<KeyboardArrowRightIcon />}
-        className={`${classes.submitBtn} ${classes.textField}`}
-        size="large"
-        type="submit"
-      >
-        Login
-      </Button>
+      {loading ? (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.submitBtn}
+                size="large"
+                type="submit"
+              >
+                <CircularProgress style={{color: "white"}} />
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                endIcon={<KeyboardArrowRightIcon />}
+                className={classes.submitBtn}
+                size="large"
+                type="submit"
+              >
+                Login
+              </Button>
+            )}
       </form>
     </Container>
     

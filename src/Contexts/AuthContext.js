@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
 import firebase from "../Components/firebaseconfig";
@@ -18,6 +18,8 @@ const AppAuthContextProvider = (props) => {
   const handleValidateLogin = (credentials)=>{
     if(credentials.email==="" && credentials.password==="" )
     {
+      setLoading(false)
+
       setLoginErrors({
         isError:true,
         errorCode:201,
@@ -26,6 +28,7 @@ const AppAuthContextProvider = (props) => {
     }
     else if(credentials.email==="")
     {
+      setLoading(false)
       setLoginErrors({
         isError:true,
         errorCode:202,
@@ -34,6 +37,8 @@ const AppAuthContextProvider = (props) => {
     }
     else if(credentials.password==="")
     {
+      setLoading(false)
+
       setLoginErrors({
         isError:true,
         errorCode:203,
@@ -42,6 +47,8 @@ const AppAuthContextProvider = (props) => {
     }
     else if(credentials.accountType==="")
     {
+      setLoading(false)
+
       setLoginErrors({
         isError:true,
         errorCode:204,
@@ -49,6 +56,8 @@ const AppAuthContextProvider = (props) => {
       })
     }
     else {
+      setLoading(false)
+
       setLoginErrors({
         isError:false,
         errorCode:200,
@@ -105,10 +114,12 @@ const AppAuthContextProvider = (props) => {
     }
   }
 
+ 
 
   async function handleLogin (credentials){
+    setLoading(true)
     handleValidateLogin(credentials)
-    if(loginErrors.errorCode===200)
+    if(credentials.email!=='' && credentials.password!=='' && credentials.accountType!=='')
     {
       if(credentials.accountType==='student')
       {
@@ -152,6 +163,51 @@ const AppAuthContextProvider = (props) => {
         }
         catch(error){
           console.log(error)
+        }
+      }
+      else if(credentials.accountType==='teacher')
+      {
+        try {
+          const resp = await axios.get(`${baseUrl}/get-all-teachers?email=${credentials.email}`)
+          console.log(resp)
+          if(resp.data.code==='201')
+          {
+            setLoginErrors({
+              isError:true, 
+              errorCode:202,
+              errorMessage:'Email Not Found'
+            })
+          }
+          else if(resp.data.code==='200')
+          {
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(
+                credentials.email,
+                credentials.password
+              )
+              .then((data) => {
+                setLoading(false);
+                setIsUserLogin(true);
+                if (credentials.rememberMe) {
+                  window.localStorage.setItem("isLogin", true);
+
+                  // after login route to the page here
+                }
+              })
+              .catch((error) => {
+                setLoading(false);
+                setLoginErrors({
+                  isError: true,
+                  errorMessage: error.message,
+                  errorCode: 101,
+                });
+              });
+          }
+        }
+        catch(error)
+        {
+
         }
       }
     }

@@ -16,6 +16,9 @@ body, html {
   height: 100%;
 }
 
+.my-swal {
+  z-index: 10000 !important;
+}
 
 
 
