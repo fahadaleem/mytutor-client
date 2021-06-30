@@ -90,6 +90,14 @@ const Filter = (props) => {
 
       props.handleSetData(filteredArr);
     }
+    else if (filterBy === "Country") {
+      const filteredArr = data.filter((elem) => {
+        return elem.country.toLowerCase().includes(filterVal);
+      });
+
+      props.handleSetData(filteredArr);
+    }
+
   };
 
   return (

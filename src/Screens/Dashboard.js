@@ -41,12 +41,10 @@ const Dashboard = () => {
   const classes = useStyles();
 
   const {handleLoadJobRequests} = useContext(JobRequestContext);
-  const {handleGetTeachers} = useContext(TeachersContext)
 
   // fetch job requests when dashboard is shown
   useEffect(() => {
     handleLoadJobRequests();
-    handleGetTeachers();
   }, []);
 
   return (

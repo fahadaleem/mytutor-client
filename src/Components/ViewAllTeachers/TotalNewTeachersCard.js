@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TotalNewTeachersCard() {
+export default function TotalNewTeachersCard(props) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -49,7 +49,7 @@ export default function TotalNewTeachersCard() {
           Total New Teachers Hired
         </Typography>
         <Typography variant="h2" className={classes.count}>
-          +267
+          +{props.totalNewTeachersHired}
         </Typography>
       </CardContent>
     </Card>

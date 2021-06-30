@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -130,6 +130,10 @@ export default function TeachersTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState(props.teachersDetails);
 
+  useEffect(()=>{
+    setRows(props.teachersDetails)
+  },[props.teachersDetails])
+
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -141,6 +145,7 @@ export default function TeachersTable(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
 
   return (
     <TableContainer component={Paper} elevation={1}>
