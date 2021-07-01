@@ -1,8 +1,11 @@
 import React from "react"
+import courseCategories from "../categories.json"
 
 const ViewAllCourses = ()=>{
+    console.log(courseCategories)
+
     return(
-        <h1>View All courses</h1>
+        <h1>All</h1>
     )
 }
 

@@ -1,9 +1,10 @@
 import React from "react";
+import AddNewCourses from "../Components/AddNewCourses/AddNewCourses"
 
 
 const AddNewCourse = ()=>{
     return(
-        <h1>Add New Course</h1>
+        <AddNewCourses />
     )
 }
 
