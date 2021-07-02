@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TextEditor from "./TextEditor";
+import TextEditor from "./TextEditor/TextEditor";
 import {
   Container,
   Typography,
@@ -22,6 +22,7 @@ import courseCategories from "../../categories.json";
 const useStyles = makeStyles((theme) => ({
   formLabel: {
     margin: "10px 0 5px 0",
+    fontSize: "18px",
   },
   btns: {
     textAlign: "right",
@@ -190,40 +191,114 @@ const AddNewCourses = () => {
             </FormControl>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
-<Typography
-  variant="body1"
-  color="initial"
-  className={classes.formLabel}
->
-  Course Description:
-</Typography>
-<FormControl fullWidth className={classes.textFields}>
-  <OutlinedInput
-    id="course-description"
-    label="Course description"
-    variant="outlined"
-    multiline={true}
-    rows={7}
-    notched={false}
-    labelWidth={0}
-    value={courseDetails.description}
-    onChange={e=>setCourseDetails({
-      ...courseDetails,
-      description:e.target.value
-    })}
-  />
-</FormControl>
-</Grid>
-<Grid item lg={12} md={12} sm={12} xs={12}>
- <Typography
-  variant="body1"
-  color="initial"
-  className={classes.formLabel}
->
-  Course Outline:
-</Typography>
-<TextEditor handleSetCourseOutline = {setCourseDetails} courseDetails = {courseDetails}/>
-</Grid>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.formLabel}
+            >
+              Course Description:
+            </Typography>
+            <FormControl fullWidth className={classes.textFields}>
+              <OutlinedInput
+                id="course-description"
+                label="Course description"
+                variant="outlined"
+                multiline={true}
+                rows={7}
+                notched={false}
+                labelWidth={0}
+                value={courseDetails.description}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    description: e.target.value,
+                  })
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.formLabel}
+            >
+              Course Outline:
+            </Typography>
+            <TextEditor
+              handleSetCourseOutline={setCourseDetails}
+              courseDetails={courseDetails}
+            />
+          </Grid>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.formLabel}
+            >
+              Course Price:
+            </Typography>
+            <FormControl fullWidth className={classes.textFields}>
+              <OutlinedInput
+                id="course-price"
+                label="Course Price"
+                variant="outlined"
+                type="number"
+                notched={false}
+                value={courseDetails.price}
+                labelWidth={0}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    price: e.target.value,
+                  })
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item lg={6} md={6} sm={12} xs={12}>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.formLabel}
+            >
+              Course Duration:
+            </Typography>
+            <FormControl fullWidth className={classes.textFields}>
+              <OutlinedInput
+                id="course-code"
+                label="Course Price"
+                variant="outlined"
+                notched={false}
+                labelWidth={0}
+                value={courseDetails.duration}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    duration: e.target.value,
+                  })
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid lg={12}>
+            <Box className={classes.btns}>
+              <Button
+                variant="contained"
+                color="default"
+                className={classes.publishedBtn}
+              >
+                Published
+              </Button>
+              <Button
+                variant="contained"
+                color="default"
+                className={classes.saveToDraftBtn}
+              >
+                Save to draft
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
       </form>
     </Container>
@@ -231,61 +306,3 @@ const AddNewCourses = () => {
 };
 
 export default AddNewCourses;
-
-
-
-// <Grid item lg={6} md={6} sm={12} xs={12}>
-// <Typography
-//   variant="body1"
-//   color="initial"
-//   className={classes.formLabel}
-// >
-//   Course Price:
-// </Typography>
-// <FormControl fullWidth className={classes.textFields}>
-//   <OutlinedInput
-//     id="course-code"
-//     label="Course Price"
-//     variant="outlined"
-//     type="number"
-//     notched={false}
-//     labelWidth={0}
-//   />
-// </FormControl>
-// </Grid>
-// <Grid item lg={6} md={6} sm={12} xs={12}>
-// <Typography
-//   variant="body1"
-//   color="initial"
-//   className={classes.formLabel}
-// >
-//   Course Duration:
-// </Typography>
-// <FormControl fullWidth className={classes.textFields}>
-//   <OutlinedInput
-//     id="course-code"
-//     label="Course Price"
-//     variant="outlined"
-//     notched={false}
-//     labelWidth={0}
-//   />
-// </FormControl>
-// </Grid>
-// <Grid lg={12}>
-// <Box className={classes.btns}>
-//   <Button
-//     variant="contained"
-//     color="default"
-//     className={classes.publishedBtn}
-//   >
-//     Published
-//   </Button>
-//   <Button
-//     variant="contained"
-//     color="default"
-//     className={classes.saveToDraftBtn}
-//   >
-//     Save to draft
-//   </Button>
-// </Box>
-// </Grid>

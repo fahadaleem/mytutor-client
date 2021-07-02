@@ -4,6 +4,8 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./TextEditor.css"
+
 
 
 export default class TextEditor extends Component {
@@ -28,8 +30,9 @@ export default class TextEditor extends Component {
       <div>
         <Editor
           editorState={editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
+          wrapperClassName="wrapper"
+          editorClassName="textfield"
+          toolbarClassName="toolbar"
           onEditorStateChange={this.onEditorStateChange}
           onChange={()=>{
             this.props.handleSetCourseOutline({
