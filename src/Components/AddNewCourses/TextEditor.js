@@ -3,7 +3,7 @@ import JoditEditor from "jodit-react";
 
 export default function TextEditor() {
   const editor = useRef(null);
-  const [content, setContent] = useState("Enter Course Outline");
+  const [content, setContent] = useState("");
   const config = {
     readonly: false,
     height: 400
