@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import TextEditor from "./TextEditor/TextEditor";
 import {
   Container,
@@ -18,6 +18,10 @@ import {
   ButtonGroup,
 } from "@material-ui/core";
 import courseCategories from "../../categories.json";
+import { CourseContext } from "../../Contexts/CourseContext";
+import SimpleBackdrop from "../Utilities/BackdropLoader";
+import Swal from "sweetalert2";
+import Snackbars from "../Utilities/Snakbar";
 
 const useStyles = makeStyles((theme) => ({
   formLabel: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   publishedBtn: {
     backgroundColor: "#29524A",
-    fontSize: "18px",
+    fontSize: "16px",
     padding: "15px 25px",
     margin: "5px 5px 0 0",
     color: "#FFFFFF",
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   saveToDraftBtn: {
     backgroundColor: "#2A2A2A",
-    fontSize: "18px",
+    fontSize: "16px",
     padding: "15px 25px",
     margin: "5px 5px 0 0",
     color: "#FFFFFF",
@@ -57,24 +61,76 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNewCourses = () => {
   const classes = useStyles();
+  const [isDataSaved, setIsDataSaved] = useState(false);
+  const { handleAddNewCourse, handleValidate, handleRemoveErrors, loading } =
+    useContext(CourseContext);
+  const [errors, setErrors] = useState([]);
   const [courseDetails, setCourseDetails] = useState({
     category: "",
-    code: "",
+    id: "",
     name: "",
     title: "",
     description: "",
     courseOutline: "",
     price: "",
-    visibility: "",
     duration: "",
+    language: "",
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const err = handleValidate(courseDetails);
+    setErrors(err);
+    if (err.length === 0) {
+      console.log("chala");
+      handleAddNewCourse({
+        ...courseDetails,
+        visibility: "true",
+      }).then((resp) => {
+        if (resp.code === "200") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Course is successfully created!",
+          }).then((success) => {
+            setIsDataSaved(true);
+            setCourseDetails({
+              category: "",
+              id: "",
+              name: "",
+              title: "",
+              description: "",
+              courseOutline: "",
+              price: "",
+              duration: "",
+              language: "",
+            });
+          });
+        } else if (resp.code === "201") {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "This course is Already Added!",
+          });
+        }
+      });
+    }
+  };
+
+  
+
+  useEffect(() => {
+    setErrors(handleRemoveErrors(courseDetails, errors));
+  }, [courseDetails]);
 
   return (
     <Container maxWidth="lg">
+      {loading && <SimpleBackdrop />}
       <Typography variant="h3" color="initial">
         Create A New Course:
       </Typography>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <Typography
@@ -88,6 +144,7 @@ const AddNewCourses = () => {
               fullWidth
               variant="outlined"
               className={classes.textFields}
+              error={errors.includes("category")}
             >
               {/* <InputLabel id="demo-simple-select-label">Category</InputLabel> */}
               <Select
@@ -97,6 +154,7 @@ const AddNewCourses = () => {
                 labelWidth={0}
                 notched={false}
                 value={courseDetails.category}
+                error={errors.includes("category")}
                 onChange={(e) =>
                   setCourseDetails({
                     ...courseDetails,
@@ -118,18 +176,22 @@ const AddNewCourses = () => {
             >
               Course Code:
             </Typography>
-            <FormControl fullWidth className={classes.textFields}>
+            <FormControl
+              fullWidth
+              className={classes.textFields}
+              error={errors.includes("id")}
+            >
               <OutlinedInput
                 id="course-code"
                 label="Course Code"
                 variant="outlined"
                 notched={false}
                 labelWidth={0}
-                value={courseDetails.code}
+                value={courseDetails.id}
                 onChange={(e) =>
                   setCourseDetails({
                     ...courseDetails,
-                    code: e.target.value.toUpperCase(),
+                    id: e.target.value.toUpperCase(),
                   })
                 }
               />
@@ -144,9 +206,13 @@ const AddNewCourses = () => {
             >
               Course Name:
             </Typography>
-            <FormControl fullWidth className={classes.textFields}>
+            <FormControl
+              fullWidth
+              className={classes.textFields}
+              error={errors.includes("name")}
+            >
               <OutlinedInput
-                id="course-code"
+                id="course-name"
                 label="Course Name"
                 variant="outlined"
                 notched={false}
@@ -173,6 +239,7 @@ const AddNewCourses = () => {
               fullWidth
               variant="outlined"
               className={classes.textFields}
+              error={errors.includes("title")}
             >
               <OutlinedInput
                 id="course-title"
@@ -195,10 +262,15 @@ const AddNewCourses = () => {
               variant="body1"
               color="initial"
               className={classes.formLabel}
+              error={errors.includes("description")}
             >
               Course Description:
             </Typography>
-            <FormControl fullWidth className={classes.textFields}>
+            <FormControl
+              fullWidth
+              className={classes.textFields}
+              error={errors.includes("description")}
+            >
               <OutlinedInput
                 id="course-description"
                 label="Course description"
@@ -228,9 +300,40 @@ const AddNewCourses = () => {
             <TextEditor
               handleSetCourseOutline={setCourseDetails}
               courseDetails={courseDetails}
+              isDataSaved={isDataSaved}
+              errors={errors}
             />
           </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
+          <Grid item lg={5} md={5} sm={12} xs={12}>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.formLabel}
+            >
+              Course Language:
+            </Typography>
+            <FormControl
+              fullWidth
+              className={classes.textFields}
+              error={errors.includes("language")}
+            >
+              <OutlinedInput
+                id="course-language"
+                label="Course langauage"
+                variant="outlined"
+                notched={false}
+                value={courseDetails.language}
+                labelWidth={0}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    language: e.target.value,
+                  })
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item lg={3} md={3} sm={6} xs={6}>
             <Typography
               variant="body1"
               color="initial"
@@ -238,7 +341,11 @@ const AddNewCourses = () => {
             >
               Course Price:
             </Typography>
-            <FormControl fullWidth className={classes.textFields}>
+            <FormControl
+              fullWidth
+              className={classes.textFields}
+              error={errors.includes("price")}
+            >
               <OutlinedInput
                 id="course-price"
                 label="Course Price"
@@ -256,7 +363,7 @@ const AddNewCourses = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
+          <Grid item lg={4} md={4} sm={6} xs={6}>
             <Typography
               variant="body1"
               color="initial"
@@ -266,9 +373,10 @@ const AddNewCourses = () => {
             </Typography>
             <FormControl fullWidth className={classes.textFields}>
               <OutlinedInput
-                id="course-code"
-                label="Course Price"
+                id="course-duration"
+                label="course duration"
                 variant="outlined"
+                error={errors.includes("duration")}
                 notched={false}
                 labelWidth={0}
                 value={courseDetails.duration}
@@ -281,11 +389,12 @@ const AddNewCourses = () => {
               />
             </FormControl>
           </Grid>
-          <Grid lg={12}>
+          <Grid lg={12} sm={12} md={12} xs={12}>
             <Box className={classes.btns}>
               <Button
                 variant="contained"
                 color="default"
+                type="submit"
                 className={classes.publishedBtn}
               >
                 Published

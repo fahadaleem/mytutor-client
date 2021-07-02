@@ -8,6 +8,8 @@ import "./TextEditor.css"
 
 
 
+
+
 export default class TextEditor extends Component {
   
   constructor(props)
@@ -24,8 +26,17 @@ export default class TextEditor extends Component {
     });
   };
 
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps.isDataSaved !== this.props.isDataSaved) {
+        this.setState({editorState: EditorState.createEmpty()})
+    }
+}
+
+
+
   render() {
     const { editorState } = this.state;
+   
     return (
       <div>
         <Editor
