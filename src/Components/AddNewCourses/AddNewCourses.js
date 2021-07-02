@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TextEditor from "./TextEditor";
 import {
   Container,
@@ -47,26 +47,26 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#6200ee",
     },
   },
-  textFields:{
-    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{
-      borderColor:"#29524A !important"
-    }
-  }
+  textFields: {
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#29524A !important",
+    },
+  },
 }));
 
 const AddNewCourses = () => {
   const classes = useStyles();
   const [courseDetails, setCourseDetails] = useState({
-    category:"",
-    code:"",
-    name:"",
-    title:"",
-    description:"",
-    courseOutline:"",
-    price:"",
-    visibility:"",
-    duration:""
-  })
+    category: "",
+    code: "",
+    name: "",
+    title: "",
+    description: "",
+    courseOutline: "",
+    price: "",
+    visibility: "",
+    duration: "",
+  });
 
   return (
     <Container maxWidth="lg">
@@ -83,19 +83,25 @@ const AddNewCourses = () => {
             >
               Choose Category:
             </Typography>
-            <FormControl fullWidth variant="outlined" className={classes.textFields}>
+            <FormControl
+              fullWidth
+              variant="outlined"
+              className={classes.textFields}
+            >
               {/* <InputLabel id="demo-simple-select-label">Category</InputLabel> */}
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label=""
                 labelWidth={0}
-                notched={false}    
+                notched={false}
                 value={courseDetails.category}
-                onChange={e=>setCourseDetails({
-                  ...courseDetails,
-                  category:e.target.value
-                })}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    category: e.target.value,
+                  })
+                }
               >
                 {Object.keys(courseCategories).map((elem) => {
                   return <MenuItem value={elem}>{elem}</MenuItem>;
@@ -119,10 +125,12 @@ const AddNewCourses = () => {
                 notched={false}
                 labelWidth={0}
                 value={courseDetails.code}
-                onChange={e=>setCourseDetails({
-                  ...courseDetails, 
-                  code:e.target.value.toUpperCase()
-                })}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    code: e.target.value.toUpperCase(),
+                  })
+                }
               />
               <FormHelperText>E.g PY-03, JS-01</FormHelperText>
             </FormControl>
@@ -143,10 +151,12 @@ const AddNewCourses = () => {
                 notched={false}
                 labelWidth={0}
                 value={courseDetails.name}
-                onChange={e=>setCourseDetails({
-                  ...courseDetails,
-                  name:e.target.value
-                })}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    name: e.target.value,
+                  })
+                }
               />
             </FormControl>
           </Grid>
@@ -158,7 +168,11 @@ const AddNewCourses = () => {
             >
               Course Title:
             </Typography>
-            <FormControl fullWidth variant="outlined" className={classes.textFields}>
+            <FormControl
+              fullWidth
+              variant="outlined"
+              className={classes.textFields}
+            >
               <OutlinedInput
                 id="course-title"
                 label="Course title"
@@ -166,103 +180,50 @@ const AddNewCourses = () => {
                 notched={false}
                 labelWidth={0}
                 value={courseDetails.title}
-                onChange={e=>setCourseDetails({
-                  ...courseDetails,
-                  title:e.target.value
-                })}
+                onChange={(e) =>
+                  setCourseDetails({
+                    ...courseDetails,
+                    title: e.target.value,
+                  })
+                }
               />
             </FormControl>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography
-              variant="body1"
-              color="initial"
-              className={classes.formLabel}
-            >
-              Course Description:
-            </Typography>
-            <FormControl fullWidth className={classes.textFields}>
-              <OutlinedInput
-                id="course-description"
-                label="Course description"
-                variant="outlined"
-                multiline={true}
-                rows={7}
-                notched={false}
-                labelWidth={0}
-                value={courseDetails.description}
-                onChange={e=>setCourseDetails({
-                  ...courseDetails,
-                  description:e.target.value
-                })}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item lg={12} md={12} sm={12} xs={12}>
-            <Typography
-              variant="body1"
-              color="initial"
-              className={classes.formLabel}
-            >
-              Course Outline:
-            </Typography>
-            <TextEditor />
-          </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <Typography
-              variant="body1"
-              color="initial"
-              className={classes.formLabel}
-            >
-              Course Price:
-            </Typography>
-            <FormControl fullWidth className={classes.textFields}>
-              <OutlinedInput
-                id="course-code"
-                label="Course Price"
-                variant="outlined"
-                type="number"
-                notched={false}
-                labelWidth={0}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item lg={6} md={6} sm={12} xs={12}>
-            <Typography
-              variant="body1"
-              color="initial"
-              className={classes.formLabel}
-            >
-              Course Duration:
-            </Typography>
-            <FormControl fullWidth className={classes.textFields}>
-              <OutlinedInput
-                id="course-code"
-                label="Course Price"
-                variant="outlined"
-                notched={false}
-                labelWidth={0}
-              />
-            </FormControl>
-          </Grid>
-          <Grid lg={12}>
-            <Box className={classes.btns}>
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.publishedBtn}
-              >
-                Published
-              </Button>
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.saveToDraftBtn}
-              >
-                Save to draft
-              </Button>
-            </Box>
-          </Grid>
+<Typography
+  variant="body1"
+  color="initial"
+  className={classes.formLabel}
+>
+  Course Description:
+</Typography>
+<FormControl fullWidth className={classes.textFields}>
+  <OutlinedInput
+    id="course-description"
+    label="Course description"
+    variant="outlined"
+    multiline={true}
+    rows={7}
+    notched={false}
+    labelWidth={0}
+    value={courseDetails.description}
+    onChange={e=>setCourseDetails({
+      ...courseDetails,
+      description:e.target.value
+    })}
+  />
+</FormControl>
+</Grid>
+<Grid item lg={12} md={12} sm={12} xs={12}>
+ <Typography
+  variant="body1"
+  color="initial"
+  className={classes.formLabel}
+>
+  Course Outline:
+</Typography>
+<TextEditor handleSetCourseOutline = {setCourseDetails} courseDetails = {courseDetails}/>
+</Grid>
         </Grid>
       </form>
     </Container>
@@ -270,3 +231,61 @@ const AddNewCourses = () => {
 };
 
 export default AddNewCourses;
+
+
+
+// <Grid item lg={6} md={6} sm={12} xs={12}>
+// <Typography
+//   variant="body1"
+//   color="initial"
+//   className={classes.formLabel}
+// >
+//   Course Price:
+// </Typography>
+// <FormControl fullWidth className={classes.textFields}>
+//   <OutlinedInput
+//     id="course-code"
+//     label="Course Price"
+//     variant="outlined"
+//     type="number"
+//     notched={false}
+//     labelWidth={0}
+//   />
+// </FormControl>
+// </Grid>
+// <Grid item lg={6} md={6} sm={12} xs={12}>
+// <Typography
+//   variant="body1"
+//   color="initial"
+//   className={classes.formLabel}
+// >
+//   Course Duration:
+// </Typography>
+// <FormControl fullWidth className={classes.textFields}>
+//   <OutlinedInput
+//     id="course-code"
+//     label="Course Price"
+//     variant="outlined"
+//     notched={false}
+//     labelWidth={0}
+//   />
+// </FormControl>
+// </Grid>
+// <Grid lg={12}>
+// <Box className={classes.btns}>
+//   <Button
+//     variant="contained"
+//     color="default"
+//     className={classes.publishedBtn}
+//   >
+//     Published
+//   </Button>
+//   <Button
+//     variant="contained"
+//     color="default"
+//     className={classes.saveToDraftBtn}
+//   >
+//     Save to draft
+//   </Button>
+// </Box>
+// </Grid>

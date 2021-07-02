@@ -1,29 +1,44 @@
-import React, { useState, useRef } from "react";
-import JoditEditor from "jodit-react";
+import React, { Component } from 'react';
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export default function TextEditor() {
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
-  const config = {
-    readonly: false,
-    height: 400
-  };
-  const handleUpdate = (event) => {
-      console.log(event)
-    const editorContent = event;
-    setContent(editorContent);
+
+export default class TextEditor extends Component {
+  
+  constructor(props)
+  {
+    super(props)
+    this.state = {
+      editorState: EditorState.createEmpty(),
+    }
+  }
+
+  onEditorStateChange = (editorState) => {
+    this.setState({
+      editorState,
+    });
   };
 
-  return (
-    <div className="App">
-      <JoditEditor
-        ref={editor}
-        value={content}
-        config={config}
-        onBlur={handleUpdate}
-        onChange={(newContent) => {}}
-      />
-      {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
-    </div>
-  );
+  render() {
+    const { editorState } = this.state;
+    return (
+      <div>
+        <Editor
+          editorState={editorState}
+          wrapperClassName="demo-wrapper"
+          editorClassName="demo-editor"
+          onEditorStateChange={this.onEditorStateChange}
+          onChange={()=>{
+            this.props.handleSetCourseOutline({
+              ...this.props.courseDetails, 
+              courseOutline: draftToHtml(convertToRaw(editorState.getCurrentContent())) 
+            })
+          }}
+        />
+      </div>
+    );
+  }
 }
