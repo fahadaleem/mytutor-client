@@ -1,5 +1,5 @@
 import React from "react";
-import AddNewCourses from "../Components/AddNewCourses/AddNewCourses"
+import AddNewCourses from "../Components/Courses/AddNewCourses/AddNewCourses"
 
 
 const AddNewCourse = ()=>{

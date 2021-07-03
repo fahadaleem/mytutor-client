@@ -17,11 +17,11 @@ import {
   Button,
   ButtonGroup,
 } from "@material-ui/core";
-import courseCategories from "../../categories.json";
-import { CourseContext } from "../../Contexts/CourseContext";
-import SimpleBackdrop from "../Utilities/BackdropLoader";
+import courseCategories from "../../../categories.json";
+import { CourseContext } from "../../../Contexts/CourseContext";
+import SimpleBackdrop from "../../Utilities/BackdropLoader";
 import Swal from "sweetalert2";
-import Snackbars from "../Utilities/Snakbar";
+import Snackbars from "../../Utilities/Snakbar";
 
 const useStyles = makeStyles((theme) => ({
   formLabel: {
@@ -117,8 +117,6 @@ const AddNewCourses = () => {
       });
     }
   };
-
-  
 
   useEffect(() => {
     setErrors(handleRemoveErrors(courseDetails, errors));

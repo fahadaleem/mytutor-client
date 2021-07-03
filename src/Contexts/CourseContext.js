@@ -1,14 +1,12 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
-import baseUrl from "../mytutor-backend"
+import baseUrl from "../mytutor-backend";
 
 const CourseContext = createContext();
 
 const CourseContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
-
-
-
+  const [allCourses, setAllCourses] = useState([]);
 
   const handleValidate = (data) => {
     const fields = Object.keys(data);
@@ -26,24 +24,30 @@ const CourseContextProvider = (props) => {
   };
 
   async function handleAddNewCourse(courseData) {
-    setLoading(true)
+    setLoading(true);
     try {
-        
-        const resp = await axios({
-            method:"POST",
-            url:`${baseUrl}/add-new-course`,
-            data:{
-                ...courseData,
-                course_outline:courseData.courseOutline
-            }
-        })
-        setLoading(false)
-        console.log(resp)
-        return resp.data
-
+      const resp = await axios({
+        method: "POST",
+        url: `${baseUrl}/add-new-course`,
+        data: {
+          ...courseData,
+          course_outline: courseData.courseOutline,
+        },
+      });
+      setLoading(false);
+      return resp.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  }
+
+  async function handleGetAllCourses() {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${baseUrl}/get-all-courses`);
+      setAllCourses(response.data.courses);
+      setLoading(false);
+    } catch (error) {}
   }
 
   return (
@@ -53,6 +57,8 @@ const CourseContextProvider = (props) => {
         loading,
         handleValidate,
         handleRemoveErrors,
+        handleGetAllCourses,
+        allCourses
       }}
     >
       {props.children}
