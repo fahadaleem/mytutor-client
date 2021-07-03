@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import firebase from "../Components/firebaseconfig";
 import Swal from "sweetalert2";
 import axios from "axios";
-
+import baseUrl from "../mytutor-backend";
 const JobFormContext = createContext();
 
 const JobFormContextProvider = (props) => {
@@ -10,8 +10,9 @@ const JobFormContextProvider = (props) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const [resumeDownloadUrl, setResumeDownloadUrl] = useState("");
+  const [courses, setCourses] = useState([]);
   const [json, setJson] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [applicantData, setApplicantData] = useState({
     firstName: "",
     lastName: "",
@@ -177,7 +178,7 @@ const JobFormContextProvider = (props) => {
     }
   };
 
-  const handleUploadApplicant =  ()=> {
+  const handleUploadApplicant = () => {
     const resumeFile = applicantData.resume[0];
 
     const fileUrl = firebase
@@ -208,13 +209,13 @@ const JobFormContextProvider = (props) => {
           });
       }
     );
-  }
+  };
 
   const handleFormatDataForSend = (resumeDownloadUrl) => {
     return {
       name: `${applicantData.firstName} ${applicantData.lastName}`,
       email: applicantData.email,
-      phone_no: `${applicantData.country.phone} ${applicantData.phone}` ,
+      phone_no: `${applicantData.country.phone} ${applicantData.phone}`,
       country: applicantData.country.label,
       gender: applicantData.gender,
       education: applicantData.education,
@@ -248,14 +249,13 @@ const JobFormContextProvider = (props) => {
         text: "Upload Your Resume!",
       });
       // if there is not error, then send the applicant data to the backend
-    } else if(errors.length===0){
-      setLoading(true)
+    } else if (errors.length === 0) {
+      setLoading(true);
       handleUploadApplicant();
     }
   };
 
   function handleAddNewApplicant(applicantDataJSON) {
-
     const resp = axios({
       method: "POST",
       data: applicantDataJSON,
@@ -263,7 +263,7 @@ const JobFormContextProvider = (props) => {
     })
       .then((resp) => {
         if (resp.data.code === "201") {
-          setLoading(false)
+          setLoading(false);
 
           Swal.fire({
             title: "Stop",
@@ -271,7 +271,7 @@ const JobFormContextProvider = (props) => {
             text: "You already submitted application, your application is under consideration. we'll inform you soon. Be patience!",
           });
         } else if (resp.data.code === "200") {
-        setLoading(false)
+          setLoading(false);
 
           Swal.fire({
             title: "Application Submitted",
@@ -298,9 +298,19 @@ const JobFormContextProvider = (props) => {
         }
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         alert(error.message);
       });
+  }
+
+  async function handleGetCourses() {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${baseUrl}/get-all-courses`);
+      console.log(response);
+      setCourses(response.data.courses);
+      setLoading(false);
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -310,7 +320,15 @@ const JobFormContextProvider = (props) => {
 
   return (
     <JobFormContext.Provider
-      value={{ errors, applicantData, setApplicantData, handleFormSubmit, loading }}
+      value={{
+        errors,
+        applicantData,
+        setApplicantData,
+        handleFormSubmit,
+        loading,
+        handleGetCourses,
+        courses,
+      }}
     >
       {props.children}
     </JobFormContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -94,8 +94,15 @@ const useStyles = makeStyles((theme) => ({
 const JobForm = () => {
   const classes = useStyles();
 
-  const { errors, applicantData, handleFormSubmit, setApplicantData } =
+  const { errors, applicantData, handleFormSubmit, setApplicantData,handleGetCourses, courses } =
     useContext(JobFormContext);
+
+
+  
+  useEffect(()=>{
+    handleGetCourses()
+  },[])
+
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -280,6 +287,7 @@ const JobForm = () => {
               handleSetSelectedCourse={setApplicantData}
               errors={errors}
               selectedText={applicantData.willingToTeachCourse2}
+              courses = {courses}
             />
             <div style={{ margin: "15px 0" }}>
               <CourseSelect
@@ -288,6 +296,8 @@ const JobForm = () => {
                 handleSetSelectedCourse={setApplicantData}
                 errors={errors}
                 selectedText={applicantData.willingToTeachCourse2}
+                courses = {courses}
+
               />
             </div>
           </Grid>

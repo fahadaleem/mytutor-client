@@ -23,7 +23,7 @@ export default function CourseSelect(props) {
     <Autocomplete
       id="country-select"
       fullWidth
-      options={courses}
+      options={props.courses}
       classes={{
         option: classes.option,
       }}
@@ -33,7 +33,7 @@ export default function CourseSelect(props) {
           val !== null
             ? props.handleSetSelectedCourse({
                 ...props.applicantData,
-                willingToTeachCourse1: val.courseName,
+                willingToTeachCourse1: val.name,
               })
             : props.handleSetSelectedCourse({
                 ...props.applicantData,
@@ -43,7 +43,7 @@ export default function CourseSelect(props) {
           val !== null
             ? props.handleSetSelectedCourse({
                 ...props.applicantData,
-                willingToTeachCourse2: val.courseName,
+                willingToTeachCourse2: val.name,
               })
             : props.handleSetSelectedCourse({
                 ...props.applicantData,
@@ -51,12 +51,12 @@ export default function CourseSelect(props) {
               });
         }
       }}
-      getOptionLabel={(option) => option.courseName}
+      getOptionLabel={(option) => option.name}
       renderOption={(option) => (
         <React.Fragment>
           {/* <span>{countryToFlag(option.code)}</span>
           {option.label} ({option.code}) +{option.phone} */}
-          {option.courseName}
+          {option.name}
         </React.Fragment>
       )}
       renderInput={(params) => (
