@@ -16,7 +16,7 @@ const JobRequestContextProvider = (props) => {
   const [applicantDetails, setApplicantDetails] = useState({});
   const [willingToTeachCourses, setWillingToTeachCourses] = useState([]);
   const {handleSignup} = useContext(TeacherAuthContext)
-
+  const [course, setCourses] = useState([])
   const History = useHistory();
 
   async function handleLoadJobRequests() {
@@ -75,6 +75,17 @@ const JobRequestContextProvider = (props) => {
         text: `${error.message}`,
       });
     }
+  }
+
+
+  async function handleGetCourses() {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${baseUrl}/get-all-courses`);
+      console.log(response);
+      setCourses(response.data.courses);
+      setLoading(false);
+    } catch (error) {}
   }
 
   const handleFormatJSONtoSend = (data) => {
