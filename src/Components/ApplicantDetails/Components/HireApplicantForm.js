@@ -80,6 +80,7 @@ export default function HireApplicantForm(props) {
     courseCode2:"",
     email: props.email,
     password: "",
+    id:props.id
   });
 
   const checkValidation = () => {
@@ -168,9 +169,11 @@ export default function HireApplicantForm(props) {
                   });
                 }}
               >
-                <MenuItem value={"PY-01"}>PY-01</MenuItem>
-                <MenuItem value={"CSHARP-01"}>CSHARP-01</MenuItem>
-                <MenuItem value={"STATS-03"}>STATS-03</MenuItem>
+                {props.allCourses.map((elem,index)=>{
+                  return (
+                   <MenuItem key={elem.id} value={elem.id}>{elem.id} - {elem.name}</MenuItem>
+                  )
+                })}
               </Select>
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
@@ -186,9 +189,11 @@ export default function HireApplicantForm(props) {
                   });
                 }}
               >
-                <MenuItem value={"PY-01"}>PY-01</MenuItem>
-                <MenuItem value={"CSHARP-01"}>CSHARP-01</MenuItem>
-                <MenuItem value={"STATS-03"}>STATS-03</MenuItem>
+                 {props.allCourses.map((elem,index)=>{
+                  return (
+                   <MenuItem key={elem.id} value={elem.id}>{elem.id} - {elem.name}</MenuItem>
+                  )
+                })}
               </Select>
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>

@@ -90,6 +90,7 @@ const JobRequestContextProvider = (props) => {
 
   const handleFormatJSONtoSend = (data) => {
     return {
+      id:data.id,
       name: data.name,
       country: data.country,
       email: data.email,
@@ -120,19 +121,46 @@ const JobRequestContextProvider = (props) => {
         method: "POST",
         url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
         data: jsonData,
-      });
-
-      Swal.fire({
-        icon:"success",
-        title:"Teacher Hired!",
-        text:"Teacher account created and hired succesfully.",
-        customClass:{
-          container:"my-swal"
+      }).then(response=>{
+        if(jsonData.course_code_1!=="")
+        {
+          const assignCourseResp = axios({
+            url:`${baseUrl}/course-assign`,
+            method:"POST",
+            data:{
+              teacher_id:response.teacher_id,
+              course_id:jsonData.course_code_1
+            }
+          })
         }
-      }).then(rep=>{
-        handleLoadJobRequests();
-        History.push("/admin/jobs");
+        if(jsonData.course_code_2!=="")
+        {
+          const assignCourseResp = axios({
+            url:`${baseUrl}/course-assign`,
+            method:"POST",
+            data:{
+              teacher_id:response.teacher_id,
+              course_id:jsonData.course_code_2
+            }
+          })
+        }
+        
+       
+  
+        Swal.fire({
+          icon:"success",
+          title:"Teacher Hired!",
+          text:"Teacher account created and hired succesfully.",
+          customClass:{
+            container:"my-swal"
+          }
+        }).then(rep=>{
+          handleLoadJobRequests();
+          History.push("/admin/jobs");
+        })
       })
+
+      
       
     } catch (error) {
       alert(error);

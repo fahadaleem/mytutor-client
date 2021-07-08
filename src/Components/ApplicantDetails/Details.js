@@ -4,6 +4,7 @@ import ApplicantMainInformation from "./Components/MainInformation"
 import ApplicantActions from "./Components/Actions"
 import {Grid, makeStyles} from '@material-ui/core'
 import {JobRequestContext} from "../../Contexts/JobRequestContext"
+import { CourseContext } from "../../Contexts/CourseContext"
 import axios from "axios"
 import baseUrl from "../../mytutor-backend"
 
@@ -29,6 +30,11 @@ const Details = (props)=>{
     // const [applicantDetails, setApplicantDetails] = useState(null)
     const [loading, setLoading] = useState(false)
     const {applicantDetails, handleFetchApplicantDetails, applicantDetailsLoading, handleDeleteApplicant, handleHireTeacher} = useContext(JobRequestContext)
+    const {handleGetAllCourses, allCourses} = useContext(CourseContext)
+
+    useEffect(()=>{
+        handleGetAllCourses()
+    },[])
 
     return (
 
@@ -42,7 +48,7 @@ const Details = (props)=>{
           <ApplicantMetaInformation gender={applicantDetails.gender} country={applicantDetails.country} phone = {applicantDetails.phone_no} email = {applicantDetails.email} appliedDate = {applicantDetails.applied_date} resume={applicantDetails.resume} />
           </Grid>
           <Grid item lg={9} md={9} sm={12} xs={12}>
-           <ApplicantMainInformation id={applicantDetails.id} name={applicantDetails.name} intro = {applicantDetails.intro} email = {applicantDetails.email} experience = {applicantDetails.teaching_experience} willingToTeachCourses = {applicantDetails.willing_to_teach_courses} expectedSalary = {applicantDetails.expected_salary} preferredCurrency={applicantDetails.preferred_currency} handleDeleteApplicant={handleDeleteApplicant} handleHireTeacher={handleHireTeacher} />
+           <ApplicantMainInformation id={applicantDetails.id} name={applicantDetails.name} intro = {applicantDetails.intro} email = {applicantDetails.email} experience = {applicantDetails.teaching_experience} willingToTeachCourses = {applicantDetails.willing_to_teach_courses} expectedSalary = {applicantDetails.expected_salary} preferredCurrency={applicantDetails.preferred_currency} handleDeleteApplicant={handleDeleteApplicant} handleHireTeacher={handleHireTeacher} handleGetAllCourses = {handleGetAllCourses} allCourses={allCourses} />
           </Grid>
          
        </Grid>

@@ -84,7 +84,9 @@ const ApplicantMainInformation = (props) => {
     intro,
     email,
     handleDeleteApplicant,
-    handleHireTeacher
+    handleHireTeacher,
+    handleGetAllCourses,
+    allCourses
   } = props;
   return (
     <div className={classes.root}>
@@ -129,7 +131,7 @@ const ApplicantMainInformation = (props) => {
       <Typography variant="body1" color="initial">
         - {expectedSalary} {preferredCurrency}/Month
       </Typography>
-      {open&&<HireApplicantForm formState={open} email = {email} handleClose={handleClose} handleHireTeacher={handleHireTeacher}/>} 
+      {open&&<HireApplicantForm id={id} formState={open} email = {email} handleClose={handleClose} handleHireTeacher={handleHireTeacher} handleGetAllCourses={handleGetAllCourses} allCourses={allCourses}/>} 
 
       <Button
         variant="contained"

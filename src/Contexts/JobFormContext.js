@@ -275,7 +275,7 @@ const JobFormContextProvider = (props) => {
           });
         } else if (resp.data.code === "200") {
           setLoading(false);
-          handleSendEmail("verification", applicantDataJSON.name, "Thanks for applying at mytutor")
+          handleSendEmail("verification", applicantDataJSON.name,applicantDataJSON.email, "Thanks for applying at mytutor")
           Swal.fire({
             title: "Application Submitted",
             icon: "success",
