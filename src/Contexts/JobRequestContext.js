@@ -122,13 +122,14 @@ const JobRequestContextProvider = (props) => {
         url: `https://mytutor-iad-backend.herokuapp.com/hire-applicant`,
         data: jsonData,
       }).then(response=>{
+        console.log(response)
         if(jsonData.course_code_1!=="")
         {
           const assignCourseResp = axios({
             url:`${baseUrl}/course-assign`,
             method:"POST",
             data:{
-              teacher_id:response.teacher_id,
+              teacher_id:response.data.teacher_id,
               course_id:jsonData.course_code_1
             }
           })
@@ -139,7 +140,7 @@ const JobRequestContextProvider = (props) => {
             url:`${baseUrl}/course-assign`,
             method:"POST",
             data:{
-              teacher_id:response.teacher_id,
+              teacher_id:response.data.teacher_id,
               course_id:jsonData.course_code_2
             }
           })

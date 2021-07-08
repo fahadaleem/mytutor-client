@@ -3,8 +3,7 @@ import firebase from "../Components/firebaseconfig";
 import Swal from "sweetalert2";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
-import handleSendEmail from "../email"
-
+import handleSendEmail from "../email";
 
 const JobFormContext = createContext();
 
@@ -275,7 +274,12 @@ const JobFormContextProvider = (props) => {
           });
         } else if (resp.data.code === "200") {
           setLoading(false);
-          handleSendEmail("verification", applicantDataJSON.name,applicantDataJSON.email, "Thanks for applying at mytutor")
+          handleSendEmail(
+            "verification",
+            applicantDataJSON.name,
+            applicantDataJSON.email,
+            "Thank your for taking interesting at mytutor. Your application has been submitted to our database and sent it to our admins who will check your details. Once you'll be selected for teaching you will received an email."
+          );
           Swal.fire({
             title: "Application Submitted",
             icon: "success",

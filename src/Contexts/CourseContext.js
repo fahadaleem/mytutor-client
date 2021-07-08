@@ -32,6 +32,7 @@ const CourseContextProvider = (props) => {
         data: {
           ...courseData,
           course_outline: courseData.courseOutline,
+          is_course_assigned: "false",
         },
       });
       setLoading(false);
@@ -58,7 +59,7 @@ const CourseContextProvider = (props) => {
         handleValidate,
         handleRemoveErrors,
         handleGetAllCourses,
-        allCourses
+        allCourses,
       }}
     >
       {props.children}

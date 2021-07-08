@@ -77,10 +77,10 @@ export default function HireApplicantForm(props) {
     hiringDate: handleGetFormattedDate(),
     salary: "",
     courseCode1: "",
-    courseCode2:"",
+    courseCode2: "",
     email: props.email,
     password: "",
-    id:props.id
+    id: props.id,
   });
 
   const checkValidation = () => {
@@ -115,7 +115,7 @@ export default function HireApplicantForm(props) {
       password,
     });
   };
- 
+
   return (
     <div>
       <Dialog
@@ -157,7 +157,9 @@ export default function HireApplicantForm(props) {
               />
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Teaching Course 1</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                Teaching Course 1
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -169,15 +171,20 @@ export default function HireApplicantForm(props) {
                   });
                 }}
               >
-                {props.allCourses.map((elem,index)=>{
-                  return (
-                   <MenuItem key={elem.id} value={elem.id}>{elem.id} - {elem.name}</MenuItem>
-                  )
+                {props.allCourses.map((elem, index) => {
+                  if (elem.is_course_assigned !== "true")
+                    return (
+                      <MenuItem key={elem.id} value={elem.id}>
+                        {elem.id} - {elem.name}
+                      </MenuItem>
+                    );
                 })}
               </Select>
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Teaching Course 2</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                Teaching Course 2
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -189,10 +196,13 @@ export default function HireApplicantForm(props) {
                   });
                 }}
               >
-                 {props.allCourses.map((elem,index)=>{
-                  return (
-                   <MenuItem key={elem.id} value={elem.id}>{elem.id} - {elem.name}</MenuItem>
-                  )
+                {props.allCourses.map((elem, index) => {
+                  if (elem.is_course_assigned !== "true")
+                    return (
+                      <MenuItem key={elem.id} value={elem.id}>
+                        {elem.id} - {elem.name}
+                      </MenuItem>
+                    );
                 })}
               </Select>
             </FormControl>
