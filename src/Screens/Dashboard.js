@@ -23,6 +23,7 @@ import ViewAllCourses from "./ViewAllCourses";
 import ViewCourseDetails from "./ViewCourseDetails";
 import JobRequests from "./JobRequests";
 import ApplicantDetails from "./ApplicantDetails";
+import CourseDetails from "../Components/Courses/ViewCourseDetails/CourseDetails"
 import {JobRequestContext} from "../Contexts/JobRequestContext";
 import {TeachersContext} from "../Contexts/TeachersContext"
 
@@ -70,6 +71,7 @@ const Dashboard = () => {
             path="/admin/jobs/applicant/:id"
             component={ApplicantDetails}
           />
+          <Route path="/admin/courses/:id" component={CourseDetails} />
         </Switch>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper, Box, Typography, makeStyles, Button } from "@material-ui/core";
 import courseCategories from "../../../categories.json";
-
+import {Link} from "react-router-dom"
 const useStyles = makeStyles((theme) => ({
   container: {
     borderRadius: "5px",
@@ -61,9 +61,11 @@ const CourseCard = (props) => {
             {description.slice(0,75)}....
         </Typography>
         <Box textAlign="right" mt={2}>
+          <Link to={`/admin/courses/${id}`}>
         <Button color="primary">
           View Details
         </Button>
+        </Link>
         </Box>
       </Box>
     </Paper>

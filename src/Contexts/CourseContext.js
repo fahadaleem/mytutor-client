@@ -7,6 +7,7 @@ const CourseContext = createContext();
 const CourseContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [allCourses, setAllCourses] = useState([]);
+  const [courseDetails, setCourseDetails] = useState({});
 
   const handleValidate = (data) => {
     const fields = Object.keys(data);
@@ -51,6 +52,18 @@ const CourseContextProvider = (props) => {
     } catch (error) {}
   }
 
+  async function handleGetCourseDetails(courseId) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/get-course-details?course-id=${courseId}`
+      );
+      setCourseDetails(response.data);
+      console.log(response);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   return (
     <CourseContext.Provider
       value={{
@@ -59,6 +72,8 @@ const CourseContextProvider = (props) => {
         handleValidate,
         handleRemoveErrors,
         handleGetAllCourses,
+        handleGetCourseDetails,
+        courseDetails,
         allCourses,
       }}
     >
