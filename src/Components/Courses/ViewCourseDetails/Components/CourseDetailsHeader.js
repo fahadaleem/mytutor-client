@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme) => ({
   },
   headerInfo: {
     color: "white",
-    height: "300px",
+    minHeight: "300px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
-      height: "350px",
+      minHeight: "350px",
     },
     [theme.breakpoints.down("xs")]: {
-      height: "330px",
+      minHeight: "330px",
     },
   },
   catAndName: {
