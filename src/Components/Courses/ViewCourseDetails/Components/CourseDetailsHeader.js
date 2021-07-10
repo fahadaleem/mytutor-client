@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, makeStyles, Paper, Typography, Button } from "@material-ui/core";
 import Categories from "../../../../categories.json";
+import LanguageIcon from '@material-ui/icons/Language';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -59,6 +61,19 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "18px !important",
     },
   },
+  language:{
+    fontSize:"14px"
+  },
+  Icon:{
+    position:"relative",
+    top:"2px",
+    fontSize:"14px"
+  },
+  langAndDuration:{
+    display:"flex",
+    justifyContent:"space-between",
+    width:"160px"
+  }
 }));
 
 const CourseDetailsHeader = (props) => {
@@ -70,6 +85,8 @@ const CourseDetailsHeader = (props) => {
     isCourseAssigned,
     totalReviews,
     courseTeacher,
+    courseLanguage,
+    courseDuration
   } = props;
 
   console.log(isCourseAssigned);
@@ -110,7 +127,16 @@ const CourseDetailsHeader = (props) => {
           >
             {courseDescription}
           </Typography>
+          <Box my={1} className={classes.langAndDuration}>
+          <Typography variant="body1" color="initial" className={classes.language}>
+            <LanguageIcon className={classes.Icon}/> {courseLanguage}
+          </Typography>
+          <Typography variant="body1" color="initial" className={classes.language}>
+            <ScheduleIcon className={classes.Icon}/> {courseDuration}
+          </Typography>
+          </Box>
         </div>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
         {!isCourseAssigned && (
           <div className={classes.bottomInfo}>
             <Typography
@@ -129,6 +155,8 @@ const CourseDetailsHeader = (props) => {
             </Typography>
           </div>
         )}
+        <Typography variant="h4" color="initial">Price: $200</Typography>
+        </div>
       </div>
     </Box>
   );
