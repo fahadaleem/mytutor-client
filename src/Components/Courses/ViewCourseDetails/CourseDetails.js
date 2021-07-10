@@ -26,6 +26,7 @@ const CourseDetails = () => {
         courseTeacher={courseDetails.teacher_name}
         courseLanguage = {courseDetails.course_language}
         courseDuration = {courseDetails.course_duration}
+        coursePrice={courseDetails.course_price}
       />
       <CourseOutline courseOutline = {courseDetails.course_outline} />
       

@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       minHeight: "350px",
     },
-    [theme.breakpoints.down("xs")]: {
-      minHeight: "330px",
-    },
   },
   catAndName: {
     fontSize: "16px",
@@ -64,6 +61,14 @@ const useStyles = makeStyles((theme) => ({
   language:{
     fontSize:"14px"
   },
+  bottom:{
+    display:"flex",
+    justifyContent:"space-between",
+    alignItems:"center",
+    [theme.breakpoints.down('xs')]:{
+      display:"block"
+    }
+  },
   Icon:{
     position:"relative",
     top:"2px",
@@ -73,6 +78,19 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     justifyContent:"space-between",
     width:"160px"
+  },
+  orignalPrice:{
+    fontSize:"24px",
+    textDecoration:"line-through",
+    [theme.breakpoints.down('xs')]:{
+      fontSize:"18px"
+    }
+  },
+  price:{
+    margin:"10px 0",
+    [theme.breakpoints.down('xs')]:{
+      fontSize:"24px"
+    }
   }
 }));
 
@@ -86,7 +104,8 @@ const CourseDetailsHeader = (props) => {
     totalReviews,
     courseTeacher,
     courseLanguage,
-    courseDuration
+    courseDuration, 
+    coursePrice
   } = props;
 
   console.log(isCourseAssigned);
@@ -136,7 +155,7 @@ const CourseDetailsHeader = (props) => {
           </Typography>
           </Box>
         </div>
-        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+        <div className={classes.bottom}>
         {!isCourseAssigned && (
           <div className={classes.bottomInfo}>
             <Typography
@@ -155,7 +174,7 @@ const CourseDetailsHeader = (props) => {
             </Typography>
           </div>
         )}
-        <Typography variant="h4" color="initial">Price: $200</Typography>
+        <Typography variant="h4" color="initial" className={classes.price}>Price: ${coursePrice*0.9}  <span className={classes.orignalPrice}>${coursePrice}</span> </Typography>
         </div>
       </div>
     </Box>
