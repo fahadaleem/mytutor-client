@@ -53,12 +53,15 @@ const CourseContextProvider = (props) => {
   }
 
   async function handleGetCourseDetails(courseId) {
+    setLoading(true)
     try {
       const response = await axios.get(
         `${baseUrl}/get-course-details?course-id=${courseId}`
       );
       setCourseDetails(response.data);
       console.log(response);
+    setLoading(false)
+
     } catch (error) {
       alert(error);
     }

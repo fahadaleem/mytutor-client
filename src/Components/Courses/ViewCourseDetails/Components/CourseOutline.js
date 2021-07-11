@@ -3,7 +3,11 @@ import {Box, makeStyles, Typography} from "@material-ui/core"
 
 const useStyles = makeStyles(theme=>({
     root:{
-        margin:"20px 0"
+        margin:"20px 0",
+        padding:"0 35px",
+        [theme.breakpoints.down('xs')]:{
+            padding:"0 10px"
+        }
     },
     courseOutline:{
         padding:"5px 0px",
