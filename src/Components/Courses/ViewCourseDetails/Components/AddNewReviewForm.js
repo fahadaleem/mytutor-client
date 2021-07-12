@@ -80,7 +80,12 @@ const AddNewReviewForm = (props) => {
 
   const handlePostReview = (e)=>{
     e.preventDefault();
-    console.log(reviewData)
+    props.handleAddNewReview({
+        ...reviewData,
+        course_id:"DGM-01",
+        teacher_id:"22",
+        reviewer_name:"Fahad Aleem"
+    })
   }
 
   return (

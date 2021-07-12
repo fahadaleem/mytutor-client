@@ -9,16 +9,13 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 
-const Reviews = ()=>{
+const Reviews = (props)=>{
     const classes = useStyles()
-    const [reviewData, setReviewData] = useState({
-        comment:'',
-        rating:0
-    })
+    
     return (
         <Box className={classes.root}>
             <Typography variant="h4" color="initial">Student Feedback</Typography>
-            <AddNewReviewForm reviewData={reviewData} handleSetReviewData={setReviewData}/>
+            <AddNewReviewForm handleAddNewReview={props.handleAddNewReview}/>
         </Box>
     )
 }

@@ -67,6 +67,22 @@ const CourseContextProvider = (props) => {
     }
   }
 
+  async function handleAddNewReview(data){
+    try{
+      const response = axios({
+        method:"POST",
+        url:`${baseUrl}/add-new-review`,
+        data
+      }).then(resp=>{
+        alert("posted!")
+      })
+    }
+    catch(error)
+    {
+      alert(error)
+    }
+  }
+
   return (
     <CourseContext.Provider
       value={{
@@ -76,6 +92,7 @@ const CourseContextProvider = (props) => {
         handleRemoveErrors,
         handleGetAllCourses,
         handleGetCourseDetails,
+        handleAddNewReview,
         courseDetails,
         allCourses,
       }}
