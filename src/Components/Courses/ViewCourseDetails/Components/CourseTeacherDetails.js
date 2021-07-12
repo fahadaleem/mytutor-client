@@ -3,7 +3,7 @@ import { Box, makeStyles, Paper, Typography, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#EEEEEE",
+    // backgroundColor: "#EEEEEE",
     padding: "15px 25px",
   },
   userAvatar: {
@@ -54,7 +54,7 @@ const CourseTeacherDetails = (props) => {
 
   const classes = useStyles();
   return (
-    <Box className={classes.root} component={Paper} elevation={1}>
+    <Box className={classes.root} component={Paper} elevation={0}>
       <Typography variant="h4" color="initial">
         Instructor
       </Typography>
@@ -66,7 +66,7 @@ const CourseTeacherDetails = (props) => {
               color="initial"
               className={classes.userAvatar}
             >
-              {/* {handleGenerateAvatar()} */}
+              {courseTeacherName&&handleGenerateAvatar()}
             </Typography>
           </Box>
         </Grid>
