@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
+import {useHistory} from "react-router-dom"
 
 const CourseContext = createContext();
 
@@ -8,6 +9,8 @@ const CourseContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [allCourses, setAllCourses] = useState([]);
   const [courseDetails, setCourseDetails] = useState({});
+
+  const History = useHistory()
 
   const handleValidate = (data) => {
     const fields = Object.keys(data);
@@ -75,6 +78,7 @@ const CourseContextProvider = (props) => {
         data
       }).then(resp=>{
         alert("posted!")
+        handleGetCourseDetails(data.course_id)
       })
     }
     catch(error)

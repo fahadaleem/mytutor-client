@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CourseDetailsHeader from "./Components/CourseDetailsHeader";
 import CourseOutline from "./Components/CourseOutline";
 import CourseTeacherDetails from "./Components/CourseTeacherDetails";
@@ -13,6 +13,7 @@ const CourseDetails = () => {
   const { handleGetCourseDetails, courseDetails, loading, handleAddNewReview } =
     useContext(CourseContext);
   console.log(courseID);
+
 
   useEffect(() => {
     handleGetCourseDetails(courseID);
@@ -46,7 +47,7 @@ const CourseDetails = () => {
                 }
                 courseTeacherIntro={courseDetails.teacher_intro}
               />
-              <Reviews handleAddNewReview={handleAddNewReview}/>
+              <Reviews handleAddNewReview={handleAddNewReview} courseReviews={courseDetails.reviews}/>
             </div>
           )}
         </Container>
