@@ -4,7 +4,7 @@ import CourseOutline from "./Components/CourseOutline";
 import CourseTeacherDetails from "./Components/CourseTeacherDetails";
 import SimpleBackdrop from "../../Utilities/BackdropLoader";
 import Reviews from "./Components/Reviews";
-import { Container, makeStyles } from "@material-ui/core";
+import { Container, makeStyles, Box, Typography, Button } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { CourseContext } from "../../../Contexts/CourseContext";
 import { AuthContext } from "../../../Contexts/AdminAuthContexts";
@@ -17,8 +17,63 @@ const useStyles =makeStyles(theme=>({
     [theme.breakpoints.down('xs')]:{
       padding:"15px 0px"
     }
+  },
+  actionBtn: {
+    fontSize: "20px",
+    padding: "15px 45px",
+    margin: "5px 15px",
+    backgroundColor: "#185ADB",
+    color: "#FFFFFF",
+    "&:hover": {
+      backgroundColor: "#185adbba",
+    },
+    [theme.breakpoints.down('xs')]:{
+      padding:"5px 20px",
+      margin:"10px 3px"
+    }
+  },
+  secondActionBtn: {
+    backgroundColor: "#0A1931",
+    "&:hover": {
+      backgroundColor: "#0a1931cc",
+    },
+  },
+  assignedCourseBtn:{
+    backgroundColor:"#29524A",
+    [theme.breakpoints.down('xs')]:{
+      width:"100%"
+    }
   }
 }))
+
+
+const ActionBtns = (props) => {
+  const classes = useStyles();
+  return (
+    <Box px={1}>
+      <Typography variant="h4" color="initial">
+        Actions
+      </Typography>
+      <Button variant="contained" className={`${classes.actionBtn}`}>
+        {props.role === "Administrator" ? "Edit Course" : "Buy This Course"}
+      </Button>
+      <Button
+        variant="contained"
+        className={`${classes.actionBtn} ${classes.secondActionBtn}`}
+      >
+        {props.role === "Administrator" ? "Delete Course" : "Add to Wishlist"}
+      </Button>
+      {props.isCourseAssigned&&
+      <Button
+        variant="contained"
+        className={`${classes.actionBtn} ${classes.assignedCourseBtn}`}
+      >
+        {props.role === "Administrator" ? "Assigned this Course" : "Add to Wishlist"}
+      </Button>
+}
+    </Box>
+  );
+};
 
 const CourseDetails = () => {
   const { id: courseID } = useParams();
@@ -72,6 +127,7 @@ const CourseDetails = () => {
             </div>
           )}
 
+            <ActionBtns role={admin.role} isCourseAssigned={courseDetails.is_course_assigned}/>
         </Container>
       )}
     </div>

@@ -37,43 +37,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.9375rem",
     },
   },
-  actionBtn: {
-    fontSize: "20px",
-    padding: "15px 45px",
-    margin: "5px 15px",
-    backgroundColor: "#185ADB",
-    color: "#FFFFFF",
-    "&:hover": {
-      backgroundColor: "#185adbba",
-    },
-  },
-  secondActionBtn: {
-    backgroundColor: "#0A1931",
-    "&:hover": {
-      backgroundColor: "#0a1931cc",
-    },
-  },
+ 
 }));
 
-const ActionBtns = (props) => {
-  const classes = useStyles();
-  return (
-    <Box>
-      <Typography variant="h4" color="initial">
-        Actions
-      </Typography>
-      <Button variant="contained" className={`${classes.actionBtn}`}>
-      {props.role==='Administrator'?'Edit Course':"Buy This Course"}  
-      </Button>
-      <Button
-        variant="contained"
-        className={`${classes.actionBtn} ${classes.secondActionBtn}`}
-      >
-        {props.role==='Administrator'?'Delete Course':"Add to Wishlist"}  
-      </Button>
-    </Box>
-  );
-};
 
 const Reviews = (props) => {
   const classes = useStyles();
@@ -109,19 +75,21 @@ const Reviews = (props) => {
               />
             );
           })}
-      <Box align="center">
-        <FormControl className={classes.loadMoreBtnDiv}>
-          <Button
-            color="primary"
-            variant="outlined"
-            className={classes.loadMoreBtn}
-            onClick={handleIncrementEndReviewsCount}
-          >
-            Load More Reviews
-          </Button>
-        </FormControl>
-      </Box>
-      <ActionBtns role={props.role}/>
+      {props.courseReviews&& endReviewsCount < props.courseReviews.length && (
+        <Box align="center">
+          <FormControl className={classes.loadMoreBtnDiv}>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.loadMoreBtn}
+              onClick={handleIncrementEndReviewsCount}
+            >
+              Load More Reviews
+            </Button>
+          </FormControl>
+        </Box>
+      )}
+
     </Box>
   );
 };
