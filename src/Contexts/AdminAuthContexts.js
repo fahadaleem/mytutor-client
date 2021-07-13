@@ -9,6 +9,10 @@ const AuthContextProvider = (props) => {
   // to check if the user is login or not
   const [isLogin, setIsLogin] = useState(true);
 
+
+  // save admin info 
+  const [admin, setAdmin] = useState({})
+
   // used for loader, it runs till the response comes from the firebase
   const [loading, setLoading] = useState(null);
 
@@ -52,7 +56,7 @@ const AuthContextProvider = (props) => {
       return false;
     } else if (credentials.email && credentials.password) {
       const resp = axios
-        .get(`${baseUrl}//get-all-admin?email=${credentials.email}`)
+        .get(`${baseUrl}/get-all-admin?email=${credentials.email}`)
         .then((resp) => {
           if (resp.data.code === "201") {
             setLoading(false);
@@ -71,6 +75,7 @@ const AuthContextProvider = (props) => {
               .then((data) => {
                 setLoading(false);
                 setIsLogin(true);
+                setAdmin(resp.data.admin_info)
                 if (credentials.rememberMe) {
                   window.localStorage.setItem("isLogin", true);
                 }
@@ -126,6 +131,7 @@ const AuthContextProvider = (props) => {
         isLogin,
         handleLogOut,
         handleResetPassword,
+        admin
       }}
     >
       {props.children}

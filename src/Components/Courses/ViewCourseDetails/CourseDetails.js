@@ -7,6 +7,7 @@ import Reviews from "./Components/Reviews";
 import { Container, makeStyles } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { CourseContext } from "../../../Contexts/CourseContext";
+import { AuthContext } from "../../../Contexts/AdminAuthContexts";
 import Snackbars from "../../Utilities/Snakbar";
 
 
@@ -23,7 +24,14 @@ const CourseDetails = () => {
   const { id: courseID } = useParams();
   const { handleGetCourseDetails, courseDetails, loading, handleAddNewReview } =
     useContext(CourseContext);
+
+  const {admin} = useContext(AuthContext)
+
+  console.log(admin)
+
   console.log(courseID);
+
+
 
   const classes = useStyles()
 
@@ -60,7 +68,7 @@ const CourseDetails = () => {
                 }
                 courseTeacherIntro={courseDetails.teacher_intro}
               />
-              <Reviews handleAddNewReview={handleAddNewReview} courseReviews={courseDetails.reviews}/>
+              <Reviews handleAddNewReview={handleAddNewReview} courseReviews={courseDetails.reviews} role={admin.role?admin.role:""}/>
             </div>
           )}
 
