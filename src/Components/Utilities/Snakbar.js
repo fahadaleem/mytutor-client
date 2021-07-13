@@ -19,7 +19,7 @@ export default function Snackbars(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={props.style}>
       <Alert severity="error">{props.message}</Alert>
     </div>
   );

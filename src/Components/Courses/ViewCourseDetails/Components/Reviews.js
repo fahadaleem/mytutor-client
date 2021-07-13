@@ -11,6 +11,19 @@ const useStyles = makeStyles(theme=>({
         [theme.breakpoints.down('xs')]:{
             padding:"10px 10px"
         }
+    },
+    loadMoreBtnDiv:{
+        width:"100%"
+    },
+    loadMoreBtn:{
+        color:"#29524A !important",
+        borderColor:"#29524A !important",
+        padding:"10px 35px",
+        fontSize:"18px",
+        [theme.breakpoints.down('xs')]:{
+            padding:"7px 21px",
+            fontSize:"0.9375rem"
+        }
     }
 }))
 
@@ -35,11 +48,13 @@ const Reviews = (props)=>{
                     <ReviewCard key={elem.id} reviewerName={elem.reviewer_name} rating={elem.rating} date={elem.date} comment={elem.comment}/>
                 )
             })}
-           <FormControl fullWidth>
-                <Button color="primary" variant="outlined" onClick={handleIncrementEndReviewsCount}>
+            <Box align="center">
+           <FormControl className={classes.loadMoreBtnDiv}>
+                <Button color="primary" variant="outlined" className={classes.loadMoreBtn} onClick={handleIncrementEndReviewsCount}>
                   Load More Reviews
                 </Button>
            </FormControl>
+           </Box>
         </Box>
     )
 }

@@ -4,9 +4,20 @@ import CourseOutline from "./Components/CourseOutline";
 import CourseTeacherDetails from "./Components/CourseTeacherDetails";
 import SimpleBackdrop from "../../Utilities/BackdropLoader";
 import Reviews from "./Components/Reviews";
-import { Container } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { CourseContext } from "../../../Contexts/CourseContext";
+import Snackbars from "../../Utilities/Snakbar";
+
+
+
+const useStyles =makeStyles(theme=>({
+  container:{
+    [theme.breakpoints.down('xs')]:{
+      padding:"15px 0px"
+    }
+  }
+}))
 
 const CourseDetails = () => {
   const { id: courseID } = useParams();
@@ -14,6 +25,7 @@ const CourseDetails = () => {
     useContext(CourseContext);
   console.log(courseID);
 
+  const classes = useStyles()
 
   useEffect(() => {
     handleGetCourseDetails(courseID);
@@ -24,7 +36,8 @@ const CourseDetails = () => {
       {loading ? (
         <SimpleBackdrop />
       ) : (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={classes.container}>
+          {courseDetails.is_course_assigned&&<Snackbars style={{margin:"10px 0"}} message="This is course is not assigned to any teacher!" />}
           <CourseDetailsHeader
             courseCategory={courseDetails.course_category}
             courseName={courseDetails.course_name}
@@ -50,6 +63,7 @@ const CourseDetails = () => {
               <Reviews handleAddNewReview={handleAddNewReview} courseReviews={courseDetails.reviews}/>
             </div>
           )}
+
         </Container>
       )}
     </div>

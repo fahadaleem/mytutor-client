@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   rightContainer:{
       padding:"0 0 0 15px !important",
       [theme.breakpoints.down('xs')]:{
-          padding:"0"
+          padding:"10px 0 !important"
       }
   }
 }));
