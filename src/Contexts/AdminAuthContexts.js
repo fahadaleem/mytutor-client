@@ -79,7 +79,7 @@ const AuthContextProvider = (props) => {
                 setLoading(false);
                 setIsLogin(true);
                 console.log(resp.data, 'fahad')
-                // setAdmin(resp.data.admin_info);
+                setAdmin(resp.data.admin_info);
                 if (credentials.rememberMe) {
                   window.localStorage.setItem("isLogin", true);
                   window.localStorage.setItem(
@@ -135,7 +135,7 @@ const AuthContextProvider = (props) => {
       <p style="font-size:20px">To login you account <a href="https://my-tutor-iad.herokuapp.com/admin" target="_blank" rel="noopener">click here</a></p>
       <p>&nbsp;</p>
       <p style="font-size:20px">Regards:&nbsp;<br />Muhammad Fahad Aleem.</p>`,
-      Administrator: `<p font-size:20px>You are now ${role} of Mytutor. As ${role}&nbsp;you can do the following things at myTutor platform</p>
+      Administrator: `<p style="font-size:20px">You are now ${role} of Mytutor. As ${role}&nbsp;you can do the following things at myTutor platform</p>
       <ul>
       <li style="font-size:18px">You can view applicants</li>
       <li style="font-size:18px">You can hire new applicants as teacher</li>

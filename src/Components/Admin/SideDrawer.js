@@ -80,6 +80,7 @@ const ResponsiveSidebarDrawer = ()=>{
     const classes = useStyles()
 
     const [toggle, setToggle] = useState(false)
+    const {admin} = useContext(AuthContext)
 
     return(
     <div>
@@ -97,10 +98,10 @@ const ResponsiveSidebarDrawer = ()=>{
   >
     <Box my={3}>
       <Typography variant="h5" className={classes.userName}>
-        Muhammad Fahad
+      {admin.name}
       </Typography>
       <Typography variant="h6" className={classes.designation}>
-        Admin of Mytutor
+      {admin.role}
       </Typography>
       <Divider />
     </Box>

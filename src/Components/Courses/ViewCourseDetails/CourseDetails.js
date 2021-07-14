@@ -127,7 +127,8 @@ const CourseDetails = () => {
             </div>
           )}
 
-            <ActionBtns role={admin.role} isCourseAssigned={courseDetails.is_course_assigned}/>
+              {(admin.role==='Administrator' || admin.role==='Moderator') && <ActionBtns role={admin.role} isCourseAssigned={courseDetails.is_course_assigned}/>  }
+            
         </Container>
       )}
     </div>
