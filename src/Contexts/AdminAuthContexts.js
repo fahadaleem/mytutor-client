@@ -80,7 +80,7 @@ const AuthContextProvider = (props) => {
                 setIsLogin(true);
                 console.log(resp.data, 'fahad')
                 setAdmin(resp.data.admin_info);
-                if (credentials.rememberMe) {
+                if (credentials.rememberMe===true) {
                   window.localStorage.setItem("isLogin", true);
                   window.localStorage.setItem(
                     "admin_info",
@@ -224,6 +224,8 @@ const AuthContextProvider = (props) => {
   const handleLogOut = () => {
     setIsLogin(false);
     window.localStorage.setItem("isLogin", false);
+    window.localStorage.setItem("admin_info", '{}');
+
   };
 
   const handleResetPassword = (emailAddress) => {
@@ -243,7 +245,7 @@ const AuthContextProvider = (props) => {
 
   useEffect(() => {
     const checkLogin = window.localStorage.getItem("isLogin");
-    const adminInfo = window.localStorage.getItem("admin_info");
+    const adminInfo = window.localStorage.getItem("admin_info")?window.localStorage.getItem("admin_info"):'{}';
     setIsLogin(JSON.parse(checkLogin));
     setAdmin(JSON.parse(adminInfo));
   }, []);
