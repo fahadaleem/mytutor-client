@@ -7,7 +7,8 @@ init("user_n2kdHYMvdab7kFxy6a8uC");
 export default async function handleSendEmail (type, toName, toEmail, message){
 
     const templatesType={
-        verification:"template_dn57iys"
+        verification:"template_dn57iys", 
+        general:"template_n2fp90n"
     }
 
     emailjs.send("service_te9r6wi", templatesType[type], {
@@ -19,6 +20,7 @@ export default async function handleSendEmail (type, toName, toEmail, message){
     }).then(resp=>{
         return resp
     }).catch(error=>{
+        alert(error)
         return error
     })
 

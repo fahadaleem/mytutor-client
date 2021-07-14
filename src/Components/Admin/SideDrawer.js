@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Drawer,
   makeStyles,
@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import SidebarMenu from "./SidebarMenu";
 import MenuIcon from "@material-ui/icons/Menu";
+import { AuthContext } from "../../Contexts/AdminAuthContexts";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,13 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
   userName: {
     fontSize: "18px",
-    fontWeight: "bold",
-    letterSpacing: "2px",
+    fontWeight: "500",
   },
   designation: {
     fontSize: "16px",
     marginBottom: "10px",
-    letterSpacing: "2px",
   },
   responsiveRoot:{
     padding: "25px 10px",
@@ -51,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SideDrawer = () => {
   const classes = useStyles();
+  const {admin} = useContext(AuthContext)
 
   return (
     <Drawer
@@ -61,10 +61,10 @@ const SideDrawer = () => {
     >
       <Box my={1}>
         <Typography variant="h5" className={classes.userName}>
-          Muhammad Fahad
+          {admin.name}
         </Typography>
         <Typography variant="h6" className={classes.designation}>
-          Admin of Mytutor
+          {admin.role}
         </Typography>
         <Divider />
       </Box>

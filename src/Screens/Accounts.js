@@ -1,9 +1,13 @@
 import React from "react";
+import AddNewAdmin from "../Components/AddNewAdmin/AddNewAdmin"; 
+
 
 
 const Accounts = ()=>{
     return(
-        <h1>Accounts</h1>
+        <div>
+            <AddNewAdmin />
+        </div>
     )
 }
 
