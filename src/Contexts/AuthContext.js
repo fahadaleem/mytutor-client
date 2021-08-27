@@ -143,7 +143,7 @@ const AppAuthContextProvider = (props) => {
 
                   // after login route to the page here
                 }
-                History.push("/student-dashboard");
+                History.push("/student");
               })
               .catch((error) => {
                 setLoading(false);
