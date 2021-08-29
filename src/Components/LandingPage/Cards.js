@@ -34,10 +34,10 @@ export default function Cards() {
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            alt="Contemplative Reptile"
+                            alt="Student"
                             height="140"
                             image={Image1}
-                            title="Contemplative Reptile"
+                            title="Student"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2" style={{textAlign:"center"}}>
@@ -64,10 +64,10 @@ export default function Cards() {
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            alt="Contemplative Reptile"
+                            alt="Teacher"
                             height="140"
                             image={Image2}
-                            title="Contemplative Reptile"
+                            title="Teacher"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2" style={{textAlign:"center"}}>
@@ -94,10 +94,10 @@ export default function Cards() {
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            alt="Contemplative Reptile"
+                            alt="Admin"
                             height="140"
                             image={Image3}
-                            title="Contemplative Reptile"
+                            title="Admin"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2" style={{textAlign:"center"}}>

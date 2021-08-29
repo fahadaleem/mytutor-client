@@ -7,6 +7,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { Grid, makeStyles, Grow, Typography, Button } from '@material-ui/core'
 import Image from "../Assests/header1.jpg"
 import Cards from "../Components/LandingPage/Cards"
+import Features from "../Components/LandingPage/Features"
+import Footer from "../Components/LandingPage/Footer"
+
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -63,8 +66,9 @@ const LandingPage = () => {
 
             <Cards />
 
+            <Features />
 
-
+            <Footer/>
 
         </div>
     )
