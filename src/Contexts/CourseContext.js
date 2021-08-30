@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import axios from "axios";
 import baseUrl from "../mytutor-backend";
 import {useHistory} from "react-router-dom"
+import Swal from "sweetalert2";
 
 const CourseContext = createContext();
 
@@ -87,6 +88,23 @@ const CourseContextProvider = (props) => {
     }
   }
 
+
+  async function handleDeleteCourse (courseId){
+    try{
+      const response = await axios(`${baseUrl}/delete-course/${courseId}`);
+      Swal.fire({
+        icon:"success",
+        title:"Course Deleted",
+        text:"Course Deleted"
+      }).then(resp=>{
+        History.push("/admin/allcourses");
+      })
+    }
+    catch(error){
+      alert(error.message)
+    }
+  }
+
   return (
     <CourseContext.Provider
       value={{
@@ -99,6 +117,7 @@ const CourseContextProvider = (props) => {
         handleAddNewReview,
         courseDetails,
         allCourses,
+        handleDeleteCourse
       }}
     >
       {props.children}

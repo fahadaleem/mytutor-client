@@ -60,6 +60,9 @@ const ActionBtns = (props) => {
       <Button
         variant="contained"
         className={`${classes.actionBtn} ${classes.secondActionBtn}`}
+        onClick={()=>{
+          props.handleDeleteCourse(props.courseID);
+        }}
       >
         {props.role === "Administrator" ? "Delete Course" : "Add to Wishlist"}
       </Button>
@@ -77,7 +80,7 @@ const ActionBtns = (props) => {
 
 const CourseDetails = () => {
   const { id: courseID } = useParams();
-  const { handleGetCourseDetails, courseDetails, loading, handleAddNewReview } =
+  const { handleGetCourseDetails, courseDetails, loading, handleAddNewReview, handleDeleteCourse } =
     useContext(CourseContext);
 
   const {admin} = useContext(AuthContext)
@@ -85,7 +88,7 @@ const CourseDetails = () => {
   console.log(admin)
 
   console.log(courseID);
-
+  console.log(courseDetails,"abcss");
 
 
   const classes = useStyles()
@@ -127,7 +130,7 @@ const CourseDetails = () => {
             </div>
           )}
 
-              {(admin.role==='Administrator' || admin.role==='Moderator') && <ActionBtns role={admin.role} isCourseAssigned={courseDetails.is_course_assigned}/>  }
+              {(admin.role==='Administrator' || admin.role==='Moderator') && <ActionBtns role={admin.role} isCourseAssigned={courseDetails.is_course_assigned} handleDeleteCourse={handleDeleteCourse} courseID={courseID} />  }
             
         </Container>
       )}

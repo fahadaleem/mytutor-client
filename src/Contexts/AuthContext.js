@@ -3,6 +3,7 @@ import axios from "axios";
 import baseUrl from "../mytutor-backend";
 import firebase from "../Components/firebaseconfig";
 import { useHistory } from "react-router-dom";
+import { parseJSON } from "date-fns/esm";
 
 const AppAuthContext = createContext();
 
@@ -59,6 +60,12 @@ const AppAuthContextProvider = (props) => {
     }
   };
 
+  useEffect(() => {
+    const isUserLoggedIn = localStorage.getItem("isStudentLogin")
+      ? JSON.parse(localStorage.getItem("isStudentLogin"))
+      : false;
+    setIsUserLogin(isUserLoggedIn);
+  }, []);
   const handleValidate = (data) => {
     const fields = Object.keys(data);
     const errors = fields.filter((elem, index) => {
@@ -139,7 +146,7 @@ const AppAuthContextProvider = (props) => {
                 setLoading(false);
                 setIsUserLogin(true);
                 if (credentials.rememberMe) {
-                  window.localStorage.setItem("isLogin", true);
+                  window.localStorage.setItem("isStudentLogin", true);
 
                   // after login route to the page here
                 }

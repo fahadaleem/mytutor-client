@@ -12,6 +12,8 @@ const ViewAllCourses = () => {
   const { handleGetAllCourses, allCourses, loading } =
     React.useContext(CourseContext);
 
+    console.log(allCourses,"abc")
+
   React.useEffect(() => {
     handleGetAllCourses();
   }, []);

@@ -73,6 +73,8 @@ export default function HireApplicantForm(props) {
   const [TeacherPassword, setTeacherPassword] = useState("");
   const [error, setError] = useState(false);
 
+  console.log(props.allCourses,"fahadaleem")
+
   const [hiredTeacherDetails, setHiredTeacherDetails] = useState({
     hiringDate: handleGetFormattedDate(),
     salary: "",

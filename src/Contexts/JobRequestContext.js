@@ -110,7 +110,7 @@ const JobRequestContextProvider = (props) => {
   };
 
   async function handleHireTeacher(teacherInfo) {
-
+    console.log(teacherInfo,"abc123")
 
     try {
       const jsonData = handleFormatJSONtoSend({ ...applicantDetails, ...teacherInfo }) 
