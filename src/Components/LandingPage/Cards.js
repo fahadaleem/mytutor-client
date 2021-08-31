@@ -51,14 +51,14 @@ export default function Cards() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    {/* <CardActions>
                         <Button size="small" color="primary" style={{paddingLeft:"80px",paddingBottom:"40px",}}>
                             Login
                         </Button>
                         <Button size="small" color="primary" style={{paddingLeft:"80px",paddingBottom:"40px",}}>
                             Sign Up
                         </Button>
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
             </Grid>
 
@@ -81,14 +81,14 @@ export default function Cards() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    {/* <CardActions>
                         <Button size="small" color="primary" style={{paddingLeft:"80px",paddingTop:"22px",}}>
                             Login
                         </Button>
                         <Button size="small" color="primary" style={{paddingLeft:"80px",paddingTop:"22px",}}>
                             Sign Up
                         </Button>
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
             </Grid>
 
@@ -111,14 +111,14 @@ export default function Cards() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    {/* <CardActions>
                         <Button size="small" color="primary" style={{paddingLeft:"80px",paddingTop:"40px",}}>
                             Login
                         </Button>
                         <Button size="small" color="primary" style={{paddingLeft:"80px", paddingTop:"40px",}}>
                             Sign Up
                         </Button>
-                    </CardActions>
+                    </CardActions> */}
                 </Card>
             </Grid>
         </Grid>

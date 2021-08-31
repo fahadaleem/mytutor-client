@@ -9,6 +9,7 @@ import Image from "../Assests/online-learn.svg";
 import Cards from "../Components/LandingPage/Cards";
 import Features from "../Components/LandingPage/Features";
 import Footer from "../Components/LandingPage/Footer";
+import {Link} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -39,6 +40,7 @@ const LandingPage = () => {
             >
              An online teaching platform that provides a user-friendly environment for students. The Admin keeps track of all needs and manages all concerns.
             </Typography>
+            <Link to="/signup">
             <Button
               variant="contained"
               color="primary"
@@ -53,6 +55,7 @@ const LandingPage = () => {
             >
               Get Started
             </Button>
+            </Link>
           </Grid>
 
           <div className={classes.image}>
