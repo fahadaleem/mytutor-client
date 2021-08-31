@@ -62,7 +62,7 @@ const SidebarMenu = () => {
         />
       </ListItem>
       <Divider />
-      {(admin.role === "Administrator" || admin.role === "Moderator") && (
+      {/* {(admin.role === "Administrator" || admin.role === "Moderator") && (
         <Link to="/admin/addnewteacher" className={classes.linkItem}>
           <ListItem className={`${classes.listItem} ${classes.active}`} button>
             <ListItemIcon className={classes.menuIcon}>
@@ -71,7 +71,7 @@ const SidebarMenu = () => {
             <ListItemText primary="Add New Teacher" />
           </ListItem>
         </Link>
-      )}
+      )} */}
 
       <Link to="/admin/allteachers" className={classes.linkItem}>
         <ListItem className={classes.listItem} button>
@@ -81,15 +81,15 @@ const SidebarMenu = () => {
           <ListItemText primary="All Teachers" />
         </ListItem>
       </Link>
-      <Link to="/admin/teacherrecord" className={classes.linkItem}>
+      {/* <Link to="/admin/teacherrecord" className={classes.linkItem}>
         <ListItem className={classes.listItem} button>
           <ListItemIcon className={classes.menuIcon}>
             <FaceIcon />
           </ListItemIcon>
           <ListItemText primary="Teacher Record" />
         </ListItem>
-      </Link>
-      <ListItem className={classes.listItem}>
+      </Link> */}
+      {/* <ListItem className={classes.listItem}>
         <ListItemText
           primary="Students"
           primaryTypographyProps={{ className: classes.categoryTitle }}
@@ -111,7 +111,7 @@ const SidebarMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Student Record" />
         </ListItem>
-      </Link>
+      </Link> */}
       <ListItem className={classes.listItem}>
         <ListItemText
           primary="Courses"
@@ -127,14 +127,14 @@ const SidebarMenu = () => {
           <ListItemText primary="All Courses" />
         </ListItem>
       </Link>
-      <Link to="/admin/coursedetails" className={classes.linkItem}>
+      {/* <Link to="/admin/coursedetails" className={classes.linkItem}>
         <ListItem className={classes.listItem} button>
           <ListItemIcon className={classes.menuIcon}>
             <ImportContactsOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Course Details" />
         </ListItem>
-      </Link>
+      </Link> */}
       {(admin.role === "Administrator" || admin.role === "Moderator") && (
         <Link to="/admin/addnewcourse" className={classes.linkItem}>
           <ListItem className={classes.listItem} button>

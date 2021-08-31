@@ -81,7 +81,7 @@ const Dashboard = () => {
             component={ApplicantDetails}
           />
           <Route path="/admin/courses/:id" component={CourseDetails} />
-          <Route render={() => <h1>Hello</h1>} />
+          <Route render={() => <Typography variant="h3" color="initial" align="center">WELCOME TO MYTUTOR ADMIN</Typography>} />
         </Switch>
       </div>
     </div>

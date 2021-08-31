@@ -9,6 +9,7 @@ import Login from "./Screens/Login";
 import StudentDashboard from "./Screens/StudentDashboard";
 import Page404 from "./Screens/Page404";
 import Complaint from "./Screens/Complaint"
+import AboutMyTutor from "./Screens/AboutMytutor"
 const AppRoutes = () => {
   return (
     <Switch>
@@ -21,6 +22,7 @@ const AppRoutes = () => {
       <Route path="/signup" component={StudentSignUp} />
       <Route path="/student" component={StudentDashboard} />
       <Route path="/complaint" component={Complaint} />
+      <Route path="/about" component={AboutMyTutor} />
 
 
       <Route component={Page404}></Route>

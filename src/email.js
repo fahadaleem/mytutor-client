@@ -11,17 +11,17 @@ export default async function handleSendEmail (type, toName, toEmail, message){
         general:"template_n2fp90n"
     }
 
-    // emailjs.send("service_te9r6wi", templatesType[type], {
-    //     from_name:"Mytutor",
-    //     to_name:toName,
-    //     message,
-    //     to_email:toEmail,
-    //     reply_to:"faleem396@gmail.com"
-    // }).then(resp=>{
-    //     return resp
-    // }).catch(error=>{
-    //     alert(error)
-    //     return error
-    // })
+    emailjs.send("service_te9r6wi", templatesType[type], {
+        from_name:"Mytutor",
+        to_name:toName,
+        message,
+        to_email:toEmail,
+        reply_to:"faleem396@gmail.com"
+    }).then(resp=>{
+        return resp
+    }).catch(error=>{
+        alert(error)
+        return error
+    })
 
 }

@@ -29,7 +29,10 @@ export default function Cards() {
 
     return (
         <Grid container style={{marginTop: "50px", marginBottom: "30px"}}>
-            <Grid item lg={4}>
+            <Grid item lg={12}>
+            <Typography variant="h3" color="initial" align="center" style={{margin:"20px 0"}}>Roles</Typography>
+            </Grid>
+                <Grid item lg={4}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia

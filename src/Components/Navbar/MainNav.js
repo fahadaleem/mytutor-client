@@ -26,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menu: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "center",
     "& a": {
       color: "#f1faee",
+      padding:"0px 20px",
       textDecoration: "none",
       "& h6": {
         letterSpacing: "1px !important",
@@ -131,21 +132,21 @@ const Navbar = (props) => {
           <Hidden smDown>
             <Grid item lg={6} md={7}>
               <Box className={classes.menu}>
-                <Link>
+                <Link to="/">
                   <Typography variant="h6" color="initial" className={props.pageName==="home"&&classes.active}>
                     Home
                   </Typography>
                 </Link>
-                <Link>
+                <Link to="/about">
                   <Typography variant="h6" color="initial">
                     About My Tutor
                   </Typography>
                 </Link>
-                <Link>
+                {/* <Link>
                   <Typography variant="h6" color="initial">
                     Testimonials
                   </Typography>
-                </Link>
+                </Link> */}
                 <Link to="/careers">
                   <Typography variant="h6" color="initial" className={props.pageName==="careers"&&classes.active}>
                     Careers
