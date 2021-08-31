@@ -78,8 +78,8 @@ const Messages = () => {
     axios.get(`${baseUrl}/reject-complaint?complaint_id=${id}`)
     .then((response)=>{
       Swal.fire({
-        title:"Complaint Deleted",
-        text:"Complaint Deleted Successfully",
+        title:"Complaint Closed",
+        text:"Complaint Resolved Successfully and Closed",
         icon:"success",
       }).then(res=>{
         axios
