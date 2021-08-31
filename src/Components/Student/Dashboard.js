@@ -18,7 +18,7 @@ export default function PrimarySearchAppBar() {
       {/* <CourseSearch /> */}
       <Switch>
         <Route exact path="/student" component={Home} />
-        <Route exact path="/student/search-course" component={CourseSearch} />
+        <Route exact path="/student/search-course/:courseName" component={CourseSearch} />
       </Switch>
     </div>
   );

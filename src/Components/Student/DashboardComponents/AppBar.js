@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   makeStyles,
   AppBar,
@@ -16,11 +16,14 @@ import SearchIcon from "@material-ui/icons/Search";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import categories from "../../../categories.json";
 import SideDrawer from "./SideDrawer";
 import MobileMenu from "./MobileMenu";
 import ProfileMenu from "./ProfileMenu"
+import {CourseContext} from "../../../Contexts/CourseContext";
+
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     // padding:"5px 25px"
@@ -59,9 +62,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+
 const StudentNavbar = () => {
   const classes = useStyles();
 
+  const {AllCourses, handleSearchCourse:handleSearchCourses} = useContext(CourseContext);
+  const History = useHistory();
+  const handleSearchCourse = (e)=>{
+    console.log(e)
+    History.push(`/student/search-course/${e}`)
+    handleSearchCourses(e)
+  }
   return (
     <AppBar position="static" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
@@ -76,6 +90,11 @@ const StudentNavbar = () => {
             id="input-with-icon-textfield"
             variant="outlined"
             className={classes.searchTextField}
+            onKeyPress={(e)=>{
+              if(e.key==="Enter"){
+                handleSearchCourse(e.target.value)
+              }
+            }}
             placeholder="Search course"
             InputProps={{
               startAdornment: (

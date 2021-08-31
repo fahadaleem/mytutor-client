@@ -169,7 +169,7 @@ const SidebarMenu = () => {
             <ListItemIcon className={classes.menuIcon}>
               <ForumIcon />
             </ListItemIcon>
-            <ListItemText primary="Messages" />
+            <ListItemText primary="Message" />
           </ListItem>
         </Link>
       )}

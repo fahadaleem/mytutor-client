@@ -88,6 +88,20 @@ const CourseContextProvider = (props) => {
     }
   }
 
+  async function handleSearchCourse(courseName){
+    try{
+      const response = await axios({
+        method:"GET",
+        url:`${baseUrl}/search-course?courseName=${courseName}`
+      })
+      
+      // setAllCourses(response.data.courses);
+      console.log(response.data,"curse")
+    }
+    catch(error){
+
+    }
+  }
 
   async function handleDeleteCourse (courseId){
     try{
@@ -117,7 +131,8 @@ const CourseContextProvider = (props) => {
         handleAddNewReview,
         courseDetails,
         allCourses,
-        handleDeleteCourse
+        handleDeleteCourse,
+        handleSearchCourse
       }}
     >
       {props.children}

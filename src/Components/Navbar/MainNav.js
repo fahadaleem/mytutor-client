@@ -151,9 +151,9 @@ const Navbar = (props) => {
                     Careers
                   </Typography>
                 </Link>
-                <Link>
+                <Link to="/complaint">
                   <Typography variant="h6" color="initial">
-                    Contact Us
+                    Complaint
                   </Typography>
                 </Link>
               </Box>
